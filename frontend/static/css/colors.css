@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+:root {
+  --color-danger: #eb3d26;
+  --color-alert: #f87e25;
+  --color-success: #4caf50;
+  --color-info: #368ace;
+  --ash-red: #d71e00;
+  --ash-lightred: #f04328;
+  --ash-darkred: #b63926;
+  --ash-gray: #fefefe;
+}

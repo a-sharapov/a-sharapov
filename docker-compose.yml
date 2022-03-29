@@ -1,0 +1,48 @@
+version: '3.0'
+
+networks:
+  a-sharapov:
+    driver: bridge
+
+services:
+  nginx:
+    container_name: a-sharapov-proxy
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend
+    restart: on-failure
+    networks:
+      - a-sharapov
+    volumes:
+      - ./certs:/etc/nginx/certs
+
+  frontend:
+    container_name: a-sharapov-frontend
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      DANGEROUSLY_DISABLE_HOST_CHECK: "true"
+    volumes:
+      - ./frontend:/usr/src/frontend
+      - /usr/src/frontend/node_modules
+    links:
+      - backend
+    command: npm run dev --host 0.0.0.0
+    networks:
+      - a-sharapov
+    expose:
+      - 3000
+      - 24678
+    ports:
+      - "3000:3000"
+      - "24678:24678"
+    stdin_open: true
+    restart: on-failure
