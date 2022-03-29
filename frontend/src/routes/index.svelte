@@ -9,10 +9,9 @@
   import Composition from "$lib/components/ui/composition.svelte"  
   import Content from "$lib/components/chunks/content.svelte"  
   import Loader from "$lib/components/ui/loader.svelte"
-
-  let status = writable("main")
-  let loading = writable(true)
-
+  import { status, loading } from "$lib/components/utils/"
+  
+  status.set("main")
   browser && loading.set(false)
 </script>
 

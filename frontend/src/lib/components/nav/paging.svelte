@@ -84,14 +84,14 @@
     cursor: pointer;
     padding: 0 2px;
     margin: 0 5px;
-    border-bottom: 1px dotted var(--mf-red);
+    border-bottom: 1px dotted var(--ash-red);
     transition: all .2s linear;
   }
 
   nav > span.active {
     padding: 0 7px;
     font-weight: block;
-    background: var(--mf-red);
+    background: var(--ash-red);
     color: #fff;
     text-shadow: 0 1px 0 #22000040;
     border-radius: 3px;

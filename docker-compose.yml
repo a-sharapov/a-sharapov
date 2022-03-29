@@ -14,7 +14,6 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - backend
       - frontend
     restart: on-failure
     networks:
@@ -33,8 +32,6 @@ services:
     volumes:
       - ./frontend:/usr/src/frontend
       - /usr/src/frontend/node_modules
-    links:
-      - backend
     command: npm run dev --host 0.0.0.0
     networks:
       - a-sharapov

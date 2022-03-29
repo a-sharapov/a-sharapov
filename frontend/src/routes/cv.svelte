@@ -12,8 +12,8 @@
   import Sidebar from "$lib/components/chunks/sidebar.svelte"
   import Loader from "$lib/components/ui/loader.svelte"
 
-  let status = writable("cv")
-  let loading = writable(true)
+  import { status, loading } from "$lib/components/utils/"
+  status.set("cv")
 
   let age = new Date().getFullYear() - 1987
   let experience = new Date().getFullYear() - 2010

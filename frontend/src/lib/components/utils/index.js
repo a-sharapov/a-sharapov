@@ -1,3 +1,8 @@
+import { writable } from 'svelte/store'
+
+export const status = writable("main")
+export const loading = writable(true)
+
 export const compose = (...fns) => fns.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)), value => value)
 
 export const memoize = (fn) => {
