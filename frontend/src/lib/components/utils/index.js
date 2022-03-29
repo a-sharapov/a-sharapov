@@ -1,7 +1,17 @@
+import { goto } from '$app/navigation'
 import { writable } from 'svelte/store'
 
 export const status = writable("main")
+
 export const loading = writable(true)
+
+export const pathChanger = (path) => {
+  loading.set(true)
+  status.set(path)
+  setTimeout(() => {
+    goto(`/${path}`)
+  }, 5e2)
+}
 
 export const compose = (...fns) => fns.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)), value => value)
 

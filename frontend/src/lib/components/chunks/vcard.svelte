@@ -1,6 +1,6 @@
 <script>
   import { writable } from 'svelte/store'
-  import { goto } from '$app/navigation'
+  import { pathChanger } from "$lib/components/utils"
 
   export let status
   export let loading
@@ -17,17 +17,9 @@
     active.set(false)
     content.set(slogan)
   }
-
-  const handleOnClick = (path) => {
-    loading.set(true)
-    status.set(path)
-    setTimeout(() => {
-      goto(`/${path}`)
-    }, 5e2)
-  }
 </script>
 
-<div id="vcard" data-active="{$active}" on:click|once="{() => handleOnClick("cv")}" on:mouseenter="{handleOnMouseEnter}" on:mouseleave="{handleOnMouseLeave}">
+<div id="vcard" data-active="{$active}" on:click|once="{() => pathChanger("cv")}" on:mouseenter="{handleOnMouseEnter}" on:mouseleave="{handleOnMouseLeave}">
   <div class="overflow-content">
     <img src="/i/logo.svg" class="vcard-logo" width="250px" alt="Александр Шарапов" /><br />
     <span class="vcard-slogan narrow" data-active="{$active}">{$content}</span>

@@ -1,7 +1,5 @@
 <script>
-  import { writable } from 'svelte/store'
   import { browser } from '$app/env'
-  import { goto } from '$app/navigation'
 
   import Head from "$lib/components/seo/head.svelte"
   import VCard from "$lib/components/chunks/vcard.svelte"
@@ -12,19 +10,11 @@
   import Sidebar from "$lib/components/chunks/sidebar.svelte"
   import Loader from "$lib/components/ui/loader.svelte"
 
-  import { status, loading } from "$lib/components/utils/"
+  import { status, loading, pathChanger } from "$lib/components/utils/"
   status.set("cv")
 
   let age = new Date().getFullYear() - 1987
   let experience = new Date().getFullYear() - 2010
-
-  const onClickHandler = (path) => {
-    loading.set(true)
-    status.set(path)
-    setTimeout(() => {
-      goto(`/${path}`)
-    }, 5e2)
-  }
 
   browser && loading.set(false)
 </script>
@@ -63,7 +53,7 @@
           <li>Для решения задач, со сложной бизнес-логикой, реализую RestAPI на <strong>Ruby on Rails</strong>.</li>
         </ul>
         <p>&nbsp;</p>
-        <p align="center"><span class="button" on:click|once="{() => onClickHandler("works")}"><img src="/images/folder.svg" width="24px" height="24px"/>&nbsp;Примеры проектов</span></p>
+        <p align="center"><span class="button" on:click|once="{() => pathChanger("works")}"><img src="/images/folder.svg" width="24px" height="24px"/>&nbsp;Примеры проектов</span></p>
       </div><div class="row">
         <h3 class="narrow">Стек технологий:</h3>
         <table>
