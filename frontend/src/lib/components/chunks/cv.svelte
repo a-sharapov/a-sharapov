@@ -23,6 +23,6 @@
   }
 
   #cv .content {
-    padding: 0;
+    padding: 40px 0;
   }
 </style>

@@ -1,7 +1,7 @@
 <script>
-  import init from "$lib/config/main.js"
+  import config from "$lib/config/main.js"
   
-  const { siteLanguage, siteTitle, themeColor, defaultKeywords } = init
+  const { siteLanguage, siteTitle, themeColor, defaultKeywords } = config
  
   export let title
   export let description = "Веб-архитектор, разработчик полного цикла, UX/UI-дизайнер"

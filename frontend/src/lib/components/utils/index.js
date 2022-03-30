@@ -7,10 +7,10 @@ export const loading = writable(true)
 
 export const pathChanger = (path) => {
   loading.set(true)
-  status.set(path)
+  path != "/" ? status.set(path.replace(/[^\w\s]/gi, '')) : status.set("main")
   setTimeout(() => {
-    goto(`/${path}`)
-  }, 5e2)
+    goto(`${path}`)
+  }, 2e2)
 }
 
 export const compose = (...fns) => fns.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)), value => value)

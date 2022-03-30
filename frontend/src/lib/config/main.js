@@ -2,7 +2,13 @@ const config = {
 	siteLanguage: "ru",
 	siteTitle: "Александр Шарапов",
 	themeColor: "#d71e00",
-	defaultKeywords: "разработка, программирование, веб-решения, веб-дизайн, CMS, CMF, UX, UI"
+	defaultKeywords: "разработка, программирование, веб-решения, веб-дизайн, CMS, CMF, UX, UI",
+	menu: [
+		{link: "/", title: "Интро"},
+		{link: "/cv", title: "CV"},
+		{link: "/works", title: "Проекты"},
+		{link: "/connect", title: "Связаться"},
+	]
 }
 
 export default config

@@ -33,6 +33,7 @@
   width: 340px;
   text-align: center;
   transition: all .3s linear;
+  transform: skew(-1deg, 2deg);
 }
 #vcard .overflow-content {
   position: relative;

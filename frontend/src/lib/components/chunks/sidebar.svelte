@@ -13,7 +13,7 @@
   aside.sidebar {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 20px;
     bottom: 0;
     width: 300px;
     text-align: center;
