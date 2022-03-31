@@ -46,7 +46,6 @@
   opacity: .99;
   transition: all .3s linear;
   border-top: 1px solid #fff;
-  border-radius: 5px;
 }
 #vcard:before,
 #vcard:after {

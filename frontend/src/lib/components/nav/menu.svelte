@@ -49,7 +49,7 @@
     height: 39px;
     line-height: 40px;
     margin: 0;
-    padding: 0 20px;
+    padding: 0 15px;
     text-transform: uppercase;
     cursor: pointer;
     transition: all .2s linear;
@@ -60,6 +60,7 @@
     text-decoration-style: dotted;
     text-decoration-thickness: 1px;
     transition: all .2s linear;
+    user-select: none;
   }
   nav span.menu-item:hover {
     text-decoration-style: solid;
@@ -82,5 +83,18 @@
     width: 100%;
     background: radial-gradient(var(--ash-red), #fff);
     filter: blur(10px);
+  }
+  nav span.menu-item:not(:last-of-type) {
+    margin-right: 20px;
+  }
+  nav span.menu-item:not(:last-of-type):before {
+    content: "\25A0";
+    position: absolute;
+    font-weight: bold;
+    right: -20px;
+    width: 20px;
+    height: 40px;
+    font-size: 50%;
+    color: #999;
   }
 </style>

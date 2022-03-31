@@ -108,13 +108,11 @@ h4:after {
   content: "";
   display: block;
   clear: both;
-  width: 50px;
-  height: 2px;
-  background: linear-gradient(to right, #333, #00000040);
+  width: 40px;
+  height: 10px;
+  background: url(/i/active-marker.svg) no-repeat center center;
   margin-top: 18px;
   margin-bottom: 20px;
-  border-radius: 2px;
-  box-shadow: 0 1px 5px #00000040;
 }
 
 p {
@@ -234,6 +232,7 @@ textarea {
   outline: 0;
   border-radius: 0;
   text-transform: uppercase;
+  box-shadow: 0 1px 0 #fff;
 }
 
 .input-file,
@@ -268,18 +267,19 @@ input[type='file'] {
 input[type='file']::file-selector-button {
   position: absolute;
   left: auto;
-  height: 32px;
-  line-height: 32px;
+  height: 30px;
+  line-height: 30px;
   right: 0;
-  width: 120px;
+  width: 110px;
   text-align: center;
   font-size: 14px;
   font-family: 'PT Sans Narrow', sans-serif;
-  margin: 3px 3px 3px 10px;
+  margin: 4px 4px 4px 10px;
+  padding: 0;
   border-radius: 5px;
   outline: none;
   border: none;
-  background: var(--ash-red);
+  background: #999;
   color: #fff;
   cursor: pointer;
   transition: all .2s linear;
@@ -287,7 +287,7 @@ input[type='file']::file-selector-button {
 }
 
 input[type='file']::file-selector-button:hover {
-  background: var(--ash-darkred);
+  background: #333;
 }
 
 .input-file,
@@ -321,7 +321,7 @@ input[type='range']::-webkit-slider-thumb {
   background: var(--ash-darkred);
   cursor: pointer;
   margin: -8px 0 0;
-  border: 1px solid #33878a;
+  border: 1px solid #727272;
 }
 
 input[type='range']::-webkit-slider-runnable-track {
@@ -358,8 +358,8 @@ input[type='radio'] {
 
 input[type='checkbox'][disabled],
 input[type='radio'][disabled] {
-  background-color: #f2f5f5;
-  border-color: #dde7e7;
+  background-color: #fff;
+  border-color: #ececec;
 }
 
 input[type='radio']:checked {
@@ -465,11 +465,13 @@ input[type='submit']:disabled {
 
 textarea {
   resize: none;
-  background: linear-gradient(to bottom, transparent, transparent 39px, #555 0px);
+  background: linear-gradient(to bottom, transparent, transparent 38px, #111 39px, #fff 0px);
   background-size: 100% 40px;
   line-height: 40px;
   height: 120px;
   max-height: 120px;
+  border: none;
+  box-shadow: none;
 }
 
 input[type='date'] {
@@ -499,6 +501,14 @@ input[type='date']::-webkit-datetime-edit-fields-wrapper {
   font-size: 12px;
   font-family: inherit;
 }
+
+*::placeholder {
+  font-family: 'PT Sans Narrow', sans-serif;
+  color: #555;
+  font-size: 110%;
+}
+
+/* Tables */
 
 table {
   border: none;

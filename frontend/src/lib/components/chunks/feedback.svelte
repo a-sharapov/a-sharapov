@@ -6,15 +6,14 @@
 <style>
   #feedback-wrapper {
     position: relative;
-    background: linear-gradient(to top, #eaeaea99, #fff);
+    background: linear-gradient(to top, #eaeaea99, #fefefe);
     min-height: 400px;
     padding: 40px 40px 50px;
     width: 100%;
-    max-width: 700px;
-    border-radius: 5px;
+    max-width: 800px;
     backdrop-filter: blur(7px);
     box-shadow: 0 2px 15px #00000010, 0 -5px 75px #00000020;
-    border-top: 1px solid #fff;
+    border-top: 2px solid #fff;
     z-index: 2;
   }
   :global(#feedback-wrapper > hr) {
