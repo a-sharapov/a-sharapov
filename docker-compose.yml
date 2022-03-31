@@ -19,6 +19,7 @@ services:
     networks:
       - a-sharapov
     volumes:
+      - ./www-html:/var/www/html
       - ./certs:/etc/nginx/certs
 
   frontend:
@@ -43,3 +44,17 @@ services:
       - "24678:24678"
     stdin_open: true
     restart: on-failure
+  
+  # certbot:
+  #   image: certbot/certbot
+  #   depemts_on:
+  #     - nginx
+  #   container_name: a-sharapov-certbot
+  #   volumes:
+  #     - ./certs:/etc/letsencrypt
+  #     - www-html:/var/www/html
+  #   command: certbot certonly --webroot --webroot-path=/var/www/html --email mail@a-sharapov.com --agree-tos --no-eff-email -d a-sharapov.com -d www.a-sharapov.com -d mail.a-sharapov.com
+
+volumes:
+  certs:
+  www-html:
