@@ -29,35 +29,53 @@
     text-align: center;
     width: 100%;
     height: 40px;
-    background-color: #ffffff80;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px #00000010;
+    background: linear-gradient(to bottom, #eee, transparent 90%);
     z-index: 1000;
-    border-bottom: 1px solid #eee;
+  }
+  nav[aria-label="menu"]:after {
+    content: "";
+    position: absolute;
+    width: 70%;
+    left: 15%;
+    top: 0;
+    height: 2px;
+    background: radial-gradient(#111, transparent 70%, transparent);
+    z-index: 1;
   }
   nav span.menu-item {
     position: relative;
     color: #333;
     display: inline-block;
-    height: 40px;
+    height: 39px;
     line-height: 40px;
     margin: 0;
     padding: 0 20px;
     text-transform: uppercase;
     cursor: pointer;
     transition: all .2s linear;
+    z-index: 2;
+    border-top: 2px solid transparent;
+    text-decoration: underline;
+    text-decoration-color: var(--ash-red);
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    transition: all .2s linear;
+  }
+  nav span.menu-item:hover {
+    text-decoration-style: solid;
   }
   nav span.menu-item.active {
+    text-decoration: none;
     color: #333;
-    background: #fff;
+    background: linear-gradient(to bottom, #fff, transparent);
+    backdrop-filter: blur(1px);
     font-weight: bold;
-    border-bottom: 1px solid var(--ash-red);
-    box-shadow: 0 1px 7px #00000010;
+    border-top-color: var(--ash-red);
   }
   nav span.menu-item.active:after {
     content: "";
     position: absolute;
-    bottom: -3px;
+    top: -3px;
     left: 0;
     right: 0;
     height: 5px;

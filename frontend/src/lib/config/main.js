@@ -5,7 +5,7 @@ const config = {
 	defaultKeywords: "разработка, программирование, веб-решения, веб-дизайн, CMS, CMF, UX, UI",
 	menu: [
 		{link: "/", title: "Интро"},
-		{link: "/cv", title: "CV"},
+		{link: "/cv", title: "Curriculum Vitae"},
 		{link: "/works", title: "Проекты"},
 		{link: "/connect", title: "Связаться"},
 	]

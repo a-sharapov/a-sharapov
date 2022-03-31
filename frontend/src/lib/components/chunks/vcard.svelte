@@ -33,7 +33,6 @@
   width: 340px;
   text-align: center;
   transition: all .3s linear;
-  transform: skew(-1deg, 2deg);
 }
 #vcard .overflow-content {
   position: relative;
@@ -60,7 +59,7 @@
 }
 #vcard:before {
   height: 5px;
-  background: linear-gradient(to right, #111, transparent);
+  background: linear-gradient(to left, #111, transparent);
   filter: blur(10px);
   z-index: 1;
 }
@@ -77,14 +76,15 @@
 }
 #vcard[data-active="true"] .overflow-content {
   opacity: 1;
-  transform: rotate(-10deg) translate(0, -30px);
+  transform: rotate(10deg) translate(0, -30px);
 }
 #vcard[data-active="true"]:before {
   filter: blur(7px);
   opacity: .85;
+  transform: scale(1, .5);
 }
 #vcard[data-active="true"]:after {
-  transform: rotate(10deg) translate(0, 30px);
+  transform: rotate(-10deg) translate(0, 30px);
   filter: blur(3px);
   opacity: .3;
 }

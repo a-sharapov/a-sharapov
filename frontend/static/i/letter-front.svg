@@ -1,0 +1,22 @@
+<svg id="front" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" x="0px" y="0px" width="900px" height="380px" viewBox="0 0 900 380" preserveAspectRatio="xMidYMid meet">
+	<g id="leter_front">
+		<g id="front_side">
+			<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="449.969,329.5 9.75,199.5 9.75,380.031 889.75,380.031 
+				889.75,199.5"></polygon>
+		</g>
+		<g id="front_glue">
+			<path fill-rule="evenodd" clip-rule="evenodd" fill="#F8F8F8" d="M449.969,329.5L12,200.165v6.918c0,2.209,1.791,4,4,4
+				l433.969,138.081L883.5,211.083c2.209,0,4-1.791,4-4v-6.918L449.969,329.5z"></path>
+		</g>
+		<g id="red_lines">
+			<path fill-rule="evenodd" clip-rule="evenodd" fill="#DE0A00" d="M9.75,229.5l10,10v-20l-10-10V229.5z M9.75,289.5l10,10v-20
+				l-10-10V289.5z M9.75,349.5l10,10v-20l-10-10V349.5z M879.75,219.5v20l10-10v-20L879.75,219.5z M879.75,299.5l10-10v-20l-10,10
+				V299.5z M879.75,359.5l10-10v-20l-10,10V359.5z"></path>
+		</g>
+		<g id="blue_lines">
+			<path fill-rule="evenodd" clip-rule="evenodd" fill="#0091D6" d="M9.75,259.5l10,10v-20l-10-10V259.5z M9.75,319.5l10,10v-20
+				l-10-10V319.5z M9.75,379.5h10v-10l-10-10V379.5z M879.75,249.5v20l10-10v-20L879.75,249.5z M879.75,329.5l10-10v-20l-10,10
+				V329.5z M879.75,379.5h10v-20l-10,10V379.5z"></path>
+		</g>
+	</g>
+</svg>

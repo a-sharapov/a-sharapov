@@ -1,0 +1,13 @@
+<svg id="back" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" x="0px" y="0px" width="900px" height="380px" viewBox="0 0 900 380" preserveAspectRatio="xMidYMid meet">
+	<g id="letter_back">
+		<g id="side">
+			<path fill-rule="evenodd" clip-rule="evenodd" fill="#ECECEC" d="M884.238,179.292c0,0-406.701-179.292-434.196-179.292h-0.834
+				C421.713,0,15.012,179.292,15.012,179.292L9.75,198.929V379.5H889.5V198.929L884.238,179.292z"></path>
+		</g>
+		<g id="glue">
+			<path fill-rule="evenodd" clip-rule="evenodd" fill="#E2E2E2" d="M884.488,179.292C884.488,179.292,473.75,0,450.183,0h-0.865
+				C425.75,0,15.012,179.292,15.012,179.292l-4.769,17.797l21.499-1.551L449.75,29.448l418.008,166.09l21.499,1.551L884.488,179.292
+				z"></path>
+		</g>
+	</g>
+</svg>

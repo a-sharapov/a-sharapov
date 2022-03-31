@@ -12,7 +12,8 @@
 <style>
   #cv {
     display: block;
-    width: calc(100% - 600px);
+    width: calc(100% - 300px);
+    max-width: 1100px;
     height: 100vh;
     margin: 0 0 0 300px;
     padding: 0;

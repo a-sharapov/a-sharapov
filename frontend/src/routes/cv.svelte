@@ -34,9 +34,7 @@
       </p>
       <h5>Дополнительное:</h5>
       <p><strong>Cisco Network Academy:</strong> CCNA Exploration, CCNA Networks</p>
-    </div>
-    <hr />
-    <div class="row">
+      <p>&nbsp;</p>
       <h3 class="narrow">Кратко обо мне:</h3>
       <p>Веб-разработчик полного цикла, большинство своих проектов вёл от идеи до продукта. Понимаю проблемы пользователей и реализую решения исходя из реальных потребностей. Практикую подход <strong>Design Driven Development</strong>. Выбираю инструмент, исходя из задачи. Практикую минималистичный подход при выборе стека технологий.</p>
       <p>На данный момент занимаюсь веб-разработкой порядка <strong>{experience} лет</strong>. За это время было реализовано более <strong>130 проектов</strong> разной сложности (как индивидуальных, так и в составе команды).</p>
@@ -47,9 +45,9 @@
         <li>Для лёгких приложений и сайтов - <strong>SvelteKit</strong> или <strong>Next.js</strong>.</li>
         <li>Для решения задач, со сложной бизнес-логикой, реализую RestAPI на <strong>Ruby on Rails</strong>.</li>
       </ul>
-      <p>&nbsp;</p>
-      <p align="center"><span class="button" on:click|once="{() => pathChanger("works")}"><img src="/images/folder.svg" width="24px" height="24px"/>&nbsp;Примеры проектов</span></p>
-    </div><div class="row">
+    </div>
+    <hr />
+    <div class="row full">
       <h3 class="narrow">Стек технологий:</h3>
       <table>
         <tr>
@@ -68,14 +66,14 @@
               <li>CodeIgniter</li>
             </ul>
           </td>
-        </tr>
-        <tr>
           <td>
             <h5 class="narrow"><img src="/images/tech/ruby.svg" alt="Ruby" />&nbsp;Ruby</h5>
             <ul>
               <li>Ruby on Rails</li>
             </ul>
           </td>
+        </tr>
+        <tr>
           <td>
             <h5 class="narrow"><img src="/images/tech/db.svg" alt="DB" />&nbsp;SQL &#8226; NOSQL</h5>
             <ul>
@@ -84,8 +82,6 @@
               <li>MongoDB</li>
             </ul>
           </td>
-        </tr>
-        <tr>
           <td>
             <h5 class="narrow"><img src="/images/tech/ui.svg" alt="UIUX" />&nbsp;UX &#8226; UI</h5>
             <ul>
@@ -117,15 +113,9 @@ strong.hight {
   font-size: 120%;
 }
 .cv-photo {
-  float: right;
-  border-radius: 10px;
-  background: #fff;
-  overflow: hidden;
-  margin: 0 0 20px 20px;
-  box-shadow:
-  0px 6.7px 5.3px rgba(0, 0, 0, 0.042),
-  0px 22.3px 17.9px rgba(0, 0, 0, 0.053),
-  0px 100px 80px rgba(0, 0, 0, 0.08);
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 .cv-photo > img {
   display: block;
@@ -135,6 +125,7 @@ strong.hight {
   margin: 0 5px 4px 0;
 }
 .row {
+  position: relative;
   display: inline-block;
   vertical-align: top;
   width: 50%;

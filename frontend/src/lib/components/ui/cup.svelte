@@ -32,8 +32,10 @@
   background: url(/i/coffee-cup.png) no-repeat center center;
   background-size: contain;
   margin: 0;
-  z-index: 10;
+  z-index: 11;
   transform: perspective(50em);
+  transition: left,bottom,transform .3s linear;
+  clip-path: polygon(30% 0%, 70% 0%, 70% 33%, 75% 35%, 77% 45%, 75% 49%, 85% 55%, 88% 63%, 80% 100%, 20% 100%, 15% 75%, 12% 60%, 22% 52%, 32% 48%, 30% 30%, 32% 0%);
 }
 
 .cup .cup-steam {
@@ -73,13 +75,13 @@
     10% {
         opacity: 1;
         transform: scale(0.4) translate(0, -5px);
-        filter: blur(10px);
+        filter: blur(8px);
     }
 
     100% {
         opacity: 0;
-        transform: scale(1) translate(-40px, -130px);
-        filter: blur(20px);
+        transform: scale(1) translate(-20px, -140px);
+        filter: blur(15px);
     }
 }
 
@@ -93,13 +95,13 @@
     10% {
         opacity: 1;
         transform: scale(0.4) translate(0, -5px);
-        filter: blur(10px);
+        filter: blur(8px);
     }
 
     100% {
         opacity: 0;
-        transform: scale(1) translate(40px, -130px);
-        filter: blur(20px);
+        transform: scale(1) translate(20px, -140px);
+        filter: blur(15px);
     }
 }
 

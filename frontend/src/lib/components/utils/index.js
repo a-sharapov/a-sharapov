@@ -5,12 +5,17 @@ export const status = writable("main")
 
 export const loading = writable(true)
 
+export const message = writable({
+  type: "info",
+  content: "",
+})
+
 export const pathChanger = (path) => {
   loading.set(true)
   path != "/" ? status.set(path.replace(/[^\w\s]/gi, '')) : status.set("main")
   setTimeout(() => {
     goto(`${path}`)
-  }, 2e2)
+  }, 3e2)
 }
 
 export const compose = (...fns) => fns.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)), value => value)

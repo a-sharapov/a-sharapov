@@ -17,5 +17,6 @@
   margin: 0 0 50px;
   z-index: 2;
   transform: perspective(50em);
+  transition: left,bottom,transform .3s linear;
 }
 </style>

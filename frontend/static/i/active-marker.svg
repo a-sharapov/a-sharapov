@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="41px"
+	 height="16px" viewBox="0 0 41 16" enable-background="new 0 0 41 16" xml:space="preserve">
+	<defs>
+		<linearGradient id="marker-shady-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+		  <stop offset="0%" style="stop-color: rgb(50,50,50); stop-opacity: 1" />
+		  <stop offset="90%" style="stop-color: rgb(255,255,255); stop-opacity: 0" />
+		</linearGradient>
+  	</defs>
+	<g id="shady">
+		<path fill-rule="evenodd" clip-rule="evenodd" fill="url(#marker-shady-gradient)" d="M28.273,10.445c-5.204-1.562-9.528-4.757-16.005-5.459
+				C3.451,4.031,0.382,8.995,0.382,8.995S1.974,7.424,6.9,7.497c6.723,0.1,8.092,0.608,18.346,4.173
+				c7.558,2.627,11.736-0.926,11.736-0.926S34.132,12.204,28.273,10.445z"/>
+	</g>
+	<g id="top">
+		<path fill-rule="evenodd" clip-rule="evenodd" fill="#000" d="M27.471,6.137c-5.219-0.609-9.661-3.021-16.087-2.533
+				C2.635,4.268-0.033,9.695-0.033,9.695s1.4-1.75,6.262-2.583c6.636-1.138,8.014-0.88,18.323,0.811
+				c7.6,1.245,15.521-3.482,15.521-3.482S33.346,6.822,27.471,6.137z"/>
+	</g>
+</svg>

@@ -16,5 +16,6 @@
   background: url(/i/lamp.png) no-repeat center center;
   z-index: 1;
   transform: perspective(50em);
+  transition: left,bottom,transform .3s linear;
 }
 </style>

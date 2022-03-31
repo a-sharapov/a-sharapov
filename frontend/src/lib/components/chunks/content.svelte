@@ -41,4 +41,9 @@
     justify-content: left;
     z-index: 100;
   }
+  #content[data-status="connect"] {
+    align-items: center;
+    justify-content: end;
+    z-index: 100;
+  }
 </style>
