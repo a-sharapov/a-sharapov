@@ -8,7 +8,7 @@
   import Sidebar from "$lib/components/chunks/sidebar.svelte"
   import Loader from "$lib/components/ui/loader.svelte"
 
-  import { status, loading, pathChanger } from "$lib/components/utils/"
+  import { status, loading } from "$lib/components/utils/"
   status.set("cv")
 
   let age = new Date().getFullYear() - 1987
@@ -26,7 +26,7 @@
       <span class="cv-photo">
         <img src="/images/photo.jpg" width="160px" alt="Шарапов Александр Вячеславович" />
       </span>
-      <h1 class="narrow">Шарапов Александр Вячеславович</h1>
+      <h2 class="narrow">Шарапов Александр Вячеславович</h2>
       <p class="narrow"><strong class="hight">{age} лет</strong>, <strong>Гомель</strong>, <strong>Беларусь</strong></p>
       <p><strong>Образование:</strong> <strong>Высшее</strong>, Беларусская государственная академия связи, 2010<br />
         Факультет телекоммуникаций (сети телекоммуникаций)<br />

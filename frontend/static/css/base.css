@@ -227,7 +227,7 @@ select,
 textarea {
   display: inline-block;
   border: none;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid #777;
   background: none;
   outline: 0;
   border-radius: 0;
@@ -250,14 +250,13 @@ textarea {
   padding: 0 10px;
   line-height: 30px;
   width: 100%;
-  border-radius: 2px;
   text-transform: none;
 }
 
 input[type='file'] {
   position: relative;
   box-sizing: border-box;
-  padding: 0 130px 0 30px;
+  padding: 0 120px 0 30px;
   background: url(/i/paperclip.svg) no-repeat left center;
   background-size: 30px;
   height: 40px;
@@ -281,6 +280,7 @@ input[type='file']::file-selector-button {
   border: none;
   background: #999;
   color: #fff;
+  text-shadow: 0 1px 0 #00000070;
   cursor: pointer;
   transition: all .2s linear;
   text-transform: uppercase;

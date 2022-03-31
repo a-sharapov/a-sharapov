@@ -1,6 +1,7 @@
 <script>
   import { writable } from 'svelte/store'
   import Loader from "$lib/components/ui/loader.svelte"
+  import Header from "$lib/components/chunks/header.svelte"
   import Menu from "$lib/components/nav/menu.svelte"
 
   export let status
@@ -11,7 +12,9 @@
 
 <main id="content" data-status="{$status}">
   <Loader {loading} />
-  <Menu />
+  <Header>
+    <Menu />
+  </Header>
   {#if previous === $status}
     <slot></slot>
   {:else}

@@ -5,7 +5,6 @@
   import Feedback from "$lib/components/chunks/feedback.svelte"
   import Composition from "$lib/components/ui/composition.svelte"  
   import Content from "$lib/components/chunks/content.svelte"  
-  import FeedbackForm from "$lib/components/forms/feedback-form.svelte"
   import { status, loading } from "$lib/components/utils/"
   
   status.set("connect")
@@ -18,7 +17,6 @@
     <h3>Я на связи</h3>
     <p>И всегда стараюсь отвечать на конструктивные предложения так быстро, как только это становится возможным.</p>
     <hr />
-    <FeedbackForm />
   </Feedback>
 </Content>
 <Composition {status} />

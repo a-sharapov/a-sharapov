@@ -1,5 +1,10 @@
+<script>
+  import FeedbackForm from "$lib/components/forms/feedback-form.svelte"
+</script>
+
 <section id="feedback-wrapper">
   <slot></slot>
+  <FeedbackForm />
 </section>
 <span class="letter-overlay"></span>
 
