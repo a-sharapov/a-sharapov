@@ -23,9 +23,9 @@
   <CV {status} {loading}>
     <Loader {loading} />
     <div class="row full">
-      <span class="cv-photo">
+      <!-- <span class="cv-photo">
         <img src="/images/photo.jpg" width="160px" alt="Шарапов Александр Вячеславович" />
-      </span>
+      </span> -->
       <h2 class="narrow">Шарапов Александр Вячеславович</h2>
       <p class="narrow"><strong class="hight">{age} лет</strong>, <strong>Гомель</strong>, <strong>Беларусь</strong></p>
       <p><strong>Образование:</strong> <strong>Высшее</strong>, Беларусская государственная академия связи, 2010<br />

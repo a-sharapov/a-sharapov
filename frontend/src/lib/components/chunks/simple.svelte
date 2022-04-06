@@ -8,9 +8,9 @@
   <p>IT-консультант</p>
   <p>&nbsp;</p>
   <p class="action-links">
-    <a href="mailto:mail@a-sharapov.com" class="action-link"></a>
     <a href="tel:+375445705702" class="action-link"><span>A1</span></a>
     <a href="tel:+375295705702" class="action-link"><span>МТС</span></a>
+    <a href="mailto:mail@a-sharapov.com" class="action-link"></a>
   </p>
 </section>
 
