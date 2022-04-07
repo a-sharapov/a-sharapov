@@ -14,7 +14,7 @@
       const data = new FormData(form)
       const url = form.getAttribute('action')
       const method = form.getAttribute('method')
-      const response = await fetch(url, {
+      let response = await fetch(url, {
          method,
          body: data,
       })
@@ -23,7 +23,7 @@
         response = await response.json()
         message.set({
           type: "success",
-          content: json.message,
+          content: response.message
         })
         sended.set("completed")
       } else throw new Error(response.statusText)

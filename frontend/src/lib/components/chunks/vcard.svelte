@@ -33,6 +33,7 @@
   width: 340px;
   text-align: center;
   transition: all .3s linear;
+  transform: skewY(0);
 }
 #vcard .overflow-content {
   position: relative;
@@ -72,6 +73,7 @@
 }
 #vcard[data-active="true"]:hover {
   cursor: pointer;
+  transform: skewY(2deg);
 }
 #vcard[data-active="true"] .overflow-content {
   opacity: 1;

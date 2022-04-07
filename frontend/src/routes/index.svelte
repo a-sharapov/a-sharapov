@@ -1,3 +1,7 @@
+<script context="module">
+
+</script>
+
 <script>
   import { browser } from '$app/env'
 
