@@ -2,6 +2,11 @@
   export let sended
   export let message
 
+  message.set({
+    type: 'info',
+    content: ''
+  })
+
   const handleFormSubmit = async (event) => {
     event.preventDefault()
     try {
