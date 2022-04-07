@@ -14,19 +14,21 @@
       const data = new FormData(form)
       const url = form.getAttribute('action')
       const method = form.getAttribute('method')
-      // const response = await fetch(url, {
-      //   method,
-      //   body: data,
-      // })
-      // const json = await response.json()
-      //$message.content = json.message
-      message.set({
-        type: "success",
-        content: "Спасибо за ваше сообщение!",
+      const response = await fetch(url, {
+         method,
+         body: data,
       })
-      sended.set(true)
+
+      if (response.ok) {
+        response = await response.json()
+        message.set({
+          type: "success",
+          content: json.message,
+        })
+        sended.set("completed")
+      } else throw new Error(response.statusText)
     } catch(e) {
-      sended.set(false)
+      sended.set("uncompleted")
       console.error(e)
       message.set({
         type: 'error',
@@ -36,7 +38,7 @@
   }
 </script>
 
-<form action="/" method="post" formenctype="multipart/form-data" on:submit="{handleFormSubmit}">
+<form action="/feedback" method="post" formenctype="multipart/form-data" on:submit="{handleFormSubmit}">
   <label data-width="half">
     <input type="text" name="name" placeholder="Представьтесь" autocomplete="on" required />
   </label><label data-width="half">

@@ -6,7 +6,7 @@
   import Notifier from '$lib/components/forms/notifier.svelte'
 
   let loaded = writable(false)
-  let sended = writable(false)
+  let sended = writable("undefined")
 
   browser && setTimeout(() => {
     loaded.set(true)
@@ -38,10 +38,12 @@
   #feedback-wrapper[data-loaded="true"] {
     margin-bottom: 0;
   }
-  #feedback-wrapper[data-sendend="true"] {
+  #feedback-wrapper[data-sendend="completed"] {
     margin-bottom: -100%;
   }
-
+  :global(#feedback-wrapper[data-sendend="uncompleted"]) {
+    animation: .15s ease-in-out 0s 4 send_failed;
+  }
   :global(#feedback-wrapper > hr) {
     width: calc(100% + 80px);
     margin: 30px -40px;
@@ -52,7 +54,7 @@
     bottom: -70px;
     transition: bottom .5s linear;
   }
-  .letter-overlay[data-sendend="true"] {
+  :global(.letter-overlay[data-sendend="completed"]) {
     animation: .7s linear .55s 1 letter_hide;
     animation-fill-mode: forwards;
   }
@@ -77,10 +79,10 @@
     z-index: 3;
     clip-path: polygon(50% 86%, 96% 54%, 99% 52%, 99% 100%, 1% 100%, 1% 52%, 8% 57%)
   }
-  .letter-overlay[data-sendend="true"] {
+  .letter-overlay[data-sendend="completed"] {
     bottom: 0;
   }
-  .letter-overlay[data-sendend="true"]:before {
+  :global(.letter-overlay[data-sendend="completed"]:before) {
     animation: .1s linear .55s 1 letter_presend;
     animation-fill-mode: forwards;
   }
@@ -121,4 +123,15 @@
     }
   }
 
+  @keyframes send_failed {
+    0% {
+      margin-left: -10px;
+    }
+    50% {
+      margin-left: 0;
+    }
+    100% {
+      margin-left: 10px;
+    }
+  }
 </style>
