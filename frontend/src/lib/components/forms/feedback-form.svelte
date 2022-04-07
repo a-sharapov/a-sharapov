@@ -1,6 +1,6 @@
 <script>
-  import { message } from '$lib/components/utils'
-  import Notifier from './notifier.svelte'
+  export let sended
+  export let message
 
   const handleFormSubmit = async (event) => {
     event.preventDefault()
@@ -9,14 +9,19 @@
       const data = new FormData(form)
       const url = form.getAttribute('action')
       const method = form.getAttribute('method')
-      const response = await fetch(url, {
-        method,
-        body: data,
+      // const response = await fetch(url, {
+      //   method,
+      //   body: data,
+      // })
+      // const json = await response.json()
+      //$message.content = json.message
+      message.set({
+        type: "success",
+        content: "Спасибо за ваше сообщение!",
       })
-      const json = await response.json()
-      console.log(json)
-      $message.content = json.message
+      sended.set(true)
     } catch(e) {
+      sended.set(false)
       console.error(e)
       message.set({
         type: 'error',
@@ -26,7 +31,6 @@
   }
 </script>
 
-<Notifier {message} />
 <form action="/" method="post" formenctype="multipart/form-data" on:submit="{handleFormSubmit}">
   <label data-width="half">
     <input type="text" name="name" placeholder="Представьтесь" autocomplete="on" required />
