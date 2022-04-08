@@ -12,7 +12,7 @@
 
 <dialog class="notifier narrow" data-type="{$message.type}" data-hidden="{$message.hidden}" on:click="{handleOnClick}">
 {#if $message.content}
-  <p>{@html $message.content}</p>
+  {@html $message.content}
 {/if}
 </dialog>
 
@@ -35,23 +35,26 @@
     outline: none;
     background: #ffffff90;
     backdrop-filter: blur(3px);
-    padding: 30px 30px 25px 80px;
+    padding: 20px 30px;
     box-shadow: 0 5px 15px #00000010, 0 3px 25px #00000015;
-    border-top: 5px solid transparent;
+    border-top: 2px solid transparent;
+    border-bottom: 5px solid #ddd;
     transform: scale(1);
     z-index: 100;
     opacity: 1;
     transform: scale(1);
+    cursor: pointer;
     transition: all .3s linear;
   }
   .notifier:before {
     content: "";
-    display: block;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 50px;
-    height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    clear: none;
+    margin: 0 10px 2px -5px;
   }
   .notifier[data-type="info"] {
     border-top-color: var(--color-info);
