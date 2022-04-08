@@ -1,14 +1,29 @@
 <script>
   export let message
+
+  const handleOnClick = (event) => {
+    event.preventDefault()
+    message.set({
+      content: '',
+      hidden: true,
+    })
+  }
 </script>
 
+<dialog class="notifier narrow" data-type="{$message.type}" data-hidden="{$message.hidden}" on:click="{handleOnClick}">
 {#if $message.content}
-<dialog class="notifier narrow" data-type="{$message.type}">
-    <p>{@html $message.content}</p>
-</dialog>
+  <p>{@html $message.content}</p>
 {/if}
+</dialog>
 
 <style>
+  .notifier[data-hidden="true"] {
+    opacity: 0;
+    transform: scale(.1);
+    bottom: 80%;
+    z-index: 0;
+    transition: all .3s linear;
+  }
   .notifier {
     display: block;
     font-size: 18px;
@@ -20,20 +35,21 @@
     outline: none;
     background: #ffffff90;
     backdrop-filter: blur(3px);
-    padding: 20px 30px 30px;
+    padding: 30px 30px 25px 80px;
     box-shadow: 0 5px 15px #00000010, 0 3px 25px #00000015;
     border-top: 5px solid transparent;
     transform: scale(1);
     z-index: 100;
-  }
-  .notifier:empty() {
-    display: none;
-    visibility: hidden;
+    opacity: 1;
+    transform: scale(1);
+    transition: all .3s linear;
   }
   .notifier:before {
     content: "";
     display: block;
-    margin: 0 auto 10px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
     width: 50px;
     height: 50px;
   }

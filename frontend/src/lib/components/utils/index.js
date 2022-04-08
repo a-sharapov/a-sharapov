@@ -8,6 +8,7 @@ export const loading = writable(true)
 export const message = writable({
   type: "info",
   content: "",
+  hidden: true,
 })
 
 export const pathChanger = (path) => {

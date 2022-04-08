@@ -4,7 +4,8 @@
 
   message.set({
     type: 'info',
-    content: ''
+    content: '',
+    hidden: true,
   })
 
   const handleFormSubmit = async (event) => {
@@ -23,7 +24,8 @@
         response = await response.json()
         message.set({
           type: "success",
-          content: response.message
+          content: response.message,
+          hidden: false,
         })
         sended.set("completed")
       } else throw new Error(response.statusText)
@@ -32,7 +34,8 @@
       console.error(e)
       message.set({
         type: 'error',
-        content: e.message
+        content: e.message,
+        hidden: false,
       })
     }
   }
