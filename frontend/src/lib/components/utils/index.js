@@ -91,3 +91,9 @@ export const parseUserAgent = (agent) => {
     browser: parts[parts.length - 1].split(" ")[0].replace("/", " ")
   })
 }
+
+export const b64DecodeUnicode = (encoded) => {
+  return decodeURIComponent(atob(encoded).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+}

@@ -1,16 +1,18 @@
 <script>
   import { writable } from 'svelte/store'
   import { pathChanger } from "$lib/components/utils"
-
+  
   export let status
   export let loading
+  export let change
+  export let slogan
+
   let active = writable(false)
-  let slogan = "Если бизнесу нужен имидж"
   let content = writable(slogan)
 
   const handleOnMouseEnter = () => {
     active.set(true)
-    content.set("Перейти к Curriculum Vitae")
+    content.set(change)
   }
 
   const handleOnMouseLeave = () => {
