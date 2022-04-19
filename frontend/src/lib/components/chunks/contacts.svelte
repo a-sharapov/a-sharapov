@@ -42,22 +42,22 @@
   }
 
   span.phone-icon {
-      background: url(../i/phone.svg) no-repeat center center;
+      background: url(/i/phone.svg) no-repeat center center;
       background-size: 80%;
   }
 
   span.mail-icon {
-      background: url(../i/letter.svg) no-repeat center center;
+      background: url(/i/letter.svg) no-repeat center center;
       background-size: 115%;
   }
 
   span.skype-icon {
-      background: url(../i/skype.svg) no-repeat center center;
+      background: url(/i/skype.svg) no-repeat center center;
       background-size: contain;
   }
 
   span.telegram-icon {
-      background: url(../i/telegram.svg) no-repeat center center;
+      background: url(/i/telegram.svg) no-repeat center center;
       background-size: contain;
   }
 
