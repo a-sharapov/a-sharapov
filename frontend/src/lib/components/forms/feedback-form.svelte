@@ -44,13 +44,13 @@
   <label data-width="half">
     <input type="text" name="name" placeholder="Представьтесь" autocomplete="on" required />
   </label><label data-width="half">
-    <input type="text" name="email" placeholder="Укажите ваш e-mail для ответа" autocomplete="on" required />
+    <input type="email" name="email" placeholder="Укажите ваш e-mail для ответа" autocomplete="on" required />
   </label>
   <p>&nbsp;</p>
   <label data-width="full">
     <textarea name="message" placeholder="Выскажитесь" required></textarea>
   </label>
-  <!--p>&nbsp;</!--p>
+  <!--p>&nbsp;<p>
   <label data-width="full">
     <input type="file" name="attachments" multiple />
   </label-->

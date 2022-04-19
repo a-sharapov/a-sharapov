@@ -5,7 +5,7 @@ const config = {
 	kit: {
 		adapter: adapter(
 			{ 
-				out: 'node_build',
+				out: '_build',
 				precompress: false,
 				envPrefix: 'ASH_',
 		 	}
