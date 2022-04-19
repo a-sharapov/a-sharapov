@@ -1,23 +1,3 @@
-<script context="module">
-  import { getPageContent } from "$lib/components/requests/"
-
-  export async function load() {
-    try {
-      const response = await getPageContent("cv")
-      return {
-        props: {
-          pages: response.ok && (await response.json()),
-        }
-      }
-    } catch (e) {
-      return {
-        status: e.status,
-        error: e.message, 
-      }
-    }
-  }
-</script>
-
 <script>
   import { browser } from '$app/env'
 
@@ -27,11 +7,9 @@
   import Content from "$lib/components/chunks/content.svelte"
   import Sidebar from "$lib/components/chunks/sidebar.svelte"
   import Loader from "$lib/components/ui/loader.svelte"
+  import page from "$lib/content/cv.json"
 
   import { status, loading, b64DecodeUnicode } from "$lib/components/utils/"
-
-  export let pages
-  let page = pages[0]
   
   status.set("cv")
 

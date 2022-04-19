@@ -1,23 +1,3 @@
-<script context="module">
-  import { getPageContent } from "$lib/components/requests/"
-
-  export async function load() {
-    try {
-      const response = await getPageContent("connect")
-      return {
-        props: {
-          pages: response.ok && (await response.json()),
-        }
-      }
-    } catch (e) {
-      return {
-        status: e.status,
-        error: e.message, 
-      }
-    }
-  }
-</script>
-
 <script>
   import { browser } from '$app/env'
 
@@ -26,10 +6,8 @@
   import Composition from "$lib/components/ui/composition.svelte"  
   import Content from "$lib/components/chunks/content.svelte"  
   import { status, loading, b64DecodeUnicode } from "$lib/components/utils/"
+  import page from "$lib/content/connect.json"
   
-  export let pages
-  let page = pages[0]
-
   status.set("connect")
   browser && loading.set(false)
 </script>
