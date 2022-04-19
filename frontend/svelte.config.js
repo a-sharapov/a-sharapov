@@ -1,15 +1,17 @@
-import adapter from '@sveltejs/adapter-node';
+import adapter from '@sveltejs/adapter-static';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: adapter(
-			{ 
-				out: '_build',
-				precompress: false,
-				envPrefix: 'ASH_',
-		 	}
-		),
+		adapter: adapter({
+			pages: '_build',
+			assets: '_build',
+			fallback: null,
+			precompress: false
+		}),
+		prerender: {
+			default: true
+		},
 		floc: false,
 	}
 };
