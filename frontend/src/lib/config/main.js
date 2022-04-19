@@ -7,7 +7,7 @@ const config = {
 	menu: [
 		{link: "/", title: "Интро"},
 		{link: "/cv", title: "Curriculum Vitae"},
-		{link: "/works", title: "Проекты"},
+		// {link: "/works", title: "Проекты"},
 		{link: "/connect", title: "Связаться"},
 	]
 }

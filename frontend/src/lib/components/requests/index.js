@@ -1,5 +1,3 @@
-import config from "$lib/config/main.js"
-
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
 headers.append("Authorization", `Basic ${import.meta.env.VITE_DB_TOKEN}`);
@@ -7,6 +5,8 @@ headers.append("Authorization", `Basic ${import.meta.env.VITE_DB_TOKEN}`);
 const chunkDefaultFields = [
   "name",
   "value",
+  "__createdtime__",
+  "__updatedtime__",
 ]
 
 const pageDefaultFields = [

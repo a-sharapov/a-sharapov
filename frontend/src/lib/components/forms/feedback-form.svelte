@@ -9,39 +9,36 @@
   })
 
   const handleFormSubmit = async (event) => {
-    event.preventDefault()
-    try {
-      const form = event.target
-      const data = new FormData(form)
-      const url = form.getAttribute('action')
-      const method = form.getAttribute('method')
-      let response = await fetch(url, {
-         method,
-         body: data,
-      })
+    const form = event.target
+    const data = new FormData(form)
+    const url = form.getAttribute('action')
+    const method = form.getAttribute('method')
+    let response = await fetch(url, {
+        method,
+        body: data,
+    })
 
-      if (response.ok) {
-        response = await response.json()
-        message.set({
-          type: "success",
-          content: response.message,
-          hidden: false,
-        })
-        sended.set("completed")
-      } else throw new Error(response.statusText)
-    } catch(e) {
+    if (response.ok) {
+      response = await response.json()
+      message.set({
+        type: "success",
+        content: response.message,
+        hidden: false,
+      })
+      sended.set("completed")
+    } else {
+      response = await response.json()
       sended.set("uncompleted")
-      console.error(e)
       message.set({
         type: 'error',
-        content: e.message,
+        content: response.message,
         hidden: false,
       })
     }
   }
 </script>
 
-<form action="/feedback" method="post" formenctype="multipart/form-data" on:submit="{handleFormSubmit}">
+<form action="/api/feedback" method="post" formenctype="multipart/form-data" on:submit|preventDefault="{handleFormSubmit}">
   <label data-width="half">
     <input type="text" name="name" placeholder="Представьтесь" autocomplete="on" required />
   </label><label data-width="half">
