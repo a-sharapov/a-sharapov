@@ -1,6 +1,12 @@
 <script>
+  import { writable } from 'svelte/store'
+  import emailjs from '@emailjs/browser'
+  import Loader from '../ui/loader.svelte'
+
   export let sended
   export let message
+
+  let processed = writable(false)
 
   message.set({
     type: 'info',
@@ -10,35 +16,31 @@
 
   const handleFormSubmit = async (event) => {
     const form = event.target
-    const data = new FormData(form)
-    const url = form.getAttribute('action')
-    const method = form.getAttribute('method')
-    let response = await fetch(url, {
-        method,
-        body: data,
-    })
+    processed.set(true)
 
-    if (response.ok) {
-      response = await response.json()
+    emailjs.sendForm('service_sharapov_ya_mail', 'sharapov_web_simple', form, import.meta.env.VITE_MAIL_PUBLIC)
+    .then((result) => {
+      processed.set(false)
       message.set({
         type: "success",
-        content: response.message,
+        content: 'Сообщение успешно отправлено! Спасибо.',
         hidden: false,
       })
       sended.set("completed")
-    } else {
-      response = await response.json()
-      sended.set("uncompleted")
+    }, (error) => {
+      processed.set(false)
       message.set({
         type: 'error',
-        content: response.message,
+        content: 'Ошибка отправки сообщения! Попробуйте связаться по данным в CV.',
         hidden: false,
       })
-    }
+      sended.set("uncompleted")
+    })
   }
 </script>
 
-<form action="/api/feedback" method="post" formenctype="multipart/form-data" on:submit|preventDefault="{handleFormSubmit}">
+<form method="post" formenctype="multipart/form-data" data-processed="{$processed}" on:submit|preventDefault="{handleFormSubmit}">
+  <Loader loading="{processed}" />
   <label data-width="half">
     <input type="text" name="name" placeholder="Представьтесь" autocomplete="on" required />
   </label><label data-width="half">
@@ -48,12 +50,18 @@
   <label data-width="full">
     <textarea name="message" placeholder="Выскажитесь" required></textarea>
   </label>
-  <p>&nbsp;</p>
+  <!--p>&nbsp;</!--p>
   <label data-width="full">
     <input type="file" name="attachments" multiple />
-  </label>
+  </label-->
   <p>&nbsp;</p>
   <label data-width="full" data-align="center">
     <button type="submit">Отправить сообщение</button>
   </label>
 </form>
+
+<style>
+  form[data-processed="true"] label {
+    filter: blur(2px);
+  }
+</style>
