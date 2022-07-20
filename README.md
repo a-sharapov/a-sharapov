@@ -1,6 +1,6 @@
-<span align="center" style="background:#eee; padding: 40px 20px 20px;display:block;">
-<img src="https://a-sharapov.com/i/logo.svg" width="300px"/>
-</span>
+<div align="center">
+<img src="https://a-sharapov.com/i/logo-gray.svg" width="300px"/>
+</div>
 
 # Шарапов Александр Вячеславович
 
