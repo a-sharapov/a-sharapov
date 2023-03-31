@@ -1,70 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <base href="">
-    <meta charset="UTF-8" />
-    <title>Александр Шарапов</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="imagetoolbar" content="no" />
-    <meta http-equiv="Content-language" content="ru" />
-    <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="Веб-архитектор, специалист полного цикла, консультант" />
-    <meta name="author" lang="ru" content="Александр Шарапов" />
-    <meta name="copyright" lang="ru" content="Александр Шарапов" />
-    <meta name="document-state" content="Static" />
-    <meta name="keywords" content="" />
-    <meta name="theme-color" content="#fefefe" />
-    <meta name="msapplication-navbutton-color" content="#fefefe" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="googlebot" content="NOODP" />
-    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link rel="stylesheet" href="css/normalize.css" type="text/css" />
-    <link rel="stylesheet" href="css/fonts.css" type="text/css" />
-    <link rel="stylesheet" href="css/ashes.css" type="text/css" />
-    <link rel="stylesheet" href="css/page.css" type="text/css" />
-</head>
-<body>
-    <main id="page">
-        <article>
-            <aside>
-                <p class="logo-wrapper">
-                    <img src="i/logo.svg" id="logo" alt="Александр Шарапов" width="260px" /><br />
-                    <span>Если бизнесу нужен имидж</span>
-                </p>
-                <br /><br />
-                <h4>
-                    Контакты:
-                </h4>
-                <hr />
-                <div class="phone-wrapper">
-                    <p><span class="phone-icon"></span> <a href="tel:+375445705702">+375 (44) <strong>570&nbsp;&#183;&nbsp;570&nbsp;&#183;&nbsp;2</strong></a></p>
-                    <p><span class="tab"></span><a href="tel:+375295705702">+375 (29) <strong>570&nbsp;&#183;&nbsp;570&nbsp;&#183;&nbsp;2</strong></a></p>
-                </div>
-                <br />
-                <p class="mail-wrapper"><span class="mail-icon"></span> <a href="mailto:alexander&#064;sharapov.tech">alexander&#064;sharapov.tech</a></p>
-                <p class="skype-wrapper"><span class="skype-icon"></span> <a href="skype:a-sharapov?chat">a-sharapov</a></p>
-                <p class="telegram-wrapper"><span class="telegram-icon"></span> <a href="https://t.me/asharapov" target="_blank">@asharapov</a></p>
-                <footer>2021 &copy; Права соблюдены.</footer>
-            </aside>
-            <section>
-                <nav data-role="menu">
+<div align="center">
 
-                </nav>
-            </section>
-        </article>
-    </main>
-    <div class="composition">
-        <div class="pencil-paper"></div>
-        <div class="cup">
-            <span class="cup-steam"></span>
-        </div>
-    </div>
-    <div class="ashes"></div>
-    <img src="i/lamp.png" alt="" width="1000px" id="lamp" />
-    <span id="lamp-light"></span>
-    <script src="js/ui.js" type="text/javascript"></script>
-</body>
-</html>
+# Sharapov Alexander
+
+[a-sharapov.com](https://a-sharapov.com/)
+
+#### (Native: Шарапов Александр Вячеславович)
+
+![Fullstack web developer](https://img.shields.io/static/v1?style=for-the-badge&label=&message=Fullstack%20web%20developer&color=155DD6&logo=Hasura&logoColor=fff)
+![UX/UI-Designer](https://img.shields.io/static/v1?style=for-the-badge&label=&message=UX/UI-Designer&color=008A4B&logo=Inkscape&logoColor=fff)
+
+I've been doing web development since 2010. Started out as a web designer, then I got involved in front-end and back-end development. Almost every project was implemented from the **idea/prototype** to the **MVP**.
+
+To the moment, he has participated in more than 130 projects of varying degrees of complexity (both _individually_ and _as part of team_).
+
+Worked as a **freelancer** for most of his professional career, and also cooperated with companies from **Belarus**, **Russia**, **Lithuania**, **Poland**, **Spain** and **USA**.
+
+## Core technologies:
+
+![Vanilla.js](https://img.shields.io/badge/Vanilla.js-f7df1e?style=for-the-badge&logo=JavaScript&logoColor=333) ![Pure.css](https://img.shields.io/badge/Pure.CSS-3294c8?style=for-the-badge&logo=CSS3&logoColor=fff)
+
+#### ❤️‍🔥 Mad about:
+
+![Elixir](https://img.shields.io/badge/Elixir-623c71?style=for-the-badge&logo=Elixir&logoColor=fff)
+![Phoenix](https://img.shields.io/badge/Phoenix-ff6f61?style=for-the-badge)
+
+#### ✅ Also have experience in:
+
+![JavaScript](https://img.shields.io/badge/JavaScript-222?style=for-the-badge&logo=JavaScript&logoColor=f7df1e) ![TypeScript](https://img.shields.io/badge/TypeScript-222?style=for-the-badge&logo=TypeScript&logoColor=2f72bc) ![RUBY](https://img.shields.io/badge/RUBY-222?style=for-the-badge&logo=RUBY&logoColor=e01520) ![PHP](https://img.shields.io/badge/PHP-222?style=for-the-badge&logo=PHP&logoColor=7175aa)
+
+![SVELTE](https://img.shields.io/badge/svelte-222?style=flat-square&logo=svelte&logoColor=ff3c00) ![REACT](https://img.shields.io/badge/React-222?style=flat-square&logo=react&logoColor=61dafb) ![Preact](https://img.shields.io/badge/Preact-222?style=flat-square&logo=Preact&logoColor=673ab8) ![Astro](https://img.shields.io/badge/Astro-222?style=flat-square&logo=Astro&logoColor=FF5D01)
+
+![RAILS](https://img.shields.io/badge/Ruby_on_Rails-222?style=flat-square&logo=rubyonrails&logoColor=cc0000) ![Sinatra](https://img.shields.io/badge/Sinatra-222?style=flat-square&logo=RubySinatra&logoColor=999) ![Express.js](https://img.shields.io/badge/Express.js-222?style=flat-square&logo=express&logoColor=eeeeee) ![Prisma](https://img.shields.io/badge/Prisma-222?style=flat-square&logo=prisma&logoColor=4c51bf) ![Firebase](https://img.shields.io/badge/Firebase-222?style=flat-square&logo=Firebase&logoColor=#fb8c00) ![Evolution](https://img.shields.io/badge/Evolution-222?style=flat-square&logo=perforce&logoColor=80aadc)
+
+</div>
