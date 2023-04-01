@@ -1,0 +1,17 @@
+{
+  "name": "a-sharapov",
+  "type": "module",
+  "version": "5.0.1",
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^2.1.0",
+    "astro": "^2.1.9",
+    "svelte": "^3.58.0"
+  }
+}

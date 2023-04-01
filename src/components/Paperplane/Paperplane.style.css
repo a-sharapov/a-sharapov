@@ -1,0 +1,11 @@
+.paperplane {
+  position: absolute;
+  left: calc(50% - 500px);
+  width: 300px;
+  height: 550px;
+  user-select: none;
+  background: url(/i/paperplane.png) no-repeat center center;
+  z-index: 10;
+  transform: perspective(50em);
+  filter: blur(0);
+}

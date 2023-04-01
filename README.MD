@@ -6,7 +6,7 @@
 
 #### (Native: Шарапов Александр Вячеславович)
 
-![Fullstack web developer](https://img.shields.io/static/v1?style=for-the-badge&label=&message=Fullstack%20web%20developer&color=155DD6&logo=Hasura&logoColor=fff)
+![Fullstack web developer](https://img.shields.io/static/v1?style=for-the-badge&label=&message=Fullstack%20web%20developer&color=155DD6&logo=PolymerProject&logoColor=fff)
 ![UX/UI-Designer](https://img.shields.io/static/v1?style=for-the-badge&label=&message=UX/UI-Designer&color=008A4B&logo=Inkscape&logoColor=fff)
 
 I've been doing web development since 2010. Started out as a web designer, then I got involved in front-end and back-end development. Almost every project was implemented from the **idea/prototype** to the **MVP**.

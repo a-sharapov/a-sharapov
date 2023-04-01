@@ -1,0 +1,27 @@
+---
+import Contacts from "components/Contacts/Contacts.svelte";
+import { Content as PageContent } from "content/cv.md";
+
+import Main from "layouts/Main.astro";
+interface Frontmatter {
+  title: string;
+  description?: string;
+  robots?: string;
+}
+
+const page = await Astro.glob<Frontmatter>("content/cv.md");
+
+import "styles/cv.css";
+---
+
+<Main
+  modifier={"cv"}
+  pagetitle={page.at(0)?.frontmatter.title}
+  description={page.at(0)?.frontmatter.description}
+  robots={page.at(0)?.frontmatter.robots}
+>
+  <article>
+    <Contacts />
+    <section class="content"><PageContent /></section>
+  </article>
+</Main>

@@ -1,0 +1,21 @@
+{
+  "Sveltekit component": {
+    "scope": "svelte",
+    "prefix": "svfc",
+    "body": [
+      "<script lang='ts'>",
+      "//<${TM_FILENAME_BASE} />",
+      "import './${TM_FILENAME_BASE}.style.css'",
+      "",
+      "let classes: string = '';",
+      "export { classes as class };",
+      "</script>",
+      "",
+      "<article class={`$1${${classes}}`}>",
+      "<slot />",
+      "$1",
+      "</article>"
+    ],
+    "description": "Create svelte component with styles"
+  }
+}

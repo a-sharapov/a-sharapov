@@ -1,0 +1,12 @@
+---
+import Vcard from "components/Vcard/Vcard.svelte";
+import Main from "layouts/Main.astro";
+
+import "styles/intro.css";
+---
+
+<Main modifier="main">
+  <article>
+    <Vcard client:visible />
+  </article>
+</Main>

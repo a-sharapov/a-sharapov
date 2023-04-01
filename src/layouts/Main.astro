@@ -1,0 +1,78 @@
+---
+import Backstage from "components/Backstage/Backstage.svelte";
+import Loader from "components/Loader/Loader.svelte";
+
+interface IAstroProps {
+  generator: string;
+  props: Record<string, string>;
+}
+
+const {
+  pagetitle = "Александр Шарапов - Fullstack web developer, UX/UI designer",
+  description = "Разработчик полного цикла, UX/UI-дизайнер",
+  keywords = "разработка, программирование, веб-решения, веб-дизайн, JS, Node, TS, Ruby, Elixir, CMS, CMF, UX, UI",
+  themeColor = "#d71e00",
+  robots = "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+  modifier = "base",
+  documentState = "Static",
+} = Astro.props as IAstroProps["props"];
+---
+
+<html>
+  <head>
+    <meta http-equiv="Content-language" content="ru" />
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="icon"
+      sizes="16x16 32x32 64x64 128x128"
+      href="./favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="icon" sizes="256x256" href="/favicon.png" />
+    <link rel="stylesheet" href="./css/global.css" type="text/css" />
+    <link
+      rel="manifest"
+      href="./manifest.webmanifest"
+      type="application/manifest+json"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="keywords" content={keywords} />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="document-state" content={documentState} />
+    <meta name="googlebot" content="NOODP" />
+    <meta name="theme-color" content={themeColor} />
+    <meta name="msapplication-navbutton-color" content={themeColor} />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="og:image" content="/cover/web-cover.jpg" />
+    <title>{pagetitle}</title>
+  </head>
+  <body>
+    <main data-modifier={modifier}>
+      <slot />
+      <Backstage client:only />
+    </main>
+    <Loader client:only />
+    <script is:inline defer>
+      const pagetitle = "PATGE_TITLE";
+      sessionStorage.setItem(pagetitle, document.title);
+
+      window.addEventListener("focus", () => {
+        document.title = sessionStorage.getItem(pagetitle);
+      });
+
+      window.addEventListener("blur", () => {
+        document.title = "👋🏻 До встречи!";
+      });
+    </script>
+  </body>
+</html>

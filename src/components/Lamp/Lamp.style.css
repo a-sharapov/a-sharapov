@@ -1,0 +1,13 @@
+.lamp {
+  position: absolute;
+  left: 50%;
+  top: -200px;
+  align-self: flex-start;
+  filter: blur(1px);
+  width: 1000px;
+  height: 1000px;
+  user-select: none;
+  background: url(/i/lamp.png) no-repeat center center;
+  z-index: 1;
+  transform: perspective(50em);
+}

@@ -1,0 +1,18 @@
+main[data-modifier="error-page"] .coffee-cup,
+main[data-modifier="error-page"] .pencils,
+main[data-modifier="error-page"] .lamp,
+main[data-modifier="error-page"] .paperplane {
+  display: none;
+  visibility: hidden;
+}
+
+main[data-modifier="error-page"] article {
+  margin: auto;
+  width: 320px;
+  height: auto;
+  flex: initial;
+}
+
+main[data-modifier="error-page"] article h1 {
+  color: var(--base-color);
+}

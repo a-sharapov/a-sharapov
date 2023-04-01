@@ -1,0 +1,118 @@
+.contacts {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 4rem 2rem;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(to bottom, #ccc, #ccc, #cccccc80, transparent);
+  box-shadow: 0 2px 20px #00000005;
+}
+.contacts .logo {
+  margin-bottom: 2rem;
+  user-select: none;
+  filter: drop-shadow(0 1px 0 #fff);
+  opacity: 0.9;
+}
+.contacts a {
+  text-decoration: none;
+  color: var(--base-dark);
+  border-bottom: 1px dotted #555;
+}
+.contacts a:hover {
+  border-bottom-style: solid;
+  border-bottom-color: var(--sh-hv);
+}
+span.mail-icon,
+span.skype-icon,
+span.phone-icon,
+span.telegram-icon,
+span.tab {
+  display: inline-block;
+  margin: 5px 10px -5px 0px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  filter: grayscale(100%) brightness(30%)
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.7));
+  transition: all 0.25s linear;
+}
+span.phone-icon {
+  background: url(/i/phone.svg) no-repeat center center;
+  background-size: 80%;
+}
+span.mail-icon {
+  background: url(/i/letter.svg) no-repeat center center;
+  background-size: 115%;
+}
+span.skype-icon {
+  background: url(/i/skype.svg) no-repeat center center;
+  background-size: contain;
+}
+span.telegram-icon {
+  background: url(/i/telegram.svg) no-repeat center center;
+  background-size: contain;
+}
+.phone-wrapper:hover span.phone-icon {
+  animation: phone-bell 3s ease infinite;
+  filter: drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
+}
+@keyframes phone-bell {
+  0% {
+    transform: rotate(0);
+  }
+  3% {
+    transform: rotate(10deg) scale(1.2, 1.2);
+  }
+  9% {
+    transform: rotate(-10deg) scale(0.9, 0.9);
+  }
+  12% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(20deg) scale(1.1, 1.1);
+  }
+  21% {
+    transform: rotate(-20deg) scale(0.8, 0.8);
+  }
+  24% {
+    transform: rotate(0);
+  }
+  27% {
+    transform: rotate(10deg) scale(1.2, 1.2);
+  }
+  33% {
+    transform: rotate(-10deg) scale(0.9, 0.9);
+  }
+  36% {
+    transform: rotate(0);
+  }
+}
+.mail-wrapper:hover span.mail-icon {
+  animation: ico-pulse 1s ease-in infinite;
+  filter: grayscale(0) brightness(1)
+    drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
+}
+.skype-wrapper:hover span.skype-icon {
+  animation: ico-pulse 1s ease-in infinite;
+  filter: grayscale(0) brightness(1)
+    drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
+}
+.telegram-wrapper:hover span.telegram-icon {
+  animation: ico-pulse 1s ease-in infinite;
+  filter: grayscale(0) brightness(1)
+    drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
+}
+@keyframes ico-pulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  0% {
+    transform: scale(1);
+  }
+}

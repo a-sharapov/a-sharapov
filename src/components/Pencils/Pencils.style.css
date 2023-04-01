@@ -1,0 +1,12 @@
+.pencils {
+  position: absolute;
+  display: block;
+  left: calc(50% - 570px);
+  width: 600px;
+  height: 700px;
+  background: url(/i/pencil-paper.png) no-repeat center top;
+  background-size: contain;
+  margin: 0 0 50px;
+  z-index: 2;
+  transform: perspective(50em);
+}

@@ -1,0 +1,15 @@
+---
+import Main from "layouts/Main.astro";
+
+import "styles/error.css";
+---
+
+<Main pagetitle={"Страница не найдена"} modifier={"error-page"}>
+  <article>
+    <h1>Ошибка 404</h1>
+    <p>
+      К сожалнению сервер ничего не знает о сущестовании страницы, которую вы
+      запрсоили...
+    </p>
+  </article>
+</Main>

@@ -1,0 +1,19 @@
+{
+  "name": "Александр Шарапов",
+  "short_name": "a-sharapov",
+  "description": "Веб-архитектор, разработчик полного цикла, консультант",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64, 32x32, 16x16"
+    }
+  ],
+  "display": "standalone",
+  "orientation": "landscape",
+  "theme_color": "#d71e00",
+  "background_color": "#fefefe"
+}
