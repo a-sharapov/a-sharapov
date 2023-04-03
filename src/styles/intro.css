@@ -24,8 +24,9 @@ main[data-modifier="main"] .pencils {
 }
 
 main[data-modifier="main"] .lamp {
+  top: auto;
   left: calc(50% - 250px);
-  margin-top: -50px;
+  bottom: 50%;
   transform: perspective(50em) scale(0.9);
   filter: blur(2px);
   opacity: 0.5;
