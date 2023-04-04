@@ -2,9 +2,11 @@ main[data-modifier="cv"] article {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 0 auto;
-  flex: 1;
+  width: auto;
+  margin: auto;
+  flex: initial;
   z-index: 13;
+  box-shadow: 0 2rem 15rem #00000010, 0 1rem 2rem #00000005;
 }
 main[data-modifier="cv"] article section.content {
   display: block;
@@ -15,6 +17,12 @@ main[data-modifier="cv"] article section.content {
   z-index: 15;
   backdrop-filter: blur(25px);
   box-shadow: 0 2px 15px #00000010, 0 5px 25px #00000005;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+main[data-modifier="cv"] article .contacts {
+  box-shadow: inset 0 1px 0 #ffffff20;
+  border-radius: 0.5rem 0 0 0.5rem;
 }
 
 main[data-modifier="cv"] #backstage {
@@ -44,8 +52,9 @@ main[data-modifier="cv"] .lamp {
 }
 main[data-modifier="cv"] .paperplane {
   filter: blur(1px);
-  margin-bottom: 90px;
+  top: 50%;
   left: calc(50% - 800px);
+  margin-bottom: 0;
   transform: scale(-1, 1);
   z-index: 14;
 }
@@ -62,5 +71,6 @@ main[data-modifier="cv"] #vcard {
 
   main[data-modifier="cv"] article .contacts {
     align-items: center;
+    padding: 4rem 0;
   }
 }

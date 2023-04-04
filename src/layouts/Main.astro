@@ -1,4 +1,6 @@
 ---
+import Footer from "chunks/Footer.astro";
+import Header from "chunks/Header.astro";
 import Backstage from "components/Backstage/Backstage.svelte";
 import Loader from "components/Loader/Loader.svelte";
 
@@ -58,7 +60,9 @@ const {
   </head>
   <body>
     <main data-modifier={modifier}>
+      <Header />
       <slot />
+      <Footer />
       <Backstage client:only />
     </main>
     <Loader client:only />

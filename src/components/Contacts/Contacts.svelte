@@ -6,7 +6,7 @@
   import "./Contacts.style.css";
 </script>
 
-<div class="contacts narrow">
+<aside class="contacts narrow">
   <img src="/i/logo.svg" class="logo" width="180px" alt={DICTIONARY.name} />
   <div class="phone-wrapper">
     <p>
@@ -36,4 +36,4 @@
     <span class="telegram-icon" />
     <a href="https://t.me/asharapov" target="_blank">@asharapov</a>
   </p>
-</div>
+</aside>
