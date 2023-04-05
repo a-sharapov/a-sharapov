@@ -15,7 +15,7 @@ robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-previ
 
 Со школьной скамьи увлекался графическим дизайном, в университете (специальность: инженер по телекоммуникациям) - веб-дизайном, после окончания - вёрсткой и разработкой сайтов.
 
-Большую часть времени работал как фрилансер. Активно сотрудничал с компаниями из Беларуси, России, Литвы, Польши, Испании и США. На сегодняшний день уже принял участие в разработке более чем **130 проектов** как участник команды и как самостоятельный разработчик.
+Большую часть времени работал как фрилансер. Активно сотрудничал с компаниями из Беларуси, России, Литвы, Польши, Испании и США. На сегодняшний день уже принял участие в разработке более чем **130 проектов** (учитывая web-сайты) как участник команды и как самостоятельный разработчик.
 
 Могу реализовать проект самостоятельно от **идеи/наброска** до **работающего прототипа**, который нестыдно показать инвесторам на презентации.
 
@@ -25,18 +25,44 @@ robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-previ
 
 <br />
 
-##### Имею опыт работы:
+##### Опыт:
 
-<p>
+<ul class="timeline">
+  <li>
+    <span>2010</span>
+    <span>Веб-дизайн и вёрстка
+    <br />CSS, HTML</span>
+  </li>
+  <li>
+    <span>2011</span>
+    <span>Основы JS, PHP, MySQL
+    <br />CMS, jQuery</span>
+  </li>
+  <li>
+    <span>2013</span>
+    <span>Vanilla JS
+    <br />MODX Evolution</span>
+  </li>
+  <li>
+    <span>2015</span>
+    <span>SVG in web, October CMS, Laravel, Node.js</span>
+  </li>
+  <li>
+    <span>2018</span>
+    <span>TypeScript
+    <br />React, React Native, Electron</span>
+  </li>
+  <li>
+    <span>2021</span>
+    <span>Ruby, Sinatra, Ruby on Rails, Svelte</span>
+  </li>
+  <li>
+    <span>2023</span>
+    <span>Elixir, Phoenix</span>
+  </li>
+</ul>
 
-![JavaScript](https://img.shields.io/badge/JavaScript-eee?style=for-the-badge&logo=JavaScript&logoColor=f7df1e)
-![TypeScript](https://img.shields.io/badge/TypeScript-eee?style=for-the-badge&logo=TypeScript&logoColor=2f72bc)
-![RUBY](https://img.shields.io/badge/RUBY-eee?style=for-the-badge&logo=RUBY&logoColor=e01520)
-![PHP](https://img.shields.io/badge/PHP-eee?style=for-the-badge&logo=PHP&logoColor=7175aa)
-
-</p>
-
-##### Фрейморки и библиотеки:
+##### Использую библиотеки и фрейморки:
 
 <p>
 

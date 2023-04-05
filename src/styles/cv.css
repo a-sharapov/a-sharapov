@@ -64,6 +64,62 @@ main[data-modifier="cv"] #vcard {
   visibility: hidden;
 }
 
+ul.timeline {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding: 0;
+}
+
+ul.timeline:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    #333,
+    #333,
+    #333,
+    #333,
+    #333,
+    transparent
+  );
+}
+
+ul.timeline li {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+ul.timeline li span:first-child {
+  position: relative;
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding-left: 1rem;
+}
+
+ul.timeline li span:last-child {
+  position: relative;
+  display: block;
+  padding-left: 1rem;
+}
+
+ul.timeline li span:first-child::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 3px;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  border: 2px solid #333;
+  z-index: 1;
+}
+
 @media (max-width: 680px), screen and (orientation: portrait) {
   main[data-modifier="cv"] article {
     flex-direction: column;
