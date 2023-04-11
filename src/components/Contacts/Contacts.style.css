@@ -13,16 +13,25 @@
   margin-bottom: 2rem;
   user-select: none;
   filter: drop-shadow(0 1px 0 #fff);
-  opacity: 0.9;
+  filter: invert(0.2) drop-shadow(0 1px 0 #fff);
+  transition: 0.5s;
+}
+.contacts .logo:hover {
+  transform: scale(1.05);
 }
 .contacts a {
-  text-decoration: none;
   color: var(--base-dark);
-  border-bottom: 1px dotted #555;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--base-dark);
 }
 .contacts a:hover {
-  border-bottom-style: solid;
-  border-bottom-color: var(--sh-hv);
+  text-decoration-color: var(--base-color);
+  text-decoration-style: solid;
+}
+.contacts a.logo-wrapper {
+  text-decoration: none;
 }
 span.mail-icon,
 span.skype-icon,

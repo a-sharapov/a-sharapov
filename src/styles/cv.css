@@ -8,6 +8,7 @@ main[data-modifier="cv"] article {
   z-index: 13;
   box-shadow: 0 2rem 15rem #00000010, 0 1rem 2rem #00000005;
 }
+
 main[data-modifier="cv"] article section.content {
   display: block;
   width: 100%;
