@@ -67,7 +67,7 @@ main[data-modifier="cv"] #vcard {
 ul.timeline {
   display: flex;
   position: relative;
-  flex-direction: column;
+  flex-direction: column-reverse;
   padding: 0;
 }
 
@@ -75,23 +75,15 @@ ul.timeline:before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0;
+  top: 0.9rem;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(
-    to bottom,
-    #333,
-    #333,
-    #333,
-    #333,
-    #333,
-    transparent
-  );
+  background: linear-gradient(to bottom, #333, #333, #333, #333, transparent);
 }
 
 ul.timeline li {
   list-style: none;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 ul.timeline li span:first-child {
@@ -128,5 +120,9 @@ ul.timeline li span:first-child::before {
   main[data-modifier="cv"] article .contacts {
     align-items: center;
     padding: 4rem 0;
+  }
+
+  main[data-modifier="cv"] article section.content {
+    border-radius: 0;
   }
 }

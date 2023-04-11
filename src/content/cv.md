@@ -1,6 +1,6 @@
 ---
-title: "CV"
-description: "CV - Резюме"
+title: "CV : Александр Шарапов - Fullstack web developer, UX/UI designer"
+description: "Веб-разработчик полного цикла, большинство своих проектов вёл от идеи до продукта. Понимаю проблемы пользователей и реализую решения исходя из реальных потребностей."
 robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
 ---
 
@@ -21,13 +21,13 @@ robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-previ
 
 <br />
 
-В настоящий момент активно занимаюсь изучением **Elixir**, а также фрейморка **Phoenix**, так как планирую полностью сменить стек.
+В настоящий момент активно занимаюсь изучением **Phoenix**/**Elixir**, так как планирую полностью сменить стек.
 
 <br />
 
 ##### Опыт:
 
-<ul class="timeline">
+<ul class="timeline" data-title="Tекущий стек">
   <li>
     <span>2010</span>
     <span>Веб-дизайн и вёрстка
@@ -62,11 +62,11 @@ robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-previ
   </li>
 </ul>
 
-##### Использую библиотеки и фрейморки:
+##### Кроме того имею опыт исспользования следующих библиотек и фрейморков:
 
 <p>
 
-![SVELTE](https://img.shields.io/badge/svelte-eee?style=flat-square&logo=svelte&logoColor=ff3c00)
+![SVELTE](https://img.shields.io/badge/SvelteKit-eee?style=flat-square&logo=Svelte&logoColor=ff3c00)
 ![REACT](https://img.shields.io/badge/React-eee?style=flat-square&logo=react&logoColor=61dafb)
 ![Preact](https://img.shields.io/badge/Preact-eee?style=flat-square&logo=Preact&logoColor=673ab8)
 ![Astro](https://img.shields.io/badge/Astro-eee?style=flat-square&logo=Astro&logoColor=FF5D01)
