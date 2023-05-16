@@ -23,6 +23,7 @@ Worked as a **freelancer** for most of his professional career, and also coopera
 
 ![Elixir](https://img.shields.io/badge/Elixir-623c71?style=for-the-badge&logo=Elixir&logoColor=fff)
 ![Phoenix](https://img.shields.io/badge/Phoenix-ff6f61?style=for-the-badge)
+![LiveSvelte](https://img.shields.io/badge/LiveSvelte-ff3c00?style=for-the-badge)
 
 #### ✅ Also have experience in:
 
