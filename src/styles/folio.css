@@ -1,0 +1,42 @@
+main[data-modifier="folio"] #backstage {
+  bottom: 0;
+  align-items: flex-end;
+}
+
+main[data-modifier="folio"] .coffee-cup {
+  transform: scale(2.5);
+  left: calc(0% - 150px);
+  filter: blur(1.5px);
+}
+
+main[data-modifier="folio"] .pencils {
+  margin-bottom: 120px;
+  transform: scale(0.6);
+  filter: blur(8px);
+  top: 0;
+  left: calc(50% - 350px);
+  opacity: 0.1;
+}
+
+main[data-modifier="folio"] .lamp {
+  transform: scale(0.7);
+  filter: blur(12px);
+  top: auto;
+  bottom: 70%;
+  opacity: 0.05;
+}
+main[data-modifier="folio"] .paperplane {
+  filter: blur(1px);
+  bottom: 0%;
+  left: calc(100% - 200px);
+  margin-bottom: 0;
+  transform: scale(1.5);
+  filter: blur(2px);
+  z-index: 14;
+  opacity: 0.5;
+}
+
+main[data-modifier="folio"] #vcard {
+  display: none;
+  visibility: hidden;
+}

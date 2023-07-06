@@ -32,15 +32,32 @@
     </p>
   </div>
   <br />
-  <p class="mail-wrapper">
+  <p class="icon-wrapper">
     <span class="mail-icon" />
     <a href="mailto:mail@a-sharapov.com">{@html email}</a>
   </p>
-  <p class="skype-wrapper">
+  <p class="icon-wrapper">
     <span class="skype-icon" /> <a href="skype:a-sharapov?chat">a-sharapov</a>
   </p>
-  <p class="telegram-wrapper">
+  <p class="icon-wrapper">
     <span class="telegram-icon" />
     <a href="https://t.me/asharapov" target="_blank">@asharapov</a>
+  </p>
+  <hr class="giant" />
+  <p class="icon-wrapper">
+    <span class="linkedin-icon" />
+    <a
+      href="https://www.linkedin.com/in/alex-sharapov/"
+      rel="external nofollow"
+      target="_blank">Linkedin</a
+    >
+  </p>
+  <p class="icon-wrapper">
+    <span class="github-icon" />
+    <a
+      href="https://github.com/a-sharapov"
+      rel="external nofollow"
+      target="_blank">Github</a
+    >
   </p>
 </aside>

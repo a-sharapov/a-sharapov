@@ -33,6 +33,8 @@
 .contacts a.logo-wrapper {
   text-decoration: none;
 }
+span.github-icon,
+span.linkedin-icon,
 span.mail-icon,
 span.skype-icon,
 span.phone-icon,
@@ -63,65 +65,21 @@ span.telegram-icon {
   background: url(/i/telegram.svg) no-repeat center center;
   background-size: contain;
 }
+span.github-icon {
+  background: url(/i/github.svg) no-repeat center center;
+  background-size: contain;
+}
+span.linkedin-icon {
+  background: url(/i/linkedin.svg) no-repeat center center;
+  background-size: contain;
+}
 .phone-wrapper:hover span.phone-icon {
   animation: phone-bell 3s ease infinite;
   filter: drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
 }
-@keyframes phone-bell {
-  0% {
-    transform: rotate(0);
-  }
-  3% {
-    transform: rotate(10deg) scale(1.2, 1.2);
-  }
-  9% {
-    transform: rotate(-10deg) scale(0.9, 0.9);
-  }
-  12% {
-    transform: rotate(0);
-  }
-  15% {
-    transform: rotate(20deg) scale(1.1, 1.1);
-  }
-  21% {
-    transform: rotate(-20deg) scale(0.8, 0.8);
-  }
-  24% {
-    transform: rotate(0);
-  }
-  27% {
-    transform: rotate(10deg) scale(1.2, 1.2);
-  }
-  33% {
-    transform: rotate(-10deg) scale(0.9, 0.9);
-  }
-  36% {
-    transform: rotate(0);
-  }
-}
-.mail-wrapper:hover span.mail-icon {
+
+.icon-wrapper:hover > span {
   animation: ico-pulse 1s ease-in infinite;
   filter: grayscale(0) brightness(1)
     drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
-}
-.skype-wrapper:hover span.skype-icon {
-  animation: ico-pulse 1s ease-in infinite;
-  filter: grayscale(0) brightness(1)
-    drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
-}
-.telegram-wrapper:hover span.telegram-icon {
-  animation: ico-pulse 1s ease-in infinite;
-  filter: grayscale(0) brightness(1)
-    drop-shadow(0 2px 5px rgba(255, 255, 255, 0.75));
-}
-@keyframes ico-pulse {
-  0% {
-    transform: scale(1);
-  }
-  20% {
-    transform: scale(1.1);
-  }
-  0% {
-    transform: scale(1);
-  }
 }

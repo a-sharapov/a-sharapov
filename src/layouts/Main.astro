@@ -1,5 +1,6 @@
 ---
 import Footer from "chunks/Footer.astro";
+import Header from "chunks/Header.astro";
 import Backstage from "components/Backstage/Backstage.svelte";
 import Loader from "components/Loader/Loader.svelte";
 
@@ -21,6 +22,7 @@ const {
 
 <html>
   <head>
+    <base href="/" />
     <meta http-equiv="Content-language" content="ru" />
     <meta charset="utf-8" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -59,7 +61,7 @@ const {
   </head>
   <body>
     <main data-modifier={modifier}>
-      <!-- <Header /> -->
+      <Header />
       <slot />
       <Footer />
       <Backstage client:only />

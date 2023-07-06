@@ -113,6 +113,18 @@ ul.timeline li span:first-child::before {
   z-index: 1;
 }
 
+main[data-modifier="cv"] header > h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+main[data-modifier="cv"] header > h1 + h3 {
+  margin-bottom: 1rem;
+}
+
+main[data-modifier="cv"] header > p:last-child {
+  margin-bottom: 2rem;
+}
+
 @media (max-width: 680px), screen and (orientation: portrait) {
   main[data-modifier="cv"] article {
     flex-direction: column;

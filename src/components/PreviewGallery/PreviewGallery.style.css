@@ -1,0 +1,171 @@
+dialog.preview-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--loading) no-repeat center center;
+  background-size: 3rem;
+  border: none;
+  outline: none;
+  padding: 0;
+  transition: 0.5s;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: 10000;
+  margin: auto;
+}
+
+dialog.preview-box:empty,
+dialog.preview-box.closed {
+  margin: auto;
+  display: flex;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  transition: 0.5s;
+}
+
+dialog.preview-box::backdrop {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ccc3;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(10px);
+}
+
+dialog.preview-box:empty {
+  z-index: -10000;
+}
+
+dialog.preview-box:empty::backdrop {
+  display: none;
+  visibility: hidden;
+}
+
+dialog.preview-box .close-handle {
+  display: block;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  background: var(--sign-close) no-repeat center center;
+  background-size: contain;
+  color: transparent;
+  cursor: pointer;
+  text-shadow: none;
+  user-select: none;
+}
+
+img#image-preview {
+  max-height: 90vh;
+  max-width: 90%;
+  box-shadow: 0 0 2rem #3332, 0 0.2rem 5rem #3335, 0 0.4rem 7rem #1119;
+}
+
+dialog.preview-box .next-handle,
+dialog.preview-box .previous-handle {
+  position: absolute;
+  top: 50%;
+  margin: -2rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  color: transparent;
+  text-shadow: none;
+  transform: rotate(45deg) scale(0.8);
+  transition: 0.3s;
+  z-index: 100;
+  user-select: none;
+}
+
+dialog.preview-box .next-handle {
+  right: 3rem;
+  border-right: 0.1rem solid var(--base-dark);
+  border-top: 0.1rem solid var(--base-dark);
+}
+
+dialog.preview-box .previous-handle {
+  left: 3rem;
+  border-left: 0.1rem solid var(--base-dark);
+  border-bottom: 0.1rem solid var(--base-dark);
+}
+
+dialog.preview-box .next-handle:hover,
+dialog.preview-box .previous-handle:hover {
+  transform: rotate(45deg) scale(1);
+}
+
+dialog.preview-box .next-handle:active,
+dialog.preview-box .previous-handle:active {
+  transform: rotate(45deg) scale(1.15);
+}
+
+dialog.preview-box .preview-gallery {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  padding: 2rem;
+  gap: 1rem;
+  width: 100%;
+  transition: 0.3s;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+dialog.preview-box .preview-gallery .preview-gallery-image {
+  transition: 0.3s;
+  transform: scale(0.9);
+  box-shadow: 0 0 2rem #3332, 0 0.1rem 3rem #3335;
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+dialog.preview-box
+  .preview-gallery
+  .preview-gallery-image[data-acitve="false"]:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 2rem #3332, 0 0.4rem 3rem #1118;
+  cursor: pointer;
+}
+
+dialog.preview-box .preview-gallery .preview-gallery-image[data-acitve="true"] {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 1000px) {
+  figure.example-composition img:nth-of-type(2) {
+    right: auto;
+    bottom: auto;
+    top: -5rem;
+  }
+
+  .more-preview,
+  figure.example-composition:nth-of-type(2) {
+    filter: none;
+  }
+}
+
+@media (max-width: 560px) {
+  dialog.preview-box .preview-gallery {
+    justify-content: flex-start;
+  }
+}

@@ -1,25 +1,12 @@
 <script lang="ts">
-  const menuItems = [
-    {
-      title: "В начало",
-      href: "/",
-    },
-    {
-      title: "Обо мне",
-      href: "/cv",
-    },
-    {
-      title: "Связь",
-      href: "/feedback",
-    },
-  ];
+  import { MAIN_MENU } from "constants/routes";
   const currentPage = window.location.pathname;
 
   import "./Menubar.style.css";
 </script>
 
 <nav data-role="header-navbar">
-  {#each menuItems as menuItem}
+  {#each MAIN_MENU as menuItem}
     {#if menuItem.href !== currentPage}
       <a href={menuItem.href}>{menuItem.title}</a>
     {:else}

@@ -608,6 +608,38 @@ table th {
   text-shadow: 0 1px 0 var(--base-light-text-shadow);
 }
 
+table.transparent-table {
+  margin-bottom: 2rem;
+}
+
+table.transparent-table * {
+  border: none;
+  background: transparent;
+}
+
+table.transparent-table tr {
+  background: transparent;
+}
+
+table.transparent-table td,
+table.transparent-table th {
+  padding: 0.7em 0;
+}
+
+table.transparent-table img {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+table.transparent-table h1,
+table.transparent-table h2,
+table.transparent-table h3,
+table.transparent-table h4,
+table.transparent-table h5 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
 /* scrollbar */
 
 ::-webkit-scrollbar {
@@ -654,9 +686,19 @@ article {
 }
 
 footer {
+  position: relative;
   margin-top: auto;
   text-align: center;
   padding: 1rem;
   font-size: 0.8rem;
   color: var(--base-border);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+
+@media (max-width: 560px) {
+  footer {
+    display: none;
+    visibility: hidden;
+  }
 }

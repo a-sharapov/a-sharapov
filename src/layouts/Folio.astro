@@ -1,0 +1,16 @@
+---
+import Timeline from "components/Timeline/Timeline.svelte";
+import Main from "layouts/Main.astro";
+import "styles/folio.css";
+---
+
+<Main
+  modifier={"folio"}
+  pagetitle={"Портфолио"}
+  description={"Портфолио в виде шкалы времени. Для удобства всё разделено на периоды, которые включают краткое описание, стек технологий и несколько примеров работ."}
+  robots={"index, follow"}
+>
+  <Timeline>
+    <slot />
+  </Timeline>
+</Main>

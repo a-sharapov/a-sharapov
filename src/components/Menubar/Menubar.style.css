@@ -5,10 +5,12 @@ nav[data-role="header-navbar"] {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 30px;
   gap: 2rem;
-  background: linear-gradient(to bottom, #ffffff20, transparent, transparent);
-  z-index: 10;
+  margin: 0 0 1rem;
+  background: linear-gradient(to bottom, #eee9, transparent, transparent);
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  user-select: none;
 }
 nav[data-role="header-navbar"]::before {
   content: "";
@@ -37,8 +39,11 @@ nav[data-role="header-navbar"] > * {
   display: flex;
   height: 100%;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
   color: var(--base-dark);
+  font-family: "PT Sans Narrow", sans-serif;
+  text-transform: uppercase;
   border-top: 2px solid transparent;
 }
 
