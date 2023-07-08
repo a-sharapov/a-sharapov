@@ -5,10 +5,10 @@ export const MAIN_MENU = [
   },
   {
     title: "CV",
-    href: "/cv",
+    href: "/cv/",
   },
   {
     title: "Творческая стезя",
-    href: "/timeline",
+    href: "/timeline/",
   },
 ] as const;

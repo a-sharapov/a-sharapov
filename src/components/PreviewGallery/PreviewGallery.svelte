@@ -99,7 +99,7 @@
           alt="Миниатюра"
           height="80px"
           on:pointerdown={setActiveImage}
-          data-acitve={$imageInPreview.src === galleryImage ? "true" : "false"}
+          data-acitve={$imageInPreview.src === galleryImage}
           class="preview-gallery-image"
         />
       {/each}
