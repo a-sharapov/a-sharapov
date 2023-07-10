@@ -26,6 +26,23 @@
       case "ArrowRight":
         setNextImage();
         break;
+      case "ArrowUp":
+        zoomImageIn();
+        break;
+      case "ArrowDown":
+        zoomImageOut();
+        break;
+    }
+  };
+
+  const mouseListener = (event: WheelEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    if (event.deltaY > 0) {
+      zoomImageOut();
+    } else {
+      zoomImageIn();
     }
   };
 
@@ -37,6 +54,7 @@
     imageInPreview.set(null);
     dialog.removeAttribute("tabindex");
     document.removeEventListener("keydown", keyListener, false);
+    document.removeEventListener("wheel", mouseListener, false);
   };
 
   const getNewtIndex = (next: number): number => {
@@ -64,6 +82,33 @@
       ($imageInPreview.src = $imageInPreview.gallery[newIndex]);
   };
 
+  const getCurrentZoom = (image: HTMLImageElement): number =>
+    Number(image.style.transform.match(/\d+/g)?.join(".")) || 1;
+
+  const zoomImageIn = () => {
+    const image = document.querySelector("#image-preview") as HTMLImageElement;
+
+    if (image) {
+      image.style.transform = `scale(${
+        getCurrentZoom(image) > 3
+          ? getCurrentZoom(image)
+          : getCurrentZoom(image) + 0.1
+      })`;
+    }
+  };
+
+  const zoomImageOut = () => {
+    const image = document.querySelector("#image-preview") as HTMLImageElement;
+
+    if (image) {
+      image.style.transform = `scale(${
+        getCurrentZoom(image) > 0.5
+          ? getCurrentZoom(image) - 0.1
+          : getCurrentZoom(image)
+      })`;
+    }
+  };
+
   const setActiveImage = (event: Event) =>
     $imageInPreview &&
     ($imageInPreview.src = new URL(
@@ -72,12 +117,14 @@
 
   $: {
     let dialog = document.querySelector(".preview-box") as HTMLDialogElement;
+    let image = document.querySelector("#image-preview") as HTMLImageElement;
 
     if ($imageInPreview?.src && dialog && !dialog.hasAttribute("open")) {
       dialog.classList.remove("closed");
       dialog.showModal?.();
       dialog.setAttribute("tabindex", "0");
       document.addEventListener("keydown", keyListener, false);
+      document.addEventListener("wheel", mouseListener, false);
     }
   }
 </script>
