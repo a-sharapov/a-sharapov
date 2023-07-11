@@ -45,6 +45,7 @@ nav[data-role="header-navbar"] > * {
   font-family: "PT Sans Narrow", sans-serif;
   text-transform: uppercase;
   border-top: 2px solid transparent;
+  white-space: nowrap;
 }
 
 nav[data-role="header-navbar"] a {
@@ -69,4 +70,11 @@ nav[data-role="header-navbar"] > *:not(:last-child)::before {
   right: -19px;
   font-size: 50%;
   color: var(--base-border);
+}
+
+@media (max-width: 425px) {
+  nav[data-role="header-navbar"] > * {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+  }
 }

@@ -68,9 +68,9 @@ const {
       <Header />
       <slot />
       <Footer />
-      <Backstage client:only />
+      <Backstage client:only="svelte" />
     </main>
-    <Loader client:only />
+    <Loader client:only="svelte" />
     <script is:inline defer>
       const pagetitle = "PATGE_TITLE";
       sessionStorage.setItem(pagetitle, document.title);
