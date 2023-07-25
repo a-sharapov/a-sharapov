@@ -8,7 +8,7 @@ export const MAIN_MENU = [
     href: "/cv/",
   },
   {
-    title: "Творческая стезя",
+    title: "Формуляр",
     href: "/timeline/",
   },
 ] as const;

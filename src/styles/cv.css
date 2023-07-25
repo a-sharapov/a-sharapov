@@ -2,7 +2,6 @@ main[data-modifier="cv"] article {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: auto;
   margin: auto;
   flex: initial;
   z-index: 13;
@@ -11,6 +10,7 @@ main[data-modifier="cv"] article {
 
 main[data-modifier="cv"] article section.content {
   display: block;
+  align-self: center;
   width: 100%;
   max-width: 960px;
   background: linear-gradient(to bottom, #fff, #ffffff99, #ffffff99);
@@ -125,7 +125,23 @@ main[data-modifier="cv"] header > p:last-child {
   margin-bottom: 2rem;
 }
 
+table.skills-table tr {
+  width: auto;
+}
+
+table.skills-table tr td {
+  width: calc(100% / 3);
+  min-width: 0;
+  white-space: nowrap;
+}
+
 @media (max-width: 680px), screen and (orientation: portrait) {
+  table.skills-table {
+    overflow: auto;
+    width: 100%;
+    display: block;
+  }
+
   main[data-modifier="cv"] article {
     flex-direction: column;
   }

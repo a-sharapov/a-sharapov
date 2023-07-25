@@ -20,20 +20,21 @@ article#timeline > section {
   position: relative;
 }
 
-article#timeline > section:before {
+.timeline-contentbox:first-of-type .timeline-stamp::after,
+article#timeline > section::before {
   content: "";
   position: absolute;
   margin: auto;
   background: radial-gradient(var(--base-color), var(--link-hover-color));
-  height: 5px;
-  width: 5px;
+  height: 6px;
+  width: 6px;
   border-radius: 50%;
   z-index: 2;
   box-shadow: 0 0 0 0.15rem #d71e0050, 0 0 0 0.3rem #d71e0020,
     0 1px 2rem #d71e0005;
 }
 
-article#timeline > section:after {
+article#timeline > section::after {
   content: "";
   position: absolute;
   width: 1px;
@@ -45,30 +46,34 @@ article#timeline > section:after {
 }
 
 article#timeline > section:first-of-type::before {
-  top: calc(50% - 200px);
+  display: none;
+  visibility: hidden;
 }
 
 article#timeline > section:first-of-type:after {
   top: calc(50% - 200px);
-  background: linear-gradient(to bottom, var(--base-color), #111, #111);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    var(--base-color),
+    #111,
+    #111
+  );
   height: calc(50% + 200px);
 }
 
 article#timeline > section:last-of-type::before {
-  top: 22%;
+  top: 50%;
 }
 
 article#timeline > section:last-of-type:after {
   top: 0;
-  background: linear-gradient(
-    to bottom,
-    #111,
-    var(--base-color),
-    transparent,
-    transparent,
-    transparent,
-    transparent
-  );
+  background: linear-gradient(to bottom, #111, var(--base-color));
+  height: 50%;
 }
 
 section.timeline-contentbox aside.content {
@@ -164,28 +169,51 @@ section.timeline-casebox section.content p {
   font-weight: bold;
   position: relative;
   display: inline-block;
-  padding: 0.5rem 1rem;
-  color: #fff;
-  text-shadow: 0 1px 0 #000;
+  padding: 1.2rem 1.4rem;
+  color: #333;
+  font-size: 1.6rem;
+  text-shadow: 0 1px 0 #fff;
   margin: 0 0 2rem;
-  background: linear-gradient(
-    -155deg,
-    var(--base-dark),
-    var(--base-dark),
-    var(--base-color)
-  );
+  background: none;
   letter-spacing: 0.15rem;
-  border-radius: 0.2rem;
-  box-shadow: 0 -2px 2rem #0003;
+  border-radius: 0.1rem;
+  border: 1px solid;
+  border-image: linear-gradient(
+      -155deg,
+      var(--base-dark),
+      var(--base-dark),
+      var(--base-color)
+    )
+    5;
+  box-shadow: 0 1px 0.5rem #d71e0030;
+}
+
+.timeline-stamp::before {
+  position: absolute;
+  content: "Период:";
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: bold;
+  top: -1.2rem;
+  left: 0;
+  letter-spacing: 0.02rem;
+  color: var(--base-border);
+}
+
+.timeline-contentbox:first-of-type .timeline-stamp::after {
+  bottom: -3px;
+  left: calc(50% - 3px);
+  right: auto;
 }
 
 .timeline-contentbox .timeline-stamp {
-  background: linear-gradient(
-    to top,
-    var(--base-dark),
-    var(--base-dark),
-    var(--base-color)
-  );
+  border-image: linear-gradient(
+      to bottom,
+      var(--base-dark),
+      var(--base-dark),
+      var(--base-color)
+    )
+    5;
 }
 
 .timeline-stamp + h2 {
