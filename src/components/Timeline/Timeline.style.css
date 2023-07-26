@@ -216,6 +216,10 @@ section.timeline-casebox section.content p {
     5;
 }
 
+.timeline-contentbox .timeline-stamp::before {
+  width: 100%;
+}
+
 .timeline-stamp + h2 {
   position: relative;
 }
@@ -268,5 +272,9 @@ section.timeline-casebox section.content p {
 
   .timeline-stamp {
     margin: 0 auto 1rem;
+  }
+
+  .timeline-stamp + h2::after {
+    width: 100%;
   }
 }
