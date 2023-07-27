@@ -694,6 +694,8 @@ footer {
   color: var(--base-border);
   backdrop-filter: blur(10px);
   z-index: 100;
+  max-width: 320px;
+  border-radius: 6px;
 }
 
 @media (max-width: 560px) {
