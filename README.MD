@@ -11,9 +11,9 @@
 
 I've been doing web development since 2010. Started out as a web designer, then I got involved in front-end and back-end development. Almost every project was implemented from the **idea/prototype** to the **MVP**.
 
-To the moment, he has participated in more than 130 projects of varying degrees of complexity (both _individually_ and _as part of team_).
+To the moment - participated in more than 130 projects of varying degrees of complexity (both _individually_ and _as part of team_).
 
-Worked as a **freelancer** for most of his professional career, and also cooperated with companies from **Belarus**, **Russia**, **Lithuania**, **Poland**, **Spain** and **USA**.
+Worked as a **freelancer** for most of my professional career, and also cooperated with companies from **Belarus**, **Russia**, **Lithuania**, **Poland**, **Spain** and **USA**.
 
 ## Core technologies:
 
