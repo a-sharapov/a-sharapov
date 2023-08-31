@@ -19,7 +19,7 @@ Worked as a **freelancer** for most of my professional career, and also cooperat
 
 ![Vanilla.js](https://img.shields.io/badge/Vanilla.js-f7df1e?style=for-the-badge&logo=JavaScript&logoColor=333) ![Pure.css](https://img.shields.io/badge/Pure.CSS-3294c8?style=for-the-badge&logo=CSS3&logoColor=fff)
 
-#### ❤️‍🔥 Mad about:
+#### ❤️‍🔥 Crazy about:
 
 ![Elixir](https://img.shields.io/badge/Elixir-623c71?style=for-the-badge&logo=Elixir&logoColor=fff)
 ![Phoenix](https://img.shields.io/badge/Phoenix-FD4F00?style=for-the-badge&logo=Phoenix&logoColor=fff)
