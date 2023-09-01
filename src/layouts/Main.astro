@@ -1,4 +1,6 @@
 ---
+import { Fragment } from "astro/dist/runtime/server";
+import { ViewTransitions } from 'astro:transitions';
 import Footer from "chunks/Footer.astro";
 import Header from "chunks/Header.astro";
 import Backstage from "components/Backstage/Backstage.svelte";
@@ -22,6 +24,7 @@ const {
 
 <html>
   <head>
+    <ViewTransitions />
     <base href="/" />
     <meta http-equiv="Content-language" content="ru" />
     <meta charset="utf-8" />
