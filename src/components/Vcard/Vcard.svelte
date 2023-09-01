@@ -1,5 +1,6 @@
 <script lang="ts">
   import { DICTIONARY } from "constants/dictionary";
+  import { MAIN_MENU } from "constants/routes";
   import { writable } from "svelte/store";
 
   let active = writable<boolean>(false);
@@ -21,7 +22,7 @@
 <a
   id="vcard"
   data-active={$active}
-  href="cv"
+  href={MAIN_MENU[1].href}
   on:pointerenter={handleOnMouseEnter}
   on:pointerleave={handleOnMouseLeave}
 >
