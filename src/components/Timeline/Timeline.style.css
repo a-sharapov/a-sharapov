@@ -25,7 +25,7 @@ article#timeline > section::before {
   content: "";
   position: absolute;
   margin: auto;
-  background: radial-gradient(var(--base-color), var(--link-hover-color));
+  background: radial-gradient(var(--baseColor), var(--linkHoverColor));
   height: 6px;
   width: 6px;
   border-radius: 50%;
@@ -40,7 +40,7 @@ article#timeline > section::after {
   width: 1px;
   height: 100%;
   background: #333;
-  background: linear-gradient(to bottom, #111, var(--base-color), #111);
+  background: linear-gradient(to bottom, #111, var(--baseColor), #111);
   box-shadow: 0 1px 0.5rem #d71e0030;
   margin: auto;
 }
@@ -59,7 +59,7 @@ article#timeline > section:first-of-type:after {
     transparent,
     transparent,
     transparent,
-    var(--base-color),
+    var(--baseColor),
     #111,
     #111
   );
@@ -72,7 +72,7 @@ article#timeline > section:last-of-type::before {
 
 article#timeline > section:last-of-type:after {
   top: 0;
-  background: linear-gradient(to bottom, #111, var(--base-color));
+  background: linear-gradient(to bottom, #111, var(--baseColor));
   height: 50%;
 }
 
@@ -124,7 +124,7 @@ section.timeline-contentbox aside.content h2::after {
   margin: 0 -3rem;
   width: 6rem;
   height: 2rem;
-  background: var(--sign-hr) no-repeat center center;
+  background: var(--signHr) no-repeat center center;
   background-size: contain;
   border-bottom: none;
 }
@@ -180,9 +180,9 @@ section.timeline-casebox section.content p {
   border: 1px solid;
   border-image: linear-gradient(
       -155deg,
-      var(--base-dark),
-      var(--base-dark),
-      var(--base-color)
+      var(--baseDark),
+      var(--baseDark),
+      var(--baseColor)
     )
     5;
   box-shadow: 0 1px 0.5rem #d71e0030;
@@ -197,7 +197,7 @@ section.timeline-casebox section.content p {
   top: -1.2rem;
   left: 0;
   letter-spacing: 0.02rem;
-  color: var(--base-border);
+  color: var(--baseBorder);
 }
 
 .timeline-contentbox:first-of-type .timeline-stamp::after {
@@ -209,9 +209,9 @@ section.timeline-casebox section.content p {
 .timeline-contentbox .timeline-stamp {
   border-image: linear-gradient(
       to bottom,
-      var(--base-dark),
-      var(--base-dark),
-      var(--base-color)
+      var(--baseDark),
+      var(--baseDark),
+      var(--baseColor)
     )
     5;
 }
@@ -230,7 +230,7 @@ section.timeline-casebox section.content p {
   bottom: 0rem;
   left: 0;
   width: 2rem;
-  border-bottom: 1px dotted var(--base-dark);
+  border-bottom: 1px dotted var(--baseDark);
 }
 
 @media (max-width: 1000px) {

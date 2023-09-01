@@ -7,7 +7,7 @@ import Examples from "components/Examples/Examples.svelte";
 import PreviewGallery from "components/PreviewGallery/PreviewGallery.svelte";
 ---
 
-<Folio>
+<Folio client:load transition:animate="fade">
   <TimelineContentbox>
     <div class="timeline-stamp" slot="content">Н.В. &ndash; 2021</div>
     <h2 slot="content">Цифровой амбидекстер</h2>
@@ -450,4 +450,4 @@ import PreviewGallery from "components/PreviewGallery/PreviewGallery.svelte";
     </p>
   </TimelineCasebox>
 </Folio>
-<PreviewGallery client:only="svelte" />
+<PreviewGallery client:load />

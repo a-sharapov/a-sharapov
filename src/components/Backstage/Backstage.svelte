@@ -11,9 +11,11 @@
   let moves = writable<number>(0);
   const ratio: number = 0.01;
 
-  document.addEventListener("pointermove", (e: PointerEvent): void => {
-    moves.set((e.pageX - window.innerWidth / 2) * ratio);
-  });
+  if (typeof window !== "undefined") {
+    document.addEventListener("pointermove", (e: PointerEvent): void => {
+      moves.set((e.pageX - window.innerWidth / 2) * ratio);
+    });
+  }
 
   import "./Backstage.style.css";
 </script>

@@ -17,10 +17,10 @@
 .load-indicator i {
   border-radius: 2px;
   flex: 1;
-  background: var(--base-color);
+  background: var(--baseColor);
   -webkit-animation: go 0.8s infinite alternate ease;
   animation: go 0.8s infinite alternate ease;
-  box-shadow: 0 0 20px var(--base-color);
+  box-shadow: 0 0 20px var(--baseColor);
 }
 .load-indicator i:nth-child(1) {
   -webkit-animation-delay: -0.72s;

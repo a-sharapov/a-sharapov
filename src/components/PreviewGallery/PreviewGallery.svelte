@@ -3,8 +3,12 @@
   import { delay } from "utils";
   import "./PreviewGallery.style.css";
 
+  const definedWindow = typeof window !== "undefined";
+
   const closePreview = async (): Promise<void> => {
-    const dialog = document.querySelector(".preview-box") as HTMLDialogElement;
+    const dialog = definedWindow
+      ? (document.querySelector(".preview-box") as HTMLDialogElement)
+      : null;
 
     if (dialog) {
       await onClosed();
@@ -47,14 +51,18 @@
   };
 
   const onClosed = async (): Promise<void> => {
-    const dialog = document.querySelector(".preview-box") as HTMLDialogElement;
+    const dialog = definedWindow
+      ? (document.querySelector(".preview-box") as HTMLDialogElement)
+      : null;
 
-    dialog.classList.add("closed");
-    await delay(500);
-    imageInPreview.set(null);
-    dialog.removeAttribute("tabindex");
-    document.removeEventListener("keydown", keyListener, false);
-    document.removeEventListener("wheel", mouseListener, false);
+    if (dialog) {
+      dialog.classList.add("closed");
+      await delay(500);
+      imageInPreview.set(null);
+      dialog.removeAttribute("tabindex");
+      document.removeEventListener("keydown", keyListener, false);
+      document.removeEventListener("wheel", mouseListener, false);
+    }
   };
 
   const getNewtIndex = (next: number): number => {
@@ -86,7 +94,9 @@
     Number(image.style.transform.match(/\d+/g)?.join(".")) || 1;
 
   const zoomImageIn = () => {
-    const image = document.querySelector("#image-preview") as HTMLImageElement;
+    const image = definedWindow
+      ? (document.querySelector("#image-preview") as HTMLImageElement)
+      : null;
 
     if (image) {
       image.style.transform = `scale(${
@@ -98,7 +108,9 @@
   };
 
   const zoomImageOut = () => {
-    const image = document.querySelector("#image-preview") as HTMLImageElement;
+    const image = definedWindow
+      ? (document.querySelector("#image-preview") as HTMLImageElement)
+      : null;
 
     if (image) {
       image.style.transform = `scale(${
@@ -116,8 +128,12 @@
     ).pathname);
 
   $: {
-    let dialog = document.querySelector(".preview-box") as HTMLDialogElement;
-    let image = document.querySelector("#image-preview") as HTMLImageElement;
+    let dialog = definedWindow
+      ? (document.querySelector(".preview-box") as HTMLDialogElement)
+      : null;
+    let image = definedWindow
+      ? (document.querySelector("#image-preview") as HTMLImageElement)
+      : null;
 
     if ($imageInPreview?.src && dialog && !dialog.hasAttribute("open")) {
       dialog.classList.remove("closed");

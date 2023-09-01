@@ -1,6 +1,7 @@
 <script lang="ts">
   import { MAIN_MENU } from "constants/routes";
-  const currentPage = window.location.pathname;
+  const currentPage =
+    typeof window !== "undefined" ? window.location.pathname : "/";
 
   import "./Menubar.style.css";
 </script>

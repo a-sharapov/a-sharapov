@@ -142,11 +142,11 @@
   }
 
   90% {
-    border-color: var(--base-color);
+    border-color: var(--baseColor);
   }
 
   100% {
-    border-color: var(--base-color);
+    border-color: var(--baseColor);
   }
 }
 

@@ -14,5 +14,5 @@ main[data-modifier="error-page"] article {
 }
 
 main[data-modifier="error-page"] article h1 {
-  color: var(--base-color);
+  color: var(--baseColor);
 }

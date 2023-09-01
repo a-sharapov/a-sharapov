@@ -1,20 +1,20 @@
 @charset "utf-8";
 
 :root {
-  --icon-alert: url(../i/alert.svg);
-  --icon-checked: url(../i/checked.svg);
-  --icon-date: url(../i/date.svg);
-  --icon-expander: url(../i/expander.svg);
-  --icon-info: url(../i/info.svg);
-  --icon-round: url(../i/round.svg);
-  --icon-success: url(../i/success.svg);
-  --icon-paperclip: url(../i/paperclip.svg);
-  --icon-error: url(../i/error.svg);
+  --iconAlert: url(../i/alert.svg);
+  --iconChecked: url(../i/checked.svg);
+  --iconDate: url(../i/date.svg);
+  --iconExpander: url(../i/expander.svg);
+  --iconInfo: url(../i/info.svg);
+  --iconRound: url(../i/round.svg);
+  --iconSuccess: url(../i/success.svg);
+  --iconPaperclip: url(../i/paperclip.svg);
+  --iconError: url(../i/error.svg);
 
-  --sign-close: url(../i/close.svg);
-  --sign-hr: url(../i/hr.svg);
+  --signClose: url(../i/close.svg);
+  --signHr: url(../i/hr.svg);
 
   --loading: url(../i/loading.svg);
 
-  --bg-noize: url(../i/noize.png);
+  --bgNoize: url(../i/noize.png);
 }

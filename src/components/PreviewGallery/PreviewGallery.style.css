@@ -61,7 +61,7 @@ dialog.preview-box .close-handle {
   right: 1rem;
   width: 2rem;
   height: 2rem;
-  background: var(--sign-close) no-repeat center center;
+  background: var(--signClose) no-repeat center center;
   background-size: contain;
   color: transparent;
   cursor: pointer;
@@ -93,14 +93,14 @@ dialog.preview-box .previous-handle {
 
 dialog.preview-box .next-handle {
   right: 3rem;
-  border-right: 0.1rem solid var(--base-dark);
-  border-top: 0.1rem solid var(--base-dark);
+  border-right: 0.1rem solid var(--baseDark);
+  border-top: 0.1rem solid var(--baseDark);
 }
 
 dialog.preview-box .previous-handle {
   left: 3rem;
-  border-left: 0.1rem solid var(--base-dark);
-  border-bottom: 0.1rem solid var(--base-dark);
+  border-left: 0.1rem solid var(--baseDark);
+  border-bottom: 0.1rem solid var(--baseDark);
 }
 
 dialog.preview-box .next-handle:hover,

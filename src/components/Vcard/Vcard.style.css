@@ -86,7 +86,7 @@
 .vcard-slogan[data-active="true"] {
   line-height: 28px;
   color: #fff;
-  background: var(--base-color);
+  background: var(--baseColor);
   text-shadow: none;
 }
 .vcard-logo {

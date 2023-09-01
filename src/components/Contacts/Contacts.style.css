@@ -20,14 +20,14 @@
   transform: scale(1.05);
 }
 .contacts a {
-  color: var(--base-dark);
+  color: var(--baseDark);
   text-decoration: underline;
   text-decoration-style: dotted;
   text-decoration-thickness: 1px;
-  text-decoration-color: var(--base-dark);
+  text-decoration-color: var(--baseDark);
 }
 .contacts a:hover {
-  text-decoration-color: var(--base-color);
+  text-decoration-color: var(--baseColor);
   text-decoration-style: solid;
 }
 .contacts a.logo-wrapper {

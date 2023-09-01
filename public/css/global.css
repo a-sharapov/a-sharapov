@@ -10,9 +10,9 @@
 }
 
 ::selection {
-  color: var(--base-light);
-  background: var(--base-border);
-  text-shadow: 0 1px 0 var(--base-dark-text-shadow);
+  color: var(--baseLight);
+  background: var(--baseBorder);
+  text-shadow: 0 1px 0 var(--baseDarkTextShadow);
 }
 
 html {
@@ -26,13 +26,13 @@ html.no-scroll {
 
 html,
 body {
-  font-size: var(--text-base-size);
+  font-size: var(--textBaseSize);
 }
 
 body {
-  color: var(--text-main-color);
+  color: var(--textMainColor);
   line-height: 1.2em;
-  text-shadow: 0 1px 0 var(--text-main-shadow-color);
+  text-shadow: 0 1px 0 var(--textMainShadowColor);
   min-height: 100vh;
   width: 100%;
 }
@@ -44,25 +44,25 @@ body * {
 
 hr {
   border: 0;
-  border-top: 1px dotted var(--base-border-light);
+  border-top: 1px dotted var(--baseBorderLight);
   margin: 1.5rem 0;
   width: 100%;
 }
 
 a {
-  color: var(--link-color);
+  color: var(--linkColor);
   text-decoration: underline;
   transition: all 0.3s linear;
   cursor: pointer;
 }
 
 a:visited {
-  color: var(--link-visited-color);
+  color: var(--linkVisitedColor);
 }
 
 a:active,
 a:hover {
-  color: var(--link-hover-color);
+  color: var(--linkHoverColor);
 }
 
 h1,
@@ -139,7 +139,7 @@ ul li {
 }
 
 ul li::marker {
-  color: var(--base-border);
+  color: var(--baseBorder);
   font-size: 80%;
 }
 
@@ -183,7 +183,7 @@ label:not(.button-wrapper):before {
 label[data-placeholder]:before {
   content: attr(data-placeholder);
   position: absolute;
-  color: var(--base-border);
+  color: var(--baseBorder);
   opacity: 1;
   pointer-events: none;
   text-indent: 0.45rem;
@@ -195,11 +195,11 @@ label > svg {
   left: 0.5rem;
   width: 1.3rem;
   transition: 0.4s;
-  filter: drop-shadow(0 1px 0 var(--base-light-text-shadow));
+  filter: drop-shadow(0 1px 0 var(--baseLightTextShadow));
 }
 
 label > svg * {
-  fill: var(--base-border);
+  fill: var(--baseBorder);
 }
 
 label > svg + input {
@@ -226,11 +226,11 @@ select,
 textarea {
   display: inline-block;
   border: none;
-  border-bottom: 1px solid var(--base-border);
+  border-bottom: 1px solid var(--baseBorder);
   background: none;
   outline: 0;
   border-radius: 0;
-  box-shadow: 0 1px 0 var(--base-light-text-shadow);
+  box-shadow: 0 1px 0 var(--baseLightTextShadow);
 }
 
 output,
@@ -245,7 +245,7 @@ input[type="text"],
 input[type="date"],
 select:not([multiple]),
 textarea {
-  background-color: var(--base-light);
+  background-color: var(--baseLight);
   padding: 0 0.15em;
   line-height: 2em;
   width: 100%;
@@ -256,7 +256,7 @@ input[type="file"] {
   position: relative;
   box-sizing: border-box;
   padding: 0 120px 0 30px;
-  background: var(--icon-paperclip) no-repeat left center;
+  background: var(--iconPaperclip) no-repeat left center;
   background-size: 30px;
   height: 40px;
   line-height: 36px;
@@ -277,15 +277,15 @@ input[type="file"]::file-selector-button {
   border-radius: 5px;
   outline: none;
   border: none;
-  background: var(--base-dark);
-  color: var(--base-light);
-  text-shadow: 0 1px 0 var(--base-dark-text-shadow);
+  background: var(--baseDark);
+  color: var(--baseLight);
+  text-shadow: 0 1px 0 var(--baseDarkTextShadow);
   cursor: pointer;
   transition: all 0.2s linear;
 }
 
 input[type="file"]::file-selector-button:hover {
-  background: var(--base-darker);
+  background: var(--baseDarker);
 }
 
 input[type="datetime-local"],
@@ -322,16 +322,16 @@ input[type="range"]::-webkit-slider-thumb {
   height: 0.8em;
   width: 0.8em;
   border-radius: 50%;
-  background: var(--base-light);
+  background: var(--baseLight);
   cursor: pointer;
   margin: -0.3em 0;
   align-self: center;
   transition: 0.2s;
-  box-shadow: 0 1px 5px var(--base-dark-text-shadow);
+  box-shadow: 0 1px 5px var(--baseDarkTextShadow);
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  background: var(--base-dark);
+  background: var(--baseDark);
 }
 
 input[type="range"]::-webkit-slider-thumb:active {
@@ -345,12 +345,12 @@ input[type="range"]::-webkit-slider-runnable-track {
   height: 100%;
   border-radius: 2rem;
   cursor: pointer;
-  background: var(--base-light);
-  box-shadow: 0 1px 3px var(--base-dark-transparent);
+  background: var(--baseLight);
+  box-shadow: 0 1px 3px var(--baseDarkTransparent);
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
-  background: var(--base-light);
+  background: var(--baseLight);
 }
 
 input[type="radio"] {
@@ -358,13 +358,13 @@ input[type="radio"] {
   height: 20px;
   vertical-align: middle;
   margin: 0 7px 0 0;
-  border: 2px solid var(--base-border);
+  border: 2px solid var(--baseBorder);
   border-radius: 4px;
   transition: border-color 0.2s linear;
 }
 
 input[type="radio"]:hover {
-  border-color: var(--base-dark);
+  border-color: var(--baseDark);
 }
 
 input[type="radio"] {
@@ -378,7 +378,7 @@ input[type="radio"][disabled] {
 }
 
 input[type="radio"]:checked {
-  background-image: var(--icon-checked);
+  background-image: var(--iconChecked);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 12px;
@@ -397,19 +397,19 @@ input[type="checkbox"]:hover {
 }
 
 input[type="checkbox"]:checked {
-  background-image: var(--icon-checked);
+  background-image: var(--iconChecked);
   background-repeat: no-repeat;
   background-position: top left;
   background-size: 18px;
 }
 
 input[type="checkbox"].ambivalent {
-  background-color: var(--text-main-shadow-color);
-  background-image: var(--icon-round);
+  background-color: var(--textMainShadowColor);
+  background-image: var(--iconRound);
   background-repeat: no-repeat;
   background-position: -3px;
   background-size: 24px;
-  border: 1px solid var(--base-border);
+  border: 1px solid var(--baseBorder);
   width: 2.5rem;
   border-radius: 20px;
   opacity: 0.5;
@@ -446,7 +446,7 @@ input[type="color"] {
 
 select:not([multiple]) {
   padding-right: 1em;
-  background-image: var(--icon-expander);
+  background-image: var(--iconExpander);
   background-repeat: no-repeat;
   background-position: calc(100% - 2px) center;
   background-size: 12px;
@@ -466,14 +466,14 @@ input[type="submit"] {
   letter-spacing: 1px;
   padding: 0 1.25em;
   line-height: 2.7em;
-  background: var(--base-border);
-  color: var(--base-light);
+  background: var(--baseBorder);
+  color: var(--baseLight);
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s linear;
-  text-shadow: 0 1px 0 var(--base-dark-text-shadow);
+  text-shadow: 0 1px 0 var(--baseDarkTextShadow);
   border-radius: 0em;
-  border-bottom: 0.3em solid var(--base-border-dark);
+  border-bottom: 0.3em solid var(--baseBorderDark);
 }
 
 .button:hover,
@@ -482,8 +482,8 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
-  background: var(--base-dark);
-  border-bottom-color: var(--base-darker);
+  background: var(--baseDark);
+  border-bottom-color: var(--baseDarker);
 }
 
 .button:active,
@@ -492,7 +492,7 @@ button:active,
 input[type="button"]:active,
 input[type="reset"]:active,
 input[type="submit"]:active {
-  background: var(--base-dark);
+  background: var(--baseDark);
 }
 
 .button:disabled,
@@ -513,7 +513,7 @@ input[type="reset"] > svg,
 input[type="submit"] > svg {
   width: 1.2rem;
   vertical-align: middle;
-  filter: drop-shadow(0 1px 3px var(--base-dark-text-shadow));
+  filter: drop-shadow(0 1px 3px var(--baseDarkTextShadow));
 }
 
 .button > svg *,
@@ -521,7 +521,7 @@ button > svg *,
 input[type="button"] > svg *,
 input[type="reset"] > svg *,
 input[type="submit"] > svg * {
-  fill: var(--base-light);
+  fill: var(--baseLight);
 }
 
 textarea {
@@ -530,8 +530,8 @@ textarea {
     to bottom,
     transparent,
     transparent 38px,
-    var(--base-border) 39px,
-    var(--base-light) 0px
+    var(--baseBorder) 39px,
+    var(--baseLight) 0px
   );
   background-size: 100% 40px;
   line-height: 40px;
@@ -552,7 +552,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   right: 10px;
   height: 30px;
   width: 30px;
-  background: var(--icon-date) no-repeat center center;
+  background: var(--iconDate) no-repeat center center;
   background-size: 20px 20px;
   opacity: 0.5;
   transition: all 0.2s linear;
@@ -570,7 +570,7 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
 
 *::placeholder {
   font-family: inherit;
-  color: var(--base-border);
+  color: var(--baseBorder);
 }
 
 /* Tables */
@@ -585,13 +585,13 @@ table tr {
 }
 
 table tr:nth-child(even) {
-  background: var(--base-light-transparent);
+  background: var(--baseLightTransparent);
 }
 
 table td {
   margin: 0;
   padding: 0.9em 0.7em;
-  border: 1px solid var(--base-dark);
+  border: 1px solid var(--baseDark);
 }
 
 table tbody tr:first-child td {
@@ -601,11 +601,11 @@ table tbody tr:first-child td {
 table th {
   padding: 0.7em;
   font-weight: normal;
-  background: var(--base-light);
-  border: 1px solid var(--base-dark);
+  background: var(--baseLight);
+  border: 1px solid var(--baseDark);
   vertical-align: bottom;
-  color: var(--base-dark);
-  text-shadow: 0 1px 0 var(--base-light-text-shadow);
+  color: var(--baseDark);
+  text-shadow: 0 1px 0 var(--baseLightTextShadow);
 }
 
 table.transparent-table {
@@ -647,18 +647,18 @@ table.transparent-table h5 {
   height: 0.5rem;
 }
 ::-webkit-scrollbar-track {
-  background: var(--base-dark-transparent);
+  background: var(--baseDarkTransparent);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--base-dark);
+  background: var(--baseDark);
   border-radius: 2px;
   transition: 0.2s;
   cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--base-color);
+  background: var(--baseColor);
 }
 
 /* main */
@@ -691,7 +691,7 @@ footer {
   text-align: center;
   padding: 1rem;
   font-size: 0.8rem;
-  color: var(--base-border);
+  color: var(--baseBorder);
   backdrop-filter: blur(10px);
   z-index: 100;
   max-width: 320px;

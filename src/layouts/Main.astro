@@ -1,5 +1,4 @@
 ---
-import { Fragment } from "astro/dist/runtime/server";
 import { ViewTransitions } from 'astro:transitions';
 import Footer from "chunks/Footer.astro";
 import Header from "chunks/Header.astro";
@@ -22,9 +21,8 @@ const {
 } = Astro.props as IAstroProps["props"];
 ---
 
-<html>
+<html transition:animate="none">
   <head>
-    <ViewTransitions />
     <base href="/" />
     <meta http-equiv="Content-language" content="ru" />
     <meta charset="utf-8" />
@@ -65,15 +63,16 @@ const {
     />
     <meta name="og:image" content="/cover/web-cover.jpg" />
     <title>{pagetitle}</title>
+    <ViewTransitions fallback='none' />
   </head>
   <body>
-    <main data-modifier={modifier}>
+    <main data-modifier={modifier} transition:animate="slide">
       <Header />
       <slot />
       <Footer />
-      <Backstage client:only="svelte" />
+      <Backstage client:load transition:animate="fade"/>
     </main>
-    <Loader client:only="svelte" />
+    <Loader />
     <script is:inline defer>
       const pagetitle = "PATGE_TITLE";
       sessionStorage.setItem(pagetitle, document.title);
