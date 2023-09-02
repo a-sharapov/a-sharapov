@@ -704,3 +704,11 @@ footer {
     visibility: hidden;
   }
 }
+
+#backstage > * {
+  transition: 0.3s;
+}
+
+#backstage.static > * {
+  transition: none;
+}

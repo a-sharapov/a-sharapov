@@ -5,6 +5,7 @@ main[data-modifier="main"] article {
   align-items: center;
   flex: 1;
 }
+
 main[data-modifier="main"] #vcard {
   z-index: 3;
 }

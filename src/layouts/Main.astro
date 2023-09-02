@@ -70,7 +70,7 @@ const {
       <Header />
       <slot />
       <Footer />
-      <Backstage client:visible transition:name="backstage" transition:animate="fade" transition:persist />
+      <Backstage client:visible transition:name="backstage" transition:persist />
     </main>
     <Loader transition:persist />
     <script is:inline defer transition:persist>
@@ -83,6 +83,14 @@ const {
 
       window.addEventListener("blur", () => {
         document.title = "👋🏻 До встречи!";
+      });
+
+      document.addEventListener('astro:page-load', () => {
+        setTimeout(() => document.querySelector('#backstage').classList.add('static'), 3e3);
+      });
+
+      document.addEventListener('astro:after-swap', () => {
+        document.querySelector('#backstage').classList.remove('static');
       });
     </script>
   </body>
