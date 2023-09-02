@@ -18,10 +18,10 @@
 
   const keyListener = (event: KeyboardEvent) => {
     event.stopPropagation();
-    event.preventDefault();
 
     switch (event.key) {
       case "Escape":
+        event.preventDefault();
         closePreview();
         break;
       case "ArrowLeft":
@@ -41,7 +41,6 @@
 
   const mouseListener = (event: WheelEvent) => {
     event.stopPropagation();
-    event.preventDefault();
 
     if (event.deltaY > 0) {
       zoomImageOut();
