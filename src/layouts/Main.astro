@@ -73,12 +73,12 @@ const {
       <Backstage transition:name="backstage" transition:animate="fade" transition:persist />
     </main>
     <Loader transition:persist />
-    <script is:inline defer>
-      const pagetitle = "PATGE_TITLE";
-      sessionStorage.setItem(pagetitle, document.title);
+    <script is:inline defer transition:persist>
+      const dynamicPagetitle = "PATGE_TITLE";
+      sessionStorage.setItem(dynamicPagetitle, document.title);
 
       window.addEventListener("focus", () => {
-        document.title = sessionStorage.getItem(pagetitle);
+        document.title = sessionStorage.getItem(dynamicPagetitle);
       });
 
       window.addEventListener("blur", () => {
