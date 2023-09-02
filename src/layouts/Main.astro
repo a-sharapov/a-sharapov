@@ -66,13 +66,13 @@ const {
     <ViewTransitions fallback='none' />
   </head>
   <body>
-    <main data-modifier={modifier} transition:animate="slide">
+    <main data-modifier={modifier} transition:animate="none">
       <Header />
       <slot />
       <Footer />
-      <Backstage client:visible transition:animate="fade"/>
+      <Backstage transition:name="backstage" transition:animate="fade" transition:persist />
     </main>
-    <Loader />
+    <Loader transition:persist />
     <script is:inline defer>
       const pagetitle = "PATGE_TITLE";
       sessionStorage.setItem(pagetitle, document.title);
