@@ -7,14 +7,17 @@
 </script>
 
 <aside class="contacts narrow">
-  <a href="/" class="logo-wrapper">
+  <p>
     <img
-      src="/i/logo.svg"
-      class="logo"
-      width="180px"
+      src="/i/_avatar.png"
       alt={DICTIONARY.name}
-    /></a
-  >
+      width="200px"
+      height="200px"
+      style="border-radius: 50%;"
+    />
+    <br />
+    <br />
+  </p>
   <div class="phone-wrapper">
     <p>
       <span class="phone-icon" /><a href="tel:+375445705702"
