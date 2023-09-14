@@ -54,15 +54,15 @@ robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-previ
   </thead>
   <tr>
     <td>
-      <img src="/i/icons/elixir.svg" height="20px" alt="Elixir" />
+      <img loading="lazy" src="/i/icons/elixir.svg" height="20px" alt="Elixir" />
       <strong>Elixir</strong>
     </td>
     <td>
-      <img src="/i/icons/phoenix.svg" height="20px" alt="Phoenix" />
+      <img loading="lazy" src="/i/icons/phoenix.svg" height="20px" alt="Phoenix" />
       Phoenix
     </td>
     <td>
-      <img src="/i/icons/svelte.svg" height="20px" alt="LiveSvelte" />
+      <img loading="lazy" src="/i/icons/svelte.svg" height="20px" alt="LiveSvelte" />
       LiveSvelte (LiveView)
     </td>
   </tr>
@@ -79,43 +79,43 @@ robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-previ
   </thead>
   <tr>
     <td>
-      <img src="/i/icons/js.svg" height="20px" alt="JS" />
+      <img loading="lazy" src="/i/icons/js.svg" height="20px" alt="JS" />
       <strong>JS/TS</strong>
     </td>
     <td>
-      <img src="/i/icons/svelte.svg" height="20px" alt="Svelte" />
+      <img loading="lazy" src="/i/icons/svelte.svg" height="20px" alt="Svelte" />
       Svelte / SvelteKit
     </td>
     <td>
-      <img src="/i/icons/react.svg" height="20px" alt="React" />
+      <img loading="lazy" src="/i/icons/react.svg" height="20px" alt="React" />
       React / Preact
     </td>
   </tr>
   <tr>
     <td>
-      <img src="/i/icons/php.svg" height="20px" alt="PHP" />
+      <img loading="lazy" src="/i/icons/php.svg" height="20px" alt="PHP" />
       <strong>PHP</strong>
     </td>
     <td>
-      <img src="/i/icons/evo.svg" height="20px" alt="Evolution" />
+      <img loading="lazy" src="/i/icons/evo.svg" height="20px" alt="Evolution" />
       Evolution CMF
     </td>
     <td>
-      <img src="/i/icons/laravel.svg" height="20px" alt="Laravel" />
+      <img loading="lazy" src="/i/icons/laravel.svg" height="20px" alt="Laravel" />
       Laravel
     </td>
   </tr>
   <tr>
     <td>
-      <img src="/i/icons/ruby.svg" height="20px" alt="Ruby" />
+      <img loading="lazy" src="/i/icons/ruby.svg" height="20px" alt="Ruby" />
       <strong>Ruby</strong>
     </td>
     <td>
-      <img src="/i/icons/rails.svg" height="20px" alt="Ruby on Rails" />
+      <img loading="lazy" src="/i/icons/rails.svg" height="20px" alt="Ruby on Rails" />
       Ruby on Rails
     </td>
     <td>
-      <img src="/i/icons/sinatra.svg" height="20px" alt="Sinatra" />
+      <img loading="lazy" src="/i/icons/sinatra.svg" height="20px" alt="Sinatra" />
       Sinatra
     </td>
   </tr>
@@ -131,21 +131,21 @@ robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-previ
     <td colspan="3">
       <ul>
         <li>
-          <img src="https://img.shields.io/badge/Astro-eee?style=flat-square&logo=Astro&logoColor=777" height="24px" alt="Astro" />
-          <img src="https://img.shields.io/badge/Express.js-eee?style=flat-square&logo=express&logoColor=777" height="24px" alt="Express.js" />
-          <img src="https://img.shields.io/badge/Prisma-eee?style=flat-square&logo=prisma&logoColor=777" height="24px" alt="Prisma" />
-          <img src="https://img.shields.io/badge/Firebase-eee?style=flat-square&logo=Firebase&logoColor=777" height="24px" alt="Firebase" />
-          <img src="https://img.shields.io/badge/Git-eee?style=flat-square&logo=Git&logoColor=777" height="24px" alt="Git" />
-          <img src="https://img.shields.io/badge/Docker-eee?style=flat-square&logo=Docker&logoColor=777" height="24px" alt="Docker" />
+          <img loading="lazy" src="https://img.shields.io/badge/Astro-eee?style=flat-square&logo=Astro&logoColor=777" height="24px" alt="Astro" />
+          <img loading="lazy" src="https://img.shields.io/badge/Express.js-eee?style=flat-square&logo=express&logoColor=777" height="24px" alt="Express.js" />
+          <img loading="lazy" src="https://img.shields.io/badge/Prisma-eee?style=flat-square&logo=prisma&logoColor=777" height="24px" alt="Prisma" />
+          <img loading="lazy" src="https://img.shields.io/badge/Firebase-eee?style=flat-square&logo=Firebase&logoColor=777" height="24px" alt="Firebase" />
+          <img loading="lazy" src="https://img.shields.io/badge/Git-eee?style=flat-square&logo=Git&logoColor=777" height="24px" alt="Git" />
+          <img loading="lazy" src="https://img.shields.io/badge/Docker-eee?style=flat-square&logo=Docker&logoColor=777" height="24px" alt="Docker" />
         </li>
         <li>
-          <img src="https://img.shields.io/badge/Figma-eee?style=flat-square&logo=Figma&logoColor=777" height="24px" alt="Figma" />
-          <img src="https://img.shields.io/badge/Lunacy-eee?style=flat-square&logo=Lunacy&logoColor=777" height="24px" alt="Lunacy" />
-          <img src="https://img.shields.io/badge/Inkscape-eee?style=flat-square&logo=Inkscape&logoColor=777" height="24px" alt="Inkscape" />
-          <img src="https://img.shields.io/badge/GIMP-eee?style=flat-square&logo=GIMP&logoColor=777" height="24px" alt="GIMP" />
-          <img src="https://img.shields.io/badge/Krita-eee?style=flat-square&logo=Krita&logoColor=777" height="24px" alt="Krita" />
-          <img src="https://img.shields.io/badge/Photoshop-eee?style=flat-square&logo=adobephotoshop&logoColor=777" height="24px" alt="Photoshop" />
-          <img src="https://img.shields.io/badge/Illustrator-eee?style=flat-square&logo=adobeillustrator&logoColor=777" height="24px" alt="Illustrator" />
+          <img loading="lazy" src="https://img.shields.io/badge/Figma-eee?style=flat-square&logo=Figma&logoColor=777" height="24px" alt="Figma" />
+          <img loading="lazy" src="https://img.shields.io/badge/Lunacy-eee?style=flat-square&logo=Lunacy&logoColor=777" height="24px" alt="Lunacy" />
+          <img loading="lazy" src="https://img.shields.io/badge/Inkscape-eee?style=flat-square&logo=Inkscape&logoColor=777" height="24px" alt="Inkscape" />
+          <img loading="lazy" src="https://img.shields.io/badge/GIMP-eee?style=flat-square&logo=GIMP&logoColor=777" height="24px" alt="GIMP" />
+          <img loading="lazy" src="https://img.shields.io/badge/Krita-eee?style=flat-square&logo=Krita&logoColor=777" height="24px" alt="Krita" />
+          <img loading="lazy" src="https://img.shields.io/badge/Photoshop-eee?style=flat-square&logo=adobephotoshop&logoColor=777" height="24px" alt="Photoshop" />
+          <img loading="lazy" src="https://img.shields.io/badge/Illustrator-eee?style=flat-square&logo=adobeillustrator&logoColor=777" height="24px" alt="Illustrator" />
         </li>
         <li>SCRUM / AGILE, TM Pomodoro, ISO / IEC 9001</li>
       </ul>

@@ -59,7 +59,7 @@
         });
       }}
     >
-      <img src={addons[0]} alt="" class="other-preview-bg" />
+      <img loading="lazy" src={addons[0]} alt="" class="other-preview-bg" />
       <span>
         И ещё {addons.length}
         {inclineTime(addons.length, ["пример", "примера", "примеров"])}</span

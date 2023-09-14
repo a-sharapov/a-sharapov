@@ -1,18 +1,53 @@
-main[data-modifier="error-page"] .coffee-cup,
-main[data-modifier="error-page"] .pencils,
-main[data-modifier="error-page"] .lamp,
-main[data-modifier="error-page"] .paperplane {
+main[data-modifier="error-page"] .paperplane,
+main[data-modifier="error-page"] .lamp {
   display: none;
   visibility: hidden;
 }
 
+main[data-modifier="error-page"] .coffee-cup {
+  transform: scale(0.7);
+  filter: blur(1px);
+}
+
+main[data-modifier="error-page"] .pencils {
+  transform: scale(0.5);
+  top: 0;
+  filter: blur(5px);
+  z-index: 2;
+}
+
 main[data-modifier="error-page"] article {
   margin: auto;
-  width: 320px;
+  min-width: 320px;
+  width: 100%;
+  max-width: 500px;
   height: auto;
   flex: initial;
+  text-align: center;
+  background: linear-gradient(to top, #fff7, #fff4);
+  padding: 3rem;
+  border: 1px solid #ddd;
+  border-bottom-width: 5px;
+  border-top-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 2px 15px #1111, 0 5px 25px #1111;
+  z-index: 10;
+  backdrop-filter: blur(15px);
 }
 
 main[data-modifier="error-page"] article h1 {
   color: var(--baseColor);
+  position: relative;
+}
+
+main[data-modifier="error-page"] article h1:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--baseDarkTransparent);
+  box-shadow: 0 2px 10px #1112;
 }
