@@ -1,6 +1,8 @@
 @charset "utf-8";
 
 :root {
+  --baseIndex: calc(1vw + 1vh);
+
   --iconAlert: url(../i/alert.svg);
   --iconChecked: url(../i/checked.svg);
   --iconDate: url(../i/date.svg);

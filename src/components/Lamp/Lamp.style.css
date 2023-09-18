@@ -7,7 +7,9 @@
   width: 1000px;
   height: 1000px;
   user-select: none;
+  margin-left: calc(var(--moveX) * -0.1px);
   background: url(/i/lamp.png) no-repeat center center;
-  z-index: 1;
-  transform: perspective(50em);
+  will-change: margin-left, transform;
+  transform: perspective(50em) translateZ(-500px) scale(1.5);
+  pointer-events: none;
 }

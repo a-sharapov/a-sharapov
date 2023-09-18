@@ -36,7 +36,10 @@ main[data-modifier="cv"] #backstage {
 
 main[data-modifier="cv"] .coffee-cup {
   transform: scale(1.5);
+  margin-top: -50px;
   left: calc(50% - 1050px);
+  filter: blur(1px);
+  z-index: 5;
 }
 
 main[data-modifier="cv"] .pencils {

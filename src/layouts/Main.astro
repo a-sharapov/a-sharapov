@@ -70,27 +70,18 @@ const {
       <Header />
       <slot />
       <Footer />
-      <Backstage client:visible transition:name="backstage" transition:persist />
+      <Backstage client:visible transition:animate="fade" transition:persist transition:name="backstage" />
     </main>
     <Loader transition:persist />
     <script is:inline defer transition:persist>
-      const dynamicPagetitle = "PATGE_TITLE";
-      sessionStorage.setItem(dynamicPagetitle, document.title);
+      sessionStorage.setItem("PATGE_TITLE", document.title);
 
       window.addEventListener("focus", () => {
-        document.title = sessionStorage.getItem(dynamicPagetitle);
+        document.title = sessionStorage.getItem("PATGE_TITLE");
       });
 
       window.addEventListener("blur", () => {
         document.title = "👋🏻 До встречи!";
-      });
-
-      document.addEventListener('astro:page-load', () => {
-        setTimeout(() => document.querySelector('#backstage').classList.add('static'), 3e3);
-      });
-
-      document.addEventListener('astro:after-swap', () => {
-        document.querySelector('#backstage').classList.remove('static');
       });
     </script>
   </body>

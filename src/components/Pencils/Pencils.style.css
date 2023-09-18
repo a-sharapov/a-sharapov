@@ -3,10 +3,14 @@
   display: block;
   left: calc(50% - 570px);
   width: 600px;
+  top: 50%;
   height: 700px;
   background: url(/i/pencil-paper.png) no-repeat center top;
   background-size: contain;
-  margin: 0 0 50px;
-  z-index: 2;
-  transform: perspective(50em);
+  margin: 0;
+  margin-top: -470px;
+  will-change: margin-left, transform;
+  transform: perspective(50em) translateZ(-100px);
+  margin-left: calc(var(--moveX) * 0.35px);
+  pointer-events: none;
 }

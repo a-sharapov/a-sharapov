@@ -5,8 +5,11 @@ main[data-modifier="folio"] #backstage {
 
 main[data-modifier="folio"] .coffee-cup {
   transform: scale(2.5);
-  left: calc(0% - 150px);
+  left: -150px;
   filter: blur(1.5px);
+  top: auto;
+  bottom: 0;
+  z-index: 5;
 }
 
 main[data-modifier="folio"] .pencils {
@@ -16,13 +19,14 @@ main[data-modifier="folio"] .pencils {
   top: 0;
   left: calc(50% - 350px);
   opacity: 0.1;
+  margin: 0;
 }
 
 main[data-modifier="folio"] .lamp {
   transform: scale(0.7);
   filter: blur(12px);
   top: auto;
-  bottom: 70%;
+  bottom: 60%;
   opacity: 0.05;
 }
 main[data-modifier="folio"] .paperplane {

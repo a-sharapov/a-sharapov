@@ -5,7 +5,10 @@
   height: 550px;
   user-select: none;
   background: url(/i/paperplane.png) no-repeat center center;
-  z-index: 10;
+  z-index: 101;
   transform: perspective(50em);
+  will-change: margin-left, transform;
   filter: blur(0);
+  pointer-events: none;
+  margin-left: calc(var(--moveX) * 1.1px);
 }
