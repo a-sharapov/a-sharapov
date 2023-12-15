@@ -31,7 +31,7 @@ Worked as a **freelancer** for most of my professional career, and also cooperat
 
 #### For lightweight projects:
 
-![Astro](https://img.shields.io/badge/Astro-222?style=for-the-badge&logo=Astro&logoColor=FF5D01) ![+](https://img.shields.io/badge/+-222?style=for-the-badge&logoColor=ff3c00) ![SVELTE](https://img.shields.io/badge/svelte-222?style=for-the-badge&logo=svelte&logoColor=ff3c00) ![/](https://img.shields.io/badge//-222?style=for-the-badge&logoColor=ff3c00) ![Preact](https://img.shields.io/badge/Preact-222?style=for-the-badge&logo=Preact&logoColor=673ab8) ![/](https://img.shields.io/badge//-222?style=for-the-badge&logoColor=ff3c00) ![REACT](https://img.shields.io/badge/React-222?style=for-the-badge&logo=react&logoColor=61dafb)
+![Strapi](https://img.shields.io/badge/Strapi-222?style=for-the-badge&logo=Strapi&logoColor=4945FF) ![+](https://img.shields.io/badge/+-222?style=for-the-badge&logoColor=ff3c00) ![Astro](https://img.shields.io/badge/Astro-222?style=for-the-badge&logo=Astro&logoColor=FF5D01) ![+](https://img.shields.io/badge/+-222?style=for-the-badge&logoColor=ff3c00) ![SVELTE](https://img.shields.io/badge/svelte-222?style=for-the-badge&logo=svelte&logoColor=ff3c00) ![/](https://img.shields.io/badge//-222?style=for-the-badge&logoColor=ff3c00) ![Preact](https://img.shields.io/badge/Preact-222?style=for-the-badge&logo=Preact&logoColor=673ab8) ![/](https://img.shields.io/badge//-222?style=for-the-badge&logoColor=ff3c00) ![REACT](https://img.shields.io/badge/React-222?style=for-the-badge&logo=react&logoColor=61dafb)
 
 #### Also have experience in:
 
