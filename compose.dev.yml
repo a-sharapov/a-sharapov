@@ -1,0 +1,74 @@
+name: a-sharapov
+
+networks:
+  a-sharapov:
+    driver: bridge
+
+services:
+  proxy:
+    container_name: $NGINX_SERVICE_NAME
+    image: nginx:latest
+    restart: unless-stopped
+    volumes:
+      - ./proxy/dev.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./proxy/assets:/var/www/html/custom:rw
+      - ./proxy/template-variables:/etc/nginx/templates/10-variables.conf.template:ro
+    environment:
+      WEB_SERVICE_NAME: $WEB_SERVICE_NAME
+      WEB_SERVICE_PORT: $WEB_PORT
+      DOMAIN_NAME: $MAIN_DOMAIN_NAME
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    networks:
+      - a-sharapov
+
+  web:
+    container_name: $WEB_SERVICE_NAME
+    build:
+      context: ./web
+      dockerfile: ../Dockerfile.web.dev
+      args:
+        UID: 1000
+        GID: 1000
+    volumes:
+      - ./web/public:${WEB_ROOT}/public:rw
+      - ./web/src:${WEB_ROOT}/src:rw
+      - ./.env:${WEB_ROOT}/.env:ro
+    environment:
+      CHOKIDAR_USEPOLLING: true
+      DANGEROUSLY_DISABLE_HOST_CHECK: true
+    ports:
+      - "${WEB_PORT}:${WEB_PORT}"
+    env_file:
+      - ./.env
+    restart: on-failure
+    stdin_open: true
+    networks:
+      - a-sharapov
+
+  bot:
+    container_name: $TG_SERVICE_NAME
+    image: bot
+    build:
+      context: ./bot
+      dockerfile: ../Dockerfile.bot.dev
+    env_file:
+      - ./.env
+    ports:
+      - "${TG_PORT}:${TG_PORT}"
+    volumes:
+      - ./bot/main.ts:${TG_ROOT}/main.ts:rw
+      - ./bot/assets:${TG_ROOT}/assets:rw
+      - ./bot/repo/:${TG_ROOT}/repo:rw
+      - ./.env:/var/www/bot/.env:ro
+    restart: on-failure
+    stdin_open: true
+    depends_on:
+      - web
+    networks:
+      - a-sharapov
+
+volumes:
+  a-sharapov-persistent:

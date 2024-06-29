@@ -1,0 +1,17 @@
+FROM node:20.10-alpine
+
+ARG WEB_PORT=5701
+ARG WEB_ROOT=/var/www/a-sharapov
+ARG UID=1000
+ARG GID=1000
+
+RUN mkdir -p $WEB_ROOT
+WORKDIR $WEB_ROOT
+COPY package.json .
+RUN npm install
+COPY . .
+EXPOSE $WEB_PORT
+
+RUN chown -R $UID:$GID .
+USER $UID
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5701"]

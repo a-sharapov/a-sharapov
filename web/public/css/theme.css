@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+:root {
+  --textSize: 16px;
+  --ratio: calc(1vw + 1vh);
+  --maxContentWidth: 1400px;
+
+  --danger: #eb3d26;
+  --alert: #f87e25;
+  --success: #4caf50;
+  --info: #368ace;
+
+  --primary: #d71e00;
+  --primaryMid: #941400;
+  --primaryDark: #380700;
+
+  --primaryBlue: #248cb5;
+  --primaryBlueMid: #1c7ca1;
+  --primaryBlueDark: #10506a;
+
+  --primaryGreen: #24b57f;
+  --primaryGreenMid: #1ea473;
+  --primaryGreenDark: #136e4d;
+
+  --primaryOrange: #f87e25;
+  --primaryOrangeMid: #de6e1e;
+  --primaryOrangeDark: #904612;
+
+  --light: #fefefe;
+  --lightMid: #f3f3f3;
+  --lightInverted: #b0a8b8;
+
+  --grayLight: #eee;
+  --gray: #bbb;
+  --grayMid: #ddd;
+  --grayDark: #777;
+
+  --dark: #111111;
+  --darkLight: #1e1c20;
+
+  --link: var(--primaryColor);
+  --linkVisited: color-mix(in srgb, var(--linkColor), var(--baseDark) 50%);
+  --linkHover: color-mix(in srgb, var(--linkColor), var(--baseLight) 30%);
+
+  /* filters */
+  --inverted: grayscale(100) brightness(0.1) invert(1) drop-shadow(0 1px 0 #1112);
+  --grayscaled: grayscale(100);
+}

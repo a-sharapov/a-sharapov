@@ -1,0 +1,19 @@
+FROM node:lts-alpine as runtime
+
+ARG WEB_PORT=5701
+ARG WEB_ROOT=/var/www/a-sharapov
+ARG UID=1000
+ARG GID=1000
+ENV PORT=${WEB_PORT}
+
+WORKDIR ${WEB_ROOT}
+COPY . .
+
+RUN npm install
+RUN npm run build
+
+RUN chown -R $UID:$GID .
+USER $UID
+EXPOSE ${WEB_PORT}
+ENV HOST=0.0.0.0
+CMD node ./dist/server/entry.mjs

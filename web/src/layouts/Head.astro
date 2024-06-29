@@ -1,0 +1,89 @@
+---
+import { LOCALES } from '@lib/l18n'
+import { KEYWORDS, SOCIAL_LINKS, TAGLINE, THEME_COLOR, ZIP } from '@lib/shared/constants'
+import { ViewTransitions } from 'astro:transitions'
+
+const {
+  locale,
+  keywords = KEYWORDS,
+  description = LOCALES[locale as keyof typeof LOCALES].BASE_DESCRIPTION,
+  cover = '',
+  pagetitle = LOCALES[locale as keyof typeof LOCALES].BASE_TITLE,
+  longtitle = '',
+  robots = 'index, follow',
+  documentState = 'Static',
+  themeColor = THEME_COLOR,
+  scripts = ''
+} = Astro.props
+
+const canonicalUrl = Astro.url.toString().replace(/\?[^\s]*/gi, '')
+const ldMarkup = `<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "${TAGLINE}",
+  "url": "${Astro.url.origin}",
+  "logo": "${Astro.url.origin}/images/logo_transparent.svg",
+  "currenciesAccepted": "BYN",
+  "sameAs": ${JSON.stringify(Object.values(SOCIAL_LINKS))},
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "${LOCALES[locale as keyof typeof LOCALES].SHORT_ADDRESS}",
+    "addressLocality": "${LOCALES[locale as keyof typeof LOCALES].CITY}",
+    "postalCode": "${ZIP}",
+    "addressCountry": "${LOCALES[locale as keyof typeof LOCALES].COUNTRY}"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "mail@${Astro.url.hostname}"
+  },
+  "openingHours": ["Mo-Fr 10:00 - 19:00"]
+  "description": "${LOCALES[locale as keyof typeof LOCALES].BASE_DESCRIPTION}"
+}</script>`
+---
+
+<head>
+  <ViewTransitions />
+  <base href="/" />
+  <meta http-equiv="Content-language" content={locale} />
+  <meta charset="utf-8" />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://yastatic.net" />
+  <link rel="icon" sizes="16x16 32x32 64x64 128x128" href="./favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="./css/global.css" type="text/css" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+  <meta http-equiv="Cache-control" content="max-age=604800, must-revalidate" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="keywords" content={keywords} />
+  <meta name="description" content={description} />
+  <meta name="robots" content={robots} />
+  <meta name="document-state" content={documentState} />
+  <meta name="googlebot" content="NOODP" />
+  <meta name="theme-color" content={themeColor} />
+  <meta name="msapplication-navbutton-color" content={themeColor} />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color={themeColor} />
+  <meta name="msapplication-TileColor" content={themeColor} />
+  <meta name="og:image" content="/assets/web-cover.webp" />
+  <title>{longtitle || pagetitle}</title>
+  <meta property="og:title" content={longtitle || pagetitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={cover || '/assets/web-cover.webp'} />
+  <meta property="og:url" content={Astro.url} />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:locale"
+    content={`${locale}_${locale === 'en' ? 'US' : locale.toUpperCase()}`}
+  />
+  <Fragment set:html={ldMarkup} />
+  <Fragment set:html={scripts} />
+</head>

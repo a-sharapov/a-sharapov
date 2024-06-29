@@ -1,0 +1,10 @@
+---
+import Scene from '@lib/components/Scene/Scene.svelte'
+import Base from '@lib/layouts/Base.astro'
+
+const locale = 'ru'
+---
+
+<Base locale={locale}>
+  <Scene client:only="svelte" slot="assets" />
+</Base>

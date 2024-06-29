@@ -1,0 +1,21 @@
+---
+import Head from './Head.astro'
+
+export interface Props {
+  locale: string
+  scripts?: string
+}
+
+const { locale, scripts } = Astro.props
+---
+
+<!doctype html>
+<html lang={locale as string}>
+  <Head locale={locale as string} scripts={scripts} />
+  <body>
+    <main>
+      <slot />
+    </main>
+    <slot name="assets" />
+  </body>
+</html>

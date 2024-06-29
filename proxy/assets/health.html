@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Healthy!</title>
+    <meta name="document-state" content="Static" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="NOODP" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap");
+
+      :root {
+        --background: #ebebeb;
+        --healthy-color: rgb(4, 134, 4);
+        --heading: rgb(41, 48, 45);
+        --text: rgb(85, 95, 90);
+        --text-shadow: 0 1px 0 #fff;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        min-width: 320px;
+        font-size: max(1rem, 0.9vw);
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.2em;
+        line-height: 1.4em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: var(--text);
+        text-shadow: var(--text-shadow);
+        background-color: var(--background);
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+        text-align: center;
+        user-select: none;
+        padding: 2em;
+        max-width: 30vw;
+      }
+
+      main h3,
+      main p {
+        margin: 0;
+      }
+
+      main h3 {
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--heading);
+      }
+
+      main p {
+        color: var(--text);
+      }
+
+      main .healthyGlyph svg {
+        display: inline-block;
+        width: 4em;
+        height: 4em;
+        fill: var(--healthy-color);
+        filter: drop-shadow(var(--text-shadow));
+      }
+
+      main .updatingGlyph {
+        display: inline-block;
+        width: 3em;
+        height: 3em;
+        border: 0.35em solid transparent;
+        border-top-color: var(--heading);
+        border-bottom-color: var(--heading);
+        border-radius: 50%;
+        animation: spin 1.5s linear infinite;
+        margin-bottom: 1em;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="healthyGlyph">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10,1a9,9,0,1,0,9,9A9,9,0,0,0,10,1Zm0,16.4A7.4,7.4,0,1,1,15.52,5.09L9,11.59,5.68,8.29,4.28,9.71,9,14.41l7.61-7.63A7.29,7.29,0,0,1,17.4,10,7.41,7.41,0,0,1,10,17.4Z"
+          />
+        </svg>
+      </span>
+      <h3>Healthy!</h3>
+      <p>Everything is up and running smothly here.</p>
+    </main>
+  </body>
+</html>

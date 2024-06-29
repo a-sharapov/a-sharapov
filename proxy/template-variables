@@ -1,0 +1,7 @@
+map $host $web_service_name {
+    default $WEB_SERVICE_NAME;
+}
+
+map $host $web_service_port {
+    default $WEB_SERVICE_PORT;
+}

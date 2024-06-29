@@ -1,0 +1,18 @@
+FROM oven/bun
+
+ARG TG_ROOT=5702
+ARG TG_ROOT=/var/www/bot
+ARG UID=1000
+ARG GID=1000
+
+RUN mkdir -p $TG_ROOT
+WORKDIR $TG_ROOT
+COPY package.json .
+RUN bun install
+COPY . .
+ENV NODE_ENV development
+ENV TG_PORT ${TG_PORT}
+EXPOSE ${TG_PORT}
+RUN chown -R $UID:$GID .
+USER $UID
+CMD ["bun", "run", "main.ts"]

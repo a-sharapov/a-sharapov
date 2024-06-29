@@ -1,0 +1,38 @@
+.loadingIndicator {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  pointer-events: none;
+  z-index: 100;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: auto;
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.25em solid transparent;
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+canvas#mainScene {
+  position: fixed;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  user-select: none;
+}
