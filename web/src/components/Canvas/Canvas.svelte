@@ -14,6 +14,6 @@
   })
 </script>
 
-<Canvas renderMode="on-demand" {size} useLegacyLights={false}>
+<Canvas renderMode="always" {size} useLegacyLights={false} shadows={true}>
   <Scene />
 </Canvas>
