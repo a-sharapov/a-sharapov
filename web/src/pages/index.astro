@@ -6,5 +6,5 @@ const locale = 'ru'
 ---
 
 <Base locale={locale}>
-  <Canvas client:only="svelte" slot="assets" />
+  <Canvas client:only="svelte" slot="assets" transition:name="Scene" transition:persist />
 </Base>

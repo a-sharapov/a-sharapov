@@ -24,8 +24,9 @@
   text-shadow: 0 1px 0 color-mix(in srgb, var(--dark), transparent 80%);
 }
 
-html.no-scroll {
-  overflow: hidden !important;
+html:has(dialog[open]) {
+  overflow: clip;
+  scrollbar-gutter: stable;
 }
 
 html,
