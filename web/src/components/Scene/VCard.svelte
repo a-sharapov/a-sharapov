@@ -1,6 +1,7 @@
 <script>
+  import Logo from '@lib/components/Logo/Logo.svelte'
   import { T } from '@threlte/core'
-  import { FakeGlowMaterial } from '@threlte/extras'
+  import { FakeGlowMaterial, HTML } from '@threlte/extras'
   import { COLORS } from './assets'
   import { currentState, INTRO } from './state'
 
@@ -11,7 +12,6 @@
 
   export let setVcardActive
   export let setVcardInactive
-  export let setContentState
 </script>
 
 <T.Mesh
@@ -20,11 +20,26 @@
   scale={$vcardScale}
   on:pointerenter={$currentState === INTRO ? setVcardActive : void 0}
   on:pointerleave={$currentState === INTRO ? setVcardInactive : void 0}
-  on:pointerdown={$currentState === INTRO ? setContentState : void 0}
   castShadow
   receiveShadow
 >
   <T.BoxGeometry args={$vcadGeometry} />
   <FakeGlowMaterial glowColor={COLORS.GROW} />
   <T.MeshStandardMaterial color={COLORS.LIGHT} />
+  <HTML
+    geometry={$vcadGeometry}
+    position={[0, 0, 0]}
+    rotation={[0, 0, 0]}
+    scale={0.7}
+    pointerEvents="none"
+    transform
+    center
+    portal={document.body.querySelector('main')}
+  >
+    {#if $currentState === INTRO}
+      <Logo />
+    {:else}
+      <slot />
+    {/if}
+  </HTML>
 </T.Mesh>

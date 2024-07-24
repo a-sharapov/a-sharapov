@@ -28,5 +28,7 @@
 {/if}
 
 <Canvas renderMode="on-demand" {size} useLegacyLights={false}>
-  <Scene antialias />
+  <Scene antialias>
+    <slot />
+  </Scene>
 </Canvas>

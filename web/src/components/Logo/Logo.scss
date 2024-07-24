@@ -1,0 +1,15 @@
+.logoWrapper {
+  position: relative;
+  gap: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  font-size: inherit;
+  color: var(--darkLight);
+
+  .tagline {
+    font-size: 1.2em;
+  }
+}

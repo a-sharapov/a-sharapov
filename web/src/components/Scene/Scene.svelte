@@ -51,8 +51,6 @@
     zoom.set(1)
   }
 
-  const setContentState = () => currentState.set(LANDSCAPE)
-
   interactivity()
 
   let sceneRotation = 0
@@ -144,8 +142,9 @@
     {vcadGeometry}
     {setVcardActive}
     {setVcardInactive}
-    {setContentState}
-  />
+  >
+    <slot />
+  </VCard>
 
   <CoffeeCup />
   <PenHolder />
