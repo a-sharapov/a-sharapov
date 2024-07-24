@@ -27,6 +27,6 @@
   <Loader />
 {/if}
 
-<Canvas renderMode="on-demand" {size} useLegacyLights={false} shadows={true}>
-  <Scene />
+<Canvas renderMode="on-demand" {size} useLegacyLights={false}>
+  <Scene antialias />
 </Canvas>

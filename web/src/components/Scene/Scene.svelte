@@ -8,22 +8,27 @@
   import CoffeeCup from './CoffeeCup.svelte'
   import Desk from './Desk.svelte'
   import DeskLamp from './DeskLamp.svelte'
+  import Dust from './Dust/Dust.svelte'
   import PaperPlane from './PaperPlane.svelte'
   import PenHolder from './PenHolder.svelte'
   import { currentState, INTRO, LANDSCAPE, PORTRAIT } from './state'
   import VCard from './VCard.svelte'
 
   const { scene, camera, renderer, invalidate } = useThrelte()
+  renderer.antialias = true
 
   let vcardScale = spring(1)
   let vcadGeometry = spring(VCARD.GEOMETRY)
-  let zoom = spring(1)
+  let zoom = tweened(1, {
+    duration: 2e3,
+    easing: cubicOut
+  })
   let currentCameraPosition = tweened(CAMERA.POSITION.DEFAULT, {
     duration: 1e3,
     easing: cubicOut
   })
   let currentCameraPov = tweened(CAMERA.LOOK_AT.DEFAULT, {
-    duration: 1e3,
+    duration: 15e2,
     easing: expoIn
   })
 
@@ -84,7 +89,7 @@
           vcardRotation.set(PAPER.ROTATION.DEFAULT)
           currentCameraPosition.set(CAMERA.POSITION.PORTRAIT)
           currentCameraPov.set(CAMERA.LOOK_AT.PORTRAIT)
-          zoom.set(1.5)
+          zoom.set(2)
           break
         case LANDSCAPE:
           vcadGeometry.set(PAPER.GEOMETRY)
@@ -92,7 +97,7 @@
           vcardRotation.set(PAPER.ROTATION.LANDSCAPE)
           currentCameraPosition.set(CAMERA.POSITION.LANDSCAPE)
           currentCameraPov.set(CAMERA.LOOK_AT.LANDSCAPE)
-          zoom.set(1.1)
+          zoom.set(2)
           break
         default:
           currentCameraPov.set(CAMERA.LOOK_AT.DEFAULT)
@@ -130,6 +135,7 @@
 <ContactShadows scale={5} blur={10} far={2} opacity={0.15} color={COLORS.GRAY} />
 <ContactShadows scale={10} blur={2} far={5} opacity={0.5} color={COLORS.BG} />
 
+<Dust />
 <T.Group position={[0, 0, 0]} rotation.y={sceneRotation}>
   <VCard
     {vcardPosition}
