@@ -1,0 +1,24 @@
+import { INTRO, LANDSCAPE, PORTRAIT } from '@lib/components/Scene/state'
+
+export default [
+  {
+    url: '/',
+    title: 'INDEX',
+    pageState: INTRO
+  },
+  {
+    url: '/contacts',
+    title: 'CONTACTS',
+    pageState: PORTRAIT
+  },
+  {
+    url: '/cv',
+    title: 'CV',
+    pageState: LANDSCAPE
+  },
+  {
+    url: '/folio',
+    title: 'FOLIO',
+    pageState: LANDSCAPE
+  }
+]

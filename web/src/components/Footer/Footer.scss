@@ -1,0 +1,40 @@
+footer {
+  display: flex;
+  position: fixed;
+  padding: 1em;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: var(--grayDark);
+  inset: 0;
+  top: auto;
+  z-index: 999;
+
+  a {
+    text-decoration: none;
+  }
+
+  p {
+    font-size: 0.6em;
+
+    &.copyleft {
+      font-size: 0.8em;
+
+      .glyph {
+        display: inline-block;
+        transform: scaleX(-1);
+      }
+    }
+
+    &.stack {
+      display: inline-flex;
+      justify-content: center;
+      flex-direction: column;
+
+      svg {
+        display: inline-block;
+        height: 1em;
+      }
+    }
+  }
+}

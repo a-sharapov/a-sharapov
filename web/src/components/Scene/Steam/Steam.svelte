@@ -12,7 +12,7 @@
 
   const geometry = new THREE.PlaneGeometry(1, 1, 16, 64)
   geometry.translate(0, 0.5, 0)
-  geometry.scale(1.5, 6, 1.5)
+  geometry.scale(1.5, 3, 1.5)
   geometry.computeVertexNormals()
 
   const texture = textureLoader.load('/images/noise.png')

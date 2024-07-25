@@ -15,7 +15,7 @@ export var CAMERA = {
     DEFAULT: [0, 2, 0],
     VCARD_ACTIVE: [0, 1, 0],
     LANDSCAPE: [-70, -1e5, 26.5],
-    PORTRAIT: [-2, -1e5, 2.34]
+    PORTRAIT: [12, -1e5, -13.86]
   },
   FOV: 50,
   NEAR: 0.1,
@@ -118,7 +118,7 @@ export var DESK_LAMP = {
 
 export var PAPER_PLANE = {
   POSITION: {
-    DEFAULT: [5.2, 0.27, -10]
+    DEFAULT: [1.2, 0.27, -10]
   },
   ROTATION: {
     DEFAULT: [0, 0.7, 0.32]
@@ -130,6 +130,47 @@ export var COLORS = {
   LIGHT: '#fff',
   GROW: '#555',
   BG: '#efefef',
-  GRAY: '#ccc',
-  COFFEE: '#1b0b09'
+  GRAY: '#ccc'
 }
+
+export var LIGHT = {
+  SPOT: {
+    decay: 0,
+    position: [5, 5, -10],
+    intensity: 0.5,
+    penumbra: 1
+  },
+  POINT: {
+    decay: 0,
+    position: [-10, -10, -10]
+  },
+  DIRECTIONAL: [
+    {
+      POSITION: [5, 5, 5]
+    },
+    {
+      POSITION: [15, 22, 25]
+    }
+  ]
+}
+
+export var SHADOWS = [
+  {
+    scale: 50,
+    blur: 3,
+    far: 1.5,
+    opacity: 0.25
+  },
+  {
+    scale: 5,
+    blur: 10,
+    far: 2,
+    opacity: 0.15
+  },
+  {
+    scale: 10,
+    blur: 2,
+    far: 5,
+    opacity: 0.5
+  }
+]

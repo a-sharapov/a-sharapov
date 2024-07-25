@@ -1,6 +1,5 @@
 <script>
   import { Grid } from '@threlte/extras'
-
   import { COLORS } from '../assets'
 </script>
 

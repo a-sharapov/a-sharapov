@@ -8,4 +8,8 @@ canvas {
   min-height: 100%;
   z-index: 0;
   background: var(--ambientColor);
+
+  [data-theme='dark'] & {
+    filter: invert(1) hue-rotate(180deg) grayscale(0.5) sepia(0.5);
+  }
 }

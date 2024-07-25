@@ -755,7 +755,8 @@ table.transparent-table h5 {
 
 main {
   display: flex;
-  position: relative;
+  position: absolute;
+  inset: 0;
   flex-direction: column;
   align-content: center;
   justify-content: flex-start;

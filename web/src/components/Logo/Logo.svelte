@@ -4,7 +4,7 @@
   import Logo from '/logo.svg?raw'
 </script>
 
-<span class="logoWrapper">
+<div class="logoWrapper">
   {@html Logo}
   <span class="tagline narrow">{TAGLINE}</span>
-</span>
+</div>

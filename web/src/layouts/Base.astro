@@ -1,4 +1,10 @@
 ---
+import FooterContent from '@lib/chunks/Footer.astro'
+import Canvas from '@lib/components/Canvas/Canvas.svelte'
+import Footer from '@lib/components/Footer/Footer.svelte'
+import Header from '@lib/components/Header/Header.svelte'
+import Nav from '@lib/components/Nav/Nav.svelte'
+import Vignette from '@lib/components/Vignette/Vignette.svelte'
 import Head from './Head.astro'
 
 export interface Props {
@@ -7,15 +13,25 @@ export interface Props {
 }
 
 const { locale, scripts } = Astro.props
+const { slug } = Astro.params
 ---
 
 <!doctype html>
 <html lang={locale as string}>
   <Head locale={locale as string} scripts={scripts} />
   <body>
+    <Header transition:name="header" transition:persist>
+      <Nav locale={locale as string} currentUrl={String(slug || '/')} />
+    </Header>
     <main>
       <slot />
     </main>
+    <Footer transition:name="footer" transition:persist>
+      <FooterContent locale={locale as string} />
+    </Footer>
     <slot name="assets" />
+
+    <Canvas {slug} client:load transition:name="scene" transition:persist />
+    <Vignette transition:name="vignette" transition:persist />
   </body>
 </html>

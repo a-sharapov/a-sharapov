@@ -1,0 +1,37 @@
+nav[data-role='navigation'] {
+  display: flex;
+  width: 100vw;
+  gap: 1em;
+  border-top: 2px solid var(--gray);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 1px 0.7em #1111;
+
+  .navItem {
+    padding: 0.75em;
+    margin-top: -2px;
+    border-top: 2px solid transparent;
+    color: var(--dark);
+  }
+
+  a.navItem {
+    text-decoration-thickness: 1px;
+    text-decoration-style: dotted;
+    text-underline-offset: 0.3em;
+    text-decoration-color: var(--primary);
+
+    &:hover {
+      text-decoration-style: solid;
+    }
+  }
+
+  span.navItem {
+    font-weight: bold;
+    border-top-color: var(--primary);
+  }
+
+  .navSeparator {
+    color: var(--grayDark);
+  }
+}

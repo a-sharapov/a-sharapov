@@ -1,10 +1,11 @@
 <script>
+  import nav from '@lib/shared/nav'
   import { T, useThrelte } from '@threlte/core'
   import { ContactShadows, Environment, interactivity } from '@threlte/extras'
   import { onMount } from 'svelte'
   import { cubicOut, expoIn } from 'svelte/easing'
   import { spring, tweened } from 'svelte/motion'
-  import { CAMERA, COLORS, PAPER, VCARD } from './assets'
+  import { CAMERA, COLORS, LIGHT, PAPER, SHADOWS, VCARD } from './assets'
   import CoffeeCup from './CoffeeCup.svelte'
   import Desk from './Desk.svelte'
   import DeskLamp from './DeskLamp.svelte'
@@ -13,6 +14,11 @@
   import PenHolder from './PenHolder.svelte'
   import { currentState, INTRO, LANDSCAPE, PORTRAIT } from './state'
   import VCard from './VCard.svelte'
+
+  export let slug
+
+  const possibleState = nav.find(({ url }) => url.includes(slug))?.pageState || INTRO
+  currentState.set(possibleState)
 
   const { scene, camera, renderer, invalidate } = useThrelte()
   renderer.antialias = true
@@ -55,6 +61,8 @@
 
   let sceneRotation = 0
   onMount(() => {
+    const currentSlug = window.location.pathname
+
     currentCameraPov.subscribe((pov) => void $camera.lookAt(...pov))
 
     document.addEventListener('mousemove', (e) => {
@@ -87,7 +95,7 @@
           vcardRotation.set(PAPER.ROTATION.DEFAULT)
           currentCameraPosition.set(CAMERA.POSITION.PORTRAIT)
           currentCameraPov.set(CAMERA.LOOK_AT.PORTRAIT)
-          zoom.set(2)
+          zoom.set(1.05)
           break
         case LANDSCAPE:
           vcadGeometry.set(PAPER.GEOMETRY)
@@ -123,15 +131,15 @@
 
 <T.AmbientLight intensity={Math.PI / 3} color={COLORS.LIGHT} />
 <T.AmbientLight intensity={Math.PI / 2} color={COLORS.GROW} />
-<T.SpotLight decay={0} position={[5, 5, -10]} intensity={0.5} angle={Math.PI / 4} penumbra={1} />
-<T.PointLight decay={0} position={[-10, -10, -10]} />
+<T.SpotLight {...LIGHT.SPOT} angle={Math.PI / 4} />
+<T.PointLight {...LIGHT.POINT} color={COLORS.GROW} />
 
-<T.DirectionalLight position={[5, 5, 5]} color={COLORS.GROW} />
-<T.DirectionalLight position={[15, 22, 25]} color={COLORS.LIGHT} />
+<T.DirectionalLight position={LIGHT.DIRECTIONAL[0].POSITION} color={COLORS.GROW} />
+<T.DirectionalLight position={LIGHT.DIRECTIONAL[1].POSITION} color={COLORS.LIGHT} />
 
-<ContactShadows scale={50} blur={3} far={1.5} opacity={0.25} color={COLORS.GROW} />
-<ContactShadows scale={5} blur={10} far={2} opacity={0.15} color={COLORS.GRAY} />
-<ContactShadows scale={10} blur={2} far={5} opacity={0.5} color={COLORS.BG} />
+<ContactShadows {...SHADOWS[0]} color={COLORS.GROW} />
+<ContactShadows {...SHADOWS[1]} color={COLORS.GRAY} />
+<ContactShadows {...SHADOWS[2]} color={COLORS.BG} />
 
 <Dust />
 <T.Group position={[0, 0, 0]} rotation.y={sceneRotation}>

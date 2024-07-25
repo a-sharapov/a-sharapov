@@ -35,12 +35,13 @@
   --grayMid: #ddd;
   --grayDark: #777;
 
-  --dark: #111111;
-  --darkLight: #1e1c20;
+  --dark: #1e1c20;
+  --darkMid: #27282d;
+  --darkLight: #393b42;
 
-  --link: var(--primaryColor);
-  --linkVisited: color-mix(in srgb, var(--linkColor), var(--baseDark) 50%);
-  --linkHover: color-mix(in srgb, var(--linkColor), var(--baseLight) 30%);
+  --link: var(--primary);
+  --linkVisited: color-mix(in srgb, var(--link), var(--dark) 50%);
+  --linkHover: color-mix(in srgb, var(--link), var(--grayLight) 30%);
 
   /* filters */
   --inverted: grayscale(100) brightness(0.1) invert(1) drop-shadow(0 1px 0 #1112);

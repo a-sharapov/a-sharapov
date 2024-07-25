@@ -27,14 +27,16 @@
   <FakeGlowMaterial glowColor={COLORS.GROW} />
   <T.MeshStandardMaterial color={COLORS.LIGHT} />
   <HTML
+    as="article"
     geometry={$vcadGeometry}
     position={[0, 0, 0]}
     rotation={[0, 0, 0]}
     scale={0.7}
-    pointerEvents="none"
     transform
     center
+    pointerEvents="none"
     portal={document.body.querySelector('main')}
+    zIndexRange={[9999, 0]}
   >
     {#if $currentState === INTRO}
       <Logo />

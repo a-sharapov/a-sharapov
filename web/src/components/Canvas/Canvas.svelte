@@ -7,6 +7,7 @@
   import { tweened } from 'svelte/motion'
   import './Canvas.scss'
 
+  export let slug
   let size = { width: 0, height: 0 }
   const { progress } = useProgress()
   let tweenedProgress = tweened($progress, {
@@ -28,7 +29,7 @@
 {/if}
 
 <Canvas renderMode="on-demand" {size} useLegacyLights={false}>
-  <Scene antialias>
+  <Scene {slug}>
     <slot />
   </Scene>
 </Canvas>

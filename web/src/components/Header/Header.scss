@@ -1,0 +1,10 @@
+header {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  inset: 0;
+  bottom: auto;
+  z-index: 999;
+}
