@@ -1,6 +1,5 @@
 <script>
   import Logo from '@lib/components/Logo/Logo.svelte'
-  import store from '@lib/shared/store'
   import { T } from '@threlte/core'
   import { FakeGlowMaterial, HTML } from '@threlte/extras'
   import { navigate } from 'astro:transitions/client'
@@ -16,7 +15,7 @@
   export let setVcardActive
   export let setVcardInactive
 
-  let locale = $store.locale
+  export let locale
 </script>
 
 <T.Mesh

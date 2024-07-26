@@ -136,9 +136,10 @@ export var COLORS = {
 export var LIGHT = {
   SPOT: {
     decay: 0,
-    position: [5, 5, -10],
+    position: [5, -5, 5],
     intensity: 0.5,
-    penumbra: 1
+    penumbra: 1,
+    castShadow: true
   },
   POINT: {
     decay: 0,
@@ -151,7 +152,16 @@ export var LIGHT = {
     {
       POSITION: [15, 22, 25]
     }
-  ]
+  ],
+  LAMP: {
+    color: 0xffa95c,
+    intensity: 1e2,
+    position: [-5, 9, -12],
+    angle: Math.PI / 6,
+    penumbra: 0.1,
+    decay: 2,
+    distance: 60
+  }
 }
 
 export var SHADOWS = [

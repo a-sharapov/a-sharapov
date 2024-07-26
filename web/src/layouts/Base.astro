@@ -41,7 +41,7 @@ store.update((store: any) => ({ ...store, locale }))
     </Footer>
     <slot name="assets" />
 
-    <Canvas {slug} client:only="svelte" />
+    <Canvas {locale} {slug} client:only="svelte" />
     <Vignette transition:name="vignette" transition:persist />
   </body>
 </html>

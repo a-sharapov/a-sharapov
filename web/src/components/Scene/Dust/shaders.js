@@ -18,9 +18,10 @@ export var vertexShader = `
 
 export var fragmentShader = `
     varying vec3 vPosition;
+    uniform vec3 color;
 
     void main() {
-      float alpha = 0.8;
-      gl_FragColor = vec4(vec3(0.6), alpha);
+      float alpha = 0.95;
+      gl_FragColor = vec4(color, alpha);
     }
   `

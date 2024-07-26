@@ -1,5 +1,6 @@
 <script>
   import nav from '@lib/shared/nav'
+  import store from '@lib/shared/store'
   import { T, useThrelte } from '@threlte/core'
   import { ContactShadows, Environment, interactivity } from '@threlte/extras'
   import { onMount } from 'svelte'
@@ -16,6 +17,7 @@
   import VCard from './VCard.svelte'
 
   export let slug
+  export let locale
 
   const possibleState = nav.find(({ url }) => slug && slug.includes(url))?.pageState || INTRO
   currentState.set(possibleState)
@@ -70,7 +72,7 @@
 
     document.addEventListener('mousemove', (e) => {
       const movementOffset = (window.innerWidth / 2 - e.clientX) / window.innerWidth
-      $currentState === INTRO && (sceneRotation = movementOffset * 0.2)
+      $currentState === INTRO && (sceneRotation = movementOffset * 0.25)
     })
 
     window.addEventListener('resize', () => {
@@ -106,7 +108,7 @@
           vcardRotation.set(PAPER.ROTATION.LANDSCAPE)
           currentCameraPosition.set(CAMERA.POSITION.LANDSCAPE)
           currentCameraPov.set(CAMERA.LOOK_AT.LANDSCAPE)
-          zoom.set(2)
+          zoom.set(1.4)
           break
         default:
           currentCameraPov.set(CAMERA.LOOK_AT.DEFAULT)
@@ -140,6 +142,10 @@
 <T.DirectionalLight position={LIGHT.DIRECTIONAL[0].POSITION} color={COLORS.GROW} />
 <T.DirectionalLight position={LIGHT.DIRECTIONAL[1].POSITION} color={COLORS.LIGHT} />
 
+{#if $store.theme === Symbol.for('light')}
+  <T.SpotLight {...LIGHT.LAMP} />
+{/if}
+
 <ContactShadows {...SHADOWS[0]} color={COLORS.GROW} />
 <ContactShadows {...SHADOWS[1]} color={COLORS.GRAY} />
 <ContactShadows {...SHADOWS[2]} color={COLORS.BG} />
@@ -157,6 +163,7 @@
     {setVcardActive}
     {setVcardInactive}
     {vcardIsActive}
+    {locale}
   />
 
   <CoffeeCup />

@@ -4,8 +4,8 @@
   import Logo from '/logo.svg?raw'
   import LogoEn from '/logo_en.svg?raw'
 
-  export let locale
   export let vcardIsActive = false
+  export let locale
 </script>
 
 <div class="logoWrapper">

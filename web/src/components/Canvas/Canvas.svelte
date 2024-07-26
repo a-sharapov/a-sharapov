@@ -9,6 +9,7 @@
   import './Canvas.scss'
 
   export let slug
+  export let locale
 
   let size = { width: 0, height: 0 }
   const { progress } = useProgress()
@@ -42,5 +43,5 @@
 {/if}
 
 <Canvas renderMode="on-demand" {size} useLegacyLights={false}>
-  <Scene {slug} />
+  <Scene {slug} {locale} />
 </Canvas>
