@@ -1,24 +1,26 @@
 <script>
-  import { store } from '@lib/shared/store'
+  import { LOCALES } from '@lib/l18n'
+  import store from '@lib/shared/store'
   import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
   import './ThemeSwitcher.scss'
 
   const LIGHT = Symbol.for('light')
   const DARK = Symbol.for('dark')
+  const STORE_KEY = 'THEME'
 
-  let currentTheme = writable(DARK)
+  let currentTheme = writable(LIGHT)
   let isDark = writable(currentTheme === DARK)
 
   const toggleCurrentTheme = () =>
     void currentTheme.update((theme) => (theme === LIGHT ? DARK : LIGHT))
 
   onMount(() => {
-    const storedTheme = localStorage.getItem('THEME')
+    const storedTheme = localStorage.getItem(STORE_KEY)
 
     currentTheme.subscribe((theme) => {
       const themeDescriptor = Symbol.keyFor(theme)
-      localStorage.setItem('THEME', themeDescriptor)
+      localStorage.setItem(STORE_KEY, themeDescriptor)
       isDark.set(theme === DARK)
       store.update((store) => ({ ...store, theme }))
       document.documentElement.dataset.theme = themeDescriptor
@@ -38,6 +40,6 @@
     on:change={toggleCurrentTheme}
     bind:checked={$isDark}
     class="ambivalent"
-    aria-label="Change color theme"
+    aria-label={LOCALES[$store.locale].THEME_SWITCHER_LABEL}
   />
 </div>

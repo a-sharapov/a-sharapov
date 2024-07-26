@@ -30,8 +30,7 @@ const { locale } = Astro.props
     <Fragment set:html={ThreeIcon} />
     &nbsp;&plus;&nbsp;
     <Fragment set:html={AstroIcon} />
-    &nbsp;&equals;&nbsp;<Fragment
-      set:html={LOCALES[locale as keyof typeof LOCALES].SOURCE_LINK_TEXT}
-    />
+    &nbsp;&equals;&nbsp;&nbsp;
+    <Fragment set:html={LOCALES[locale as keyof typeof LOCALES].SOURCE_LINK_TEXT} />
   </a>
 </p>

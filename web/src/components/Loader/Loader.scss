@@ -7,31 +7,32 @@
   z-index: 99999999;
   background: color-mix(in srgb, var(--lightMid), transparent 30%);
   backdrop-filter: blur(5px);
-}
 
-.loadPlaceholder .loadIndicator {
-  display: flex;
-  width: 150px;
-  height: 1px;
-  transform: translateZ(0);
-}
+  .loadIndicator {
+    display: flex;
+    width: 150px;
+    height: 1px;
+    transform: translateZ(0);
+  }
 
-.loadIndicator i {
-  border-radius: 2px;
-  flex: 1;
-  background: var(--primary);
-  animation: go 0.8s infinite alternate ease;
-  box-shadow: 0 0 20px var(--primary);
-}
+  .loadIndicator i {
+    border-radius: 2px;
+    flex: 1;
+    background: var(--primary);
+    animation: go 0.8s infinite alternate ease;
+    box-shadow: 0 0 20px var(--primary);
 
-.loadIndicator i {
-  @for $i from 1 through 10 {
-    &:nth-child(#{$i}) {
-      animation-delay: -0.08s * ($i - 1);
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: -0.08s * ($i - 1);
+      }
     }
   }
-}
 
+  [data-theme='dark'] & {
+    background: color-mix(in srgb, var(--dark), transparent 20%);
+  }
+}
 @keyframes go {
   100% {
     background: transparent;

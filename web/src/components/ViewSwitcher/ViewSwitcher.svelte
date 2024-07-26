@@ -1,8 +1,7 @@
 <script>
-  import { DEFAULT_LOCALE, LOCALES } from '@lib/l18n'
+  import { LOCALES } from '@lib/l18n'
+  import store from '@lib/shared/store'
   import './ViewSwitcher.scss'
-
-  export let locale = DEFAULT_LOCALE
 
   const switchHeaderView = () =>
     requestAnimationFrame(
@@ -12,6 +11,6 @@
 
 <button
   class="viewSwitcher"
-  title={LOCALES[locale].VIEW_SWITCHER_TITLE}
+  title={LOCALES[$store.locale].VIEW_SWITCHER_TITLE}
   on:click={switchHeaderView}
 />

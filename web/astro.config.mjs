@@ -9,6 +9,7 @@ export default defineConfig({
   output: 'server',
   redirects: {
     ru: '/',
+    en: '/en/index',
     '/ru/index': '/',
     '/index': '/'
   },

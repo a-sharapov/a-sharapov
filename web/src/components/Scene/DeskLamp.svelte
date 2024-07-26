@@ -10,7 +10,7 @@
     is={deskLamp.scene}
     position={DESK_LAMP.POSITION.DEFAULT}
     rotation={DESK_LAMP.ROTATION.DEFAULT}
-    scale={[DESK_LAMP.SCALE, DESK_LAMP.SCALE * 0.45, DESK_LAMP.SCALE]}
+    scale={[DESK_LAMP.SCALE, DESK_LAMP.SCALE * 0.9, DESK_LAMP.SCALE * 0.8]}
     castShadow
   />
 {/await}

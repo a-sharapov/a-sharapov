@@ -2,7 +2,6 @@ header {
   display: flex;
   position: fixed;
   justify-content: center;
-  justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
   inset: 0;
@@ -12,4 +11,8 @@ header {
   backdrop-filter: blur(15px);
   box-shadow: 0 1px 0.7em #1111;
   padding: 0 1em 0.2em;
+
+  [data-theme='dark'] & {
+    border-top-color: var(--dark);
+  }
 }

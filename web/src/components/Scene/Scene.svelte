@@ -16,7 +16,6 @@
   import VCard from './VCard.svelte'
 
   export let slug
-  export let locale
 
   const possibleState = nav.find(({ url }) => slug && slug.includes(url))?.pageState || INTRO
   currentState.set(possibleState)
@@ -41,6 +40,7 @@
 
   let vcardPosition = spring(VCARD.POSITION.DEFAULT)
   let vcardRotation = spring(VCARD.ROTATION.DEFAULT)
+  let vcardIsActive = false
 
   const setVcardActive = () => {
     vcardPosition.set(VCARD.POSITION.ACTIVE)
@@ -48,6 +48,7 @@
     currentCameraPosition.set(CAMERA.POSITION.VCARD_ACTIVE)
     vcardScale.set(VCARD.SCALE * 0.9)
     zoom.set(1.3)
+    vcardIsActive = true
   }
 
   const setVcardInactive = () => {
@@ -56,6 +57,7 @@
     currentCameraPosition.set(CAMERA.POSITION.DEFAULT)
     vcardScale.set(VCARD.SCALE)
     zoom.set(1)
+    vcardIsActive = false
   }
 
   interactivity()
@@ -96,7 +98,7 @@
           vcardRotation.set(PAPER.ROTATION.DEFAULT)
           currentCameraPosition.set(CAMERA.POSITION.PORTRAIT)
           currentCameraPov.set(CAMERA.LOOK_AT.PORTRAIT)
-          zoom.set(1.05)
+          zoom.set(1)
           break
         case LANDSCAPE:
           vcadGeometry.set(PAPER.GEOMETRY)
@@ -154,7 +156,7 @@
     {vcadGeometry}
     {setVcardActive}
     {setVcardInactive}
-    {locale}
+    {vcardIsActive}
   />
 
   <CoffeeCup />

@@ -108,12 +108,12 @@ export var PENCIL = {
 
 export var DESK_LAMP = {
   POSITION: {
-    DEFAULT: [-60, -11.37, 15]
+    DEFAULT: [-1, 0, -17]
   },
   ROTATION: {
     DEFAULT: [0, 0, 0]
   },
-  SCALE: 70
+  SCALE: 0.3
 }
 
 export var PAPER_PLANE = {

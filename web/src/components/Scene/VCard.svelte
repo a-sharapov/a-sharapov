@@ -1,7 +1,9 @@
 <script>
   import Logo from '@lib/components/Logo/Logo.svelte'
+  import store from '@lib/shared/store'
   import { T } from '@threlte/core'
   import { FakeGlowMaterial, HTML } from '@threlte/extras'
+  import { navigate } from 'astro:transitions/client'
   import { COLORS } from './assets'
   import { currentState, INTRO } from './state'
 
@@ -10,10 +12,11 @@
   export let vcardScale
   export let vcadGeometry
 
+  export let vcardIsActive
   export let setVcardActive
   export let setVcardInactive
 
-  export let locale
+  let locale = $store.locale
 </script>
 
 <T.Mesh
@@ -24,6 +27,7 @@
   on:pointerleave={$currentState === INTRO ? setVcardInactive : void 0}
   castShadow
   receiveShadow
+  on:click={$currentState === INTRO ? () => navigate([locale, 'cv'].join('/')) : void 0}
 >
   <T.BoxGeometry args={$vcadGeometry} />
   <FakeGlowMaterial glowColor={COLORS.GROW} />
@@ -41,7 +45,7 @@
       portal={document.body.querySelector('main[data-layout="intro"]')}
       zIndexRange={[9999, 0]}
     >
-      <Logo {locale} />
+      <Logo {locale} {vcardIsActive} />
     </HTML>
   {/if}
 </T.Mesh>

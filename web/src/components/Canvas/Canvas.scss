@@ -10,6 +10,6 @@ canvas {
   background: var(--ambientColor);
 
   [data-theme='dark'] & {
-    filter: invert(1) hue-rotate(180deg) grayscale(0.5) sepia(0.5);
+    filter: grayscale(0.85) sepia(0.15) brightness(0.35) contrast(1.25) hue-rotate(210deg);
   }
 }

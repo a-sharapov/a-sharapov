@@ -15,7 +15,7 @@
 
 [data-theme='dark'] body {
   color: var(--light);
-  text-shadow: 0 1px 0 black;
+  text-shadow: 0 1px 0 #3333;
 }
 
 [data-theme='dark'] ::selection {
@@ -76,6 +76,15 @@ a:visited {
 a:active,
 a:hover {
   color: var(--linkHover);
+}
+
+[data-theme='dark'] a:visited {
+  color: var(--grayDark);
+}
+
+[data-theme='dark'] a:active,
+[data-theme='dark'] a:hover {
+  color: var(--grayLight);
 }
 
 h1,
@@ -803,7 +812,6 @@ span.action {
   cursor: pointer;
   text-underline-offset: 0.3em;
   text-decoration: underline;
-  text-decoration-style: dotted;
 }
 
 span.action img {

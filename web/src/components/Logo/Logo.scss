@@ -11,5 +11,21 @@
 
   .tagline {
     font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &.active {
+      font-weight: normal;
+      background: var(--primary);
+      color: var(--light);
+      padding: 0.2em 0.5em;
+      border-radius: 0.2em;
+      text-shadow: 0 1px 0 #3333;
+    }
+  }
+
+  [data-theme='dark'] & {
+    color: var(--gray);
+    text-shadow: 0 1px 0 #1111;
   }
 }

@@ -6,8 +6,10 @@ import Header from '@lib/components/Header/Header.svelte'
 import Locales from '@lib/components/Locales/Locales.svelte'
 import Main from '@lib/components/Main/Main.svelte'
 import Nav from '@lib/components/Nav/Nav.svelte'
+import ThemeSwitcher from '@lib/components/ThemeSwitcher/ThemeSwitcher.svelte'
 import Vignette from '@lib/components/Vignette/Vignette.svelte'
 import { DEFAULT_LOCALE } from '@lib/l18n'
+import store from '@lib/shared/store'
 import { determineLocale } from '@lib/shared/utils'
 import Head from './Head.astro'
 
@@ -18,6 +20,8 @@ export interface Props {
 const { scripts } = Astro.props
 const { slug } = Astro.params
 const locale = slug ? determineLocale(slug) : DEFAULT_LOCALE
+
+store.update((store: any) => ({ ...store, locale }))
 ---
 
 <!doctype html>
@@ -25,8 +29,9 @@ const locale = slug ? determineLocale(slug) : DEFAULT_LOCALE
   <Head locale={locale as string} scripts={scripts} />
   <body>
     <Header transition:name="header" transition:persist>
-      <Nav locale={locale as string} currentUrl={slug} />
-      <Locales current={locale as string} />
+      <Nav currentUrl={slug} />
+      <Locales />
+      <ThemeSwitcher client:load />
     </Header>
     <Main client:load>
       <slot />
@@ -36,7 +41,7 @@ const locale = slug ? determineLocale(slug) : DEFAULT_LOCALE
     </Footer>
     <slot name="assets" />
 
-    <Canvas {slug} {locale} client:only="svelte" />
+    <Canvas {slug} client:only="svelte" />
     <Vignette transition:name="vignette" transition:persist />
   </body>
 </html>
