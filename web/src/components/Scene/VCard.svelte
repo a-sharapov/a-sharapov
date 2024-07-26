@@ -26,22 +26,20 @@
   <T.BoxGeometry args={$vcadGeometry} />
   <FakeGlowMaterial glowColor={COLORS.GROW} />
   <T.MeshStandardMaterial color={COLORS.LIGHT} />
-  <HTML
-    as="article"
-    geometry={$vcadGeometry}
-    position={[0, 0, 0]}
-    rotation={[0, 0, 0]}
-    scale={0.7}
-    transform
-    center
-    pointerEvents="none"
-    portal={document.body.querySelector('main')}
-    zIndexRange={[9999, 0]}
-  >
-    {#if $currentState === INTRO}
+  {#if $currentState === INTRO}
+    <HTML
+      as="article"
+      geometry={$vcadGeometry}
+      position={[0, 0, 0]}
+      rotation={[0, 0, 0]}
+      scale={0.7}
+      transform
+      center
+      pointerEvents="none"
+      portal={document.body.querySelector('main[data-layout="intro"]')}
+      zIndexRange={[9999, 0]}
+    >
       <Logo />
-    {:else}
-      <slot />
-    {/if}
-  </HTML>
+    </HTML>
+  {/if}
 </T.Mesh>

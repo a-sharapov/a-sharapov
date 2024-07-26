@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 
-var store = writable({})
-
-export var currentTheme = writable('DARK')
+var store = writable({
+  sceneReady: false
+})
 
 export default store

@@ -1,6 +1,7 @@
 <script>
   import Loader from '@lib/components/Loader/Loader.svelte'
   import Scene from '@lib/components/Scene/Scene.svelte'
+  import store from '@lib/shared/store'
   import { Canvas } from '@threlte/core'
   import { useProgress } from '@threlte/extras'
   import { onMount } from 'svelte'
@@ -10,7 +11,7 @@
   export let slug
   let size = { width: 0, height: 0 }
   const { progress } = useProgress()
-  let tweenedProgress = tweened($progress, {
+  export let tweenedProgress = tweened($progress, {
     duration: 800
   })
 
@@ -21,6 +22,17 @@
     }
   })
 
+  tweenedProgress.subscribe(
+    (progress) =>
+      void (
+        progress === 1 &&
+        store.update((store) => ({
+          ...store,
+          sceneReady: progress === 1
+        }))
+      )
+  )
+
   $: tweenedProgress.set($progress)
 </script>
 
@@ -29,7 +41,5 @@
 {/if}
 
 <Canvas renderMode="on-demand" {size} useLegacyLights={false}>
-  <Scene {slug}>
-    <slot />
-  </Scene>
+  <Scene {slug} />
 </Canvas>

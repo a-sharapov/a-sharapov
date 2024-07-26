@@ -7,11 +7,6 @@ export default [
     pageState: INTRO
   },
   {
-    url: '/contacts',
-    title: 'CONTACTS',
-    pageState: PORTRAIT
-  },
-  {
     url: '/cv',
     title: 'CV',
     pageState: LANDSCAPE
@@ -20,5 +15,10 @@ export default [
     url: '/folio',
     title: 'FOLIO',
     pageState: LANDSCAPE
+  },
+  {
+    url: '/contacts',
+    title: 'CONTACTS',
+    pageState: PORTRAIT
   }
 ]

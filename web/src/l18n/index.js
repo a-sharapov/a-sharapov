@@ -13,7 +13,7 @@ export var LOCALES = {
     INDEX: 'Главная',
     CONTACTS: 'Контакты',
     CV: 'CV',
-    FOLIO: 'Работы'
+    FOLIO: 'Портфолио'
   }
 }
 

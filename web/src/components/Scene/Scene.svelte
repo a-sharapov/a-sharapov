@@ -141,7 +141,10 @@
 <ContactShadows {...SHADOWS[1]} color={COLORS.GRAY} />
 <ContactShadows {...SHADOWS[2]} color={COLORS.BG} />
 
-<Dust />
+{#if $currentState === INTRO}
+  <Dust />
+{/if}
+
 <T.Group position={[0, 0, 0]} rotation.y={sceneRotation}>
   <VCard
     {vcardPosition}
@@ -150,9 +153,7 @@
     {vcadGeometry}
     {setVcardActive}
     {setVcardInactive}
-  >
-    <slot />
-  </VCard>
+  />
 
   <CoffeeCup />
   <PenHolder />
