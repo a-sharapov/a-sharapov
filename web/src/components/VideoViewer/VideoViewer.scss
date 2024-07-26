@@ -1,0 +1,49 @@
+.floatVideoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #1116;
+  backdrop-filter: blur(5px);
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+
+  & > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 3em;
+    height: 3em;
+    border: none;
+    background: var(--danger);
+    z-index: 1001;
+    border-radius: 50%;
+
+    img {
+      filter: var(--inverted);
+    }
+
+    &:hover {
+      background: none;
+      scale: 1.15;
+    }
+  }
+
+  & > video {
+    max-height: 75vh;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .floatVideoWrapper {
+    & > video {
+      max-height: 100%;
+    }
+  }
+}

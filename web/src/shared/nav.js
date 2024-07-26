@@ -2,22 +2,22 @@ import { INTRO, LANDSCAPE, PORTRAIT } from '@lib/components/Scene/state'
 
 export default [
   {
-    url: '/',
+    url: 'index',
     title: 'INDEX',
     pageState: INTRO
   },
   {
-    url: '/cv',
+    url: 'cv',
     title: 'CV',
     pageState: LANDSCAPE
   },
   {
-    url: '/folio',
+    url: 'folio',
     title: 'FOLIO',
     pageState: LANDSCAPE
   },
   {
-    url: '/contacts',
+    url: 'contacts',
     title: 'CONTACTS',
     pageState: PORTRAIT
   }

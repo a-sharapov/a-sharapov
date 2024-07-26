@@ -7,7 +7,11 @@ export default defineConfig({
   integrations: [svelte()],
   prefetch: true,
   output: 'server',
-  redirects: {},
+  redirects: {
+    ru: '/',
+    '/ru/index': '/',
+    '/index': '/'
+  },
   adapter: node({
     mode: 'standalone'
   })

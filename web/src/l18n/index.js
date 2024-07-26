@@ -1,20 +1,15 @@
+import agnostic from './agnostic'
+import en from './en'
+import ru from './ru'
+
+const createLocale = (locale) => ({
+  ...locale,
+  ...agnostic
+})
+
 export var LOCALES = {
-  ru: {
-    BASE_TITLE: '',
-    BASE_DESCRIPTION: '',
-    SHORT_ADDRESS: '',
-    CITY: '',
-    COUNTRY: '',
-    COPYLEFT: 'Александр Шарапов &ndash; веб-разработчик полного цикла',
-    FOOTER_CONTENT:
-      'Любой распространитель информации, размещенной на данном ресурсе, как с изменениями, так и без них, не вправе ограничивать свободу её дальнейшего распространения либо модификации.',
-    SOURCE_LINK_TITLE: 'Код проекта на GitHub',
-    SOURCE_LINK_TEXT: 'a-sharapov.com',
-    INDEX: 'Главная',
-    CONTACTS: 'Контакты',
-    CV: 'CV',
-    FOLIO: 'Портфолио'
-  }
+  ru: createLocale(ru),
+  en: createLocale(en)
 }
 
 export var AVAILABLE_LOCALES = Object.keys(LOCALES)

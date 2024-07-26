@@ -16,8 +16,9 @@
   import VCard from './VCard.svelte'
 
   export let slug
+  export let locale
 
-  const possibleState = nav.find(({ url }) => url.includes(slug))?.pageState || INTRO
+  const possibleState = nav.find(({ url }) => slug && slug.includes(url))?.pageState || INTRO
   currentState.set(possibleState)
 
   const { scene, camera, renderer, invalidate } = useThrelte()
@@ -153,6 +154,7 @@
     {vcadGeometry}
     {setVcardActive}
     {setVcardInactive}
+    {locale}
   />
 
   <CoffeeCup />

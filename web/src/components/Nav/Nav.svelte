@@ -6,21 +6,24 @@
 
   export let locale = DEFAULT_LOCALE
   export let role = 'navigation'
-  export let currentUrl = '/'
+  export let currentUrl
+
+  console.log(currentUrl)
 </script>
 
 <nav data-role={role}>
   {#each nav as menuItem, i}
     {@const { pageState, title, url } = menuItem}
-    {#if url.endsWith(currentUrl)}
+    {#if (url === 'index' && !currentUrl) || (currentUrl && currentUrl.endsWith(url))}
       <span class="navItem narrow">
         {LOCALES[locale][title]}
       </span>
     {:else}
       <a
-        href={url}
+        href={[locale, url].join('/')}
         class="navItem narrow"
         data-item={title}
+        data-scene={pageState.description}
         on:pointerdown={() => void currentState.set(pageState)}
       >
         {LOCALES[locale][title]}

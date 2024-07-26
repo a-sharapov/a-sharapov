@@ -1,0 +1,43 @@
+label {
+  .preffixChanger {
+    display: flex;
+    position: absolute;
+    inset: auto;
+    right: 3em;
+    height: 2.7em;
+    z-index: 100;
+    align-items: center;
+    font-weight: bold;
+    gap: 0.1em;
+
+    span {
+      display: inline-flex;
+      padding: 0 0.5em;
+      font-size: 0.75em;
+      font-weight: bold;
+      cursor: pointer;
+      text-underline-offset: 0.3em;
+      background: var(--baseLightGray);
+      box-shadow: 0 0 0 0.1em var(--baseDarkShadow10);
+      transition: 0.2s;
+
+      &:not(.active) {
+        opacity: 0.4;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:first-of-type {
+        border-top-left-radius: 0.5em;
+        border-bottom-left-radius: 0.5em;
+      }
+
+      &:last-of-type {
+        border-top-right-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
+      }
+    }
+  }
+}

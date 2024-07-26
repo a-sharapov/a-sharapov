@@ -3,18 +3,21 @@ import FooterContent from '@lib/chunks/Footer.astro'
 import Canvas from '@lib/components/Canvas/Canvas.svelte'
 import Footer from '@lib/components/Footer/Footer.svelte'
 import Header from '@lib/components/Header/Header.svelte'
+import Locales from '@lib/components/Locales/Locales.svelte'
 import Main from '@lib/components/Main/Main.svelte'
 import Nav from '@lib/components/Nav/Nav.svelte'
 import Vignette from '@lib/components/Vignette/Vignette.svelte'
+import { DEFAULT_LOCALE } from '@lib/l18n'
+import { determineLocale } from '@lib/shared/utils'
 import Head from './Head.astro'
 
 export interface Props {
-  locale: string
   scripts?: string
 }
 
-const { locale, scripts } = Astro.props
+const { scripts } = Astro.props
 const { slug } = Astro.params
+const locale = slug ? determineLocale(slug) : DEFAULT_LOCALE
 ---
 
 <!doctype html>
@@ -22,7 +25,8 @@ const { slug } = Astro.params
   <Head locale={locale as string} scripts={scripts} />
   <body>
     <Header transition:name="header" transition:persist>
-      <Nav locale={locale as string} currentUrl={String(slug || '/')} />
+      <Nav locale={locale as string} currentUrl={slug} />
+      <Locales current={locale as string} />
     </Header>
     <Main client:load>
       <slot />
@@ -32,7 +36,7 @@ const { slug } = Astro.params
     </Footer>
     <slot name="assets" />
 
-    <Canvas {slug} client:only="svelte" />
+    <Canvas {slug} {locale} client:only="svelte" />
     <Vignette transition:name="vignette" transition:persist />
   </body>
 </html>

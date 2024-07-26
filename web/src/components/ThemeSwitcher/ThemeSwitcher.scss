@@ -1,0 +1,48 @@
+.themeSwitcher {
+  --multiplier: 5;
+  display: flex;
+  gap: 0.25em;
+  align-items: center;
+  background: color-mix(
+    in srgb,
+    transparent,
+    var(--dark) calc(var(--shadyRatio) * var(--multiplier) * 3%)
+  );
+
+  [data-theme='dark'] & {
+    color: var(--light);
+  }
+
+  input[type='checkbox'].ambivalent {
+    transition: 0.3s;
+    width: 2.5em;
+    height: 28px;
+  }
+
+  &[data-current='light'] input[type='checkbox'].ambivalent {
+    background-image: url(/i/sun.svg);
+    background-position: 0.2em center;
+  }
+
+  &[data-current='dark'] input[type='checkbox'].ambivalent {
+    background-image: url(/i/moon.svg);
+    background-position: calc(100% - 0.2em) center;
+    filter: var(--inverted);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .themeSwitcher {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .themeSwitcher {
+    display: none !important;
+
+    .expanded & {
+      display: flex !important;
+    }
+  }
+}

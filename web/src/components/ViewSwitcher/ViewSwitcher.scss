@@ -1,0 +1,44 @@
+.viewSwitcher {
+  position: relative;
+  display: flex;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  height: 100%;
+  align-items: center;
+  font-size: 2em;
+  padding: 0;
+  width: 2.5em;
+  font-weight: 100;
+  justify-content: center;
+  border: none;
+  box-shadow: none;
+  background: none !important;
+  transition: none;
+  height: 7rem;
+
+  [data-theme='dark'] & {
+    text-shadow: 0 1px 0 black;
+  }
+
+  .expanded & {
+    position: absolute;
+    height: 7rem;
+
+    &::before {
+      content: '\2A09';
+    }
+  }
+
+  &::before {
+    content: '\2261';
+    transition: 0.2s;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .viewSwitcher {
+    display: none;
+    visibility: hidden;
+  }
+}

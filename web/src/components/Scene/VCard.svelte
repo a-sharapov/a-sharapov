@@ -12,6 +12,8 @@
 
   export let setVcardActive
   export let setVcardInactive
+
+  export let locale
 </script>
 
 <T.Mesh
@@ -39,7 +41,7 @@
       portal={document.body.querySelector('main[data-layout="intro"]')}
       zIndexRange={[9999, 0]}
     >
-      <Logo />
+      <Logo {locale} />
     </HTML>
   {/if}
 </T.Mesh>

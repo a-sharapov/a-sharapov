@@ -1,6 +1,6 @@
 ---
 import { LOCALES } from '@lib/l18n'
-import { KEYWORDS, SOCIAL_LINKS, TAGLINE, THEME_COLOR, ZIP } from '@lib/shared/constants'
+import { KEYWORDS, SOCIAL_LINKS, THEME_COLOR, ZIP } from '@lib/shared/constants'
 import { ViewTransitions } from 'astro:transitions'
 
 const {
@@ -20,9 +20,9 @@ const canonicalUrl = Astro.url.toString().replace(/\?[^\s]*/gi, '')
 const ldMarkup = `<script type="application/ld+json">{
   "@context": "http://schema.org",
   "@type": "Organization",
-  "name": "${TAGLINE}",
+  "name": "${LOCALES[locale as keyof typeof LOCALES].BASE_TITLE}",
   "url": "${Astro.url.origin}",
-  "logo": "${Astro.url.origin}/images/logo_transparent.svg",
+  "logo": "${Astro.url.origin}/logo.svg",
   "currenciesAccepted": "BYN",
   "sameAs": ${JSON.stringify(Object.values(SOCIAL_LINKS))},
   "address": {

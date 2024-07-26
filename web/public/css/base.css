@@ -24,7 +24,8 @@
   text-shadow: 0 1px 0 color-mix(in srgb, var(--dark), transparent 80%);
 }
 
-html:has(dialog[open]) {
+html:has(dialog[open]),
+html:has(header.expanded) {
   overflow: clip;
   scrollbar-gutter: stable;
 }
