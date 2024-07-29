@@ -1,6 +1,7 @@
 section.contentBox {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100%;
   max-width: 70vw;
   max-height: 90vh;
@@ -12,9 +13,14 @@ section.contentBox {
       display: flex;
       width: 200px;
       height: 200px;
-      margin: 0 0 1.5em;
+      margin: 0 0.5em 1.5em;
       border-radius: 50%;
       overflow: hidden;
+      box-shadow: 0 0.1em 0.5em color-mix(in srgb, var(--dark), transparent 50%);
+    }
+
+    h3 {
+      color: var(--text);
     }
 
     hr {
@@ -57,7 +63,7 @@ section.contentBox {
         }
 
         &:hover img {
-          filter: grayscale(0) brightness(1) drop-shadow(0 0 5px var(--text-shadow-color));
+          filter: grayscale(0) brightness(1) drop-shadow(0 0 5px var(--textShadowColor));
         }
       }
     }

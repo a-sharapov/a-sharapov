@@ -4,10 +4,6 @@
   align-items: center;
   margin: 0 2em;
 
-  [data-theme='dark'] & {
-    color: var(--light);
-  }
-
   input[type='checkbox'].ambivalent {
     transition: 0.3s;
     width: 2em;
@@ -23,7 +19,5 @@
   &[data-current='dark'] input[type='checkbox'].ambivalent {
     background-image: url(/i/moon.svg);
     background-position: calc(100% - 0.3em) center;
-    filter: var(--inverted);
-    opacity: 0.75;
   }
 }

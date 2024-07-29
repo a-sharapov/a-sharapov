@@ -17,6 +17,7 @@ export default {
   CV: 'CV',
   SERVICES: 'Services',
   THEME_SWITCHER_LABEL: 'Switch theme (dark/light)',
+  VIEW_SWITCHER_LABEL: 'Switch view (3D/2D)',
   LOADING_TITLE: 'Loading...',
   ERROR_TITLE: 'An error has occurred',
   RETRY_TEXT: 'Try again or contact us by phone',

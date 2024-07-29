@@ -27,21 +27,24 @@
 
   tweenedProgress.subscribe(
     (progress) =>
-      void store.update((store) => ({
+      (progress === 1 || progress === 0) &&
+      store.update((store) => ({
         ...store,
-        sceneReady: progress === 1
+        sceneIsReady: progress === 1
       }))
   )
 
   $: tweenedProgress.set($progress)
 </script>
 
-{#if $tweenedProgress < 1}
+{#if $tweenedProgress < 1 && $store.sceneIs3D}
   <Loader />
 {/if}
 
-<Canvas renderMode="on-demand" {size} useLegacyLights={false}>
-  <Scene {slug} {locale} {modifier}>
-    <slot />
-  </Scene>
-</Canvas>
+{#if $store.sceneIs3D}
+  <Canvas renderMode="on-demand" {size} useLegacyLights={false}>
+    <Scene {slug} {locale} {modifier}>
+      <slot />
+    </Scene>
+  </Canvas>
+{/if}

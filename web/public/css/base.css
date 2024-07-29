@@ -27,7 +27,7 @@ html {
 body {
   color: var(--text);
   line-height: 1.25em;
-  text-shadow: 0 1px 0 var(--text-shadow-color);
+  text-shadow: 0 1px 0 var(--textShadowColor);
   min-height: 100vh;
   width: 100%;
 }
@@ -802,7 +802,7 @@ dialog.window[open] {
     0 0 20px rgba(0, 0, 0, 0.05),
     0 0 40px rgba(0, 0, 0, 0.15);
   color: var(--dark);
-  text-shadow: 0 1px 0 var(--text-shadow-color);
+  text-shadow: 0 1px 0 var(--textShadowColor);
   z-index: 1000;
   opacity: 1;
   transition: 0.2s;

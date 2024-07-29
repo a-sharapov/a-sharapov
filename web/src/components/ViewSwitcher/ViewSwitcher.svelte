@@ -3,14 +3,18 @@
   import store from '@lib/shared/store'
   import './ViewSwitcher.scss'
 
-  const switchHeaderView = () =>
-    requestAnimationFrame(
-      () => void document?.querySelector('main > header')?.classList?.toggle('expanded')
-    )
+  const changeView = () =>
+    store.update(({ sceneIs3D, ...store }) => ({ ...store, sceneIs3D: !sceneIs3D }))
 </script>
 
-<button
-  class="viewSwitcher"
-  title={LOCALES[$store.locale].VIEW_SWITCHER_TITLE}
-  on:click={switchHeaderView}
-/>
+<div class="viewSwitcher">
+  <input
+    type="checkbox"
+    id="themeSwitcher"
+    on:change={changeView}
+    bind:checked={$store.sceneIs3D}
+    class="ambivalent"
+    title={LOCALES[$store.locale].VIEW_SWITCHER_LABEL}
+    aria-label={LOCALES[$store.locale].VIEW_SWITCHER_LABEL}
+  />
+</div>

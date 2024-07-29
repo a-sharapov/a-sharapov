@@ -7,6 +7,7 @@ import Locales from '@lib/components/Locales/Locales.svelte'
 import Main from '@lib/components/Main/Main.svelte'
 import Nav from '@lib/components/Nav/Nav.svelte'
 import ThemeSwitcher from '@lib/components/ThemeSwitcher/ThemeSwitcher.svelte'
+import ViewSwitcher from '@lib/components/ViewSwitcher/ViewSwitcher.svelte'
 import Vignette from '@lib/components/Vignette/Vignette.svelte'
 import { DEFAULT_LOCALE } from '@lib/l18n'
 import store from '@lib/shared/store'
@@ -32,6 +33,7 @@ store.update((store: any) => ({ ...store, locale }))
     {
       !modifier && (
         <Header transition:name="header" transition:persist>
+          <ViewSwitcher client:load />
           <Nav currentUrl={slug} />
           <Locales slug={slug} />
           <ThemeSwitcher client:load />
@@ -48,11 +50,10 @@ store.update((store: any) => ({ ...store, locale }))
         </Footer>
       )
     }
-    <slot name="assets" />
-
     <Canvas {locale} {slug} {modifier} client:only="svelte">
       <slot />
     </Canvas>
     <Vignette transition:name="vignette" transition:persist />
+    <slot name="assets" />
   </body>
 </html>

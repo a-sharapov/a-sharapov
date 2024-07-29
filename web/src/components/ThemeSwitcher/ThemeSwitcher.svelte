@@ -40,6 +40,7 @@
     on:change={toggleCurrentTheme}
     bind:checked={$isDark}
     class="ambivalent"
+    title={LOCALES[$store.locale].THEME_SWITCHER_LABEL}
     aria-label={LOCALES[$store.locale].THEME_SWITCHER_LABEL}
   />
 </div>

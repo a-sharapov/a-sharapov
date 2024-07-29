@@ -1,40 +1,23 @@
 .viewSwitcher {
-  position: relative;
   display: flex;
-  top: 0;
-  right: 0;
-  bottom: auto;
-  height: 100%;
+  gap: 0.25em;
   align-items: center;
-  font-size: 2em;
-  padding: 0;
-  width: 2.5em;
-  font-weight: 100;
-  justify-content: center;
-  border: none;
-  box-shadow: none;
-  background: none !important;
-  transition: none;
-  height: 7rem;
+  margin: 0 2em;
 
-  .expanded & {
-    position: absolute;
-    height: 7rem;
-
-    &::before {
-      content: '\2A09';
-    }
+  input[type='checkbox'].ambivalent {
+    transition: 0.3s;
+    width: 2em;
+    height: 1.2rem;
+    background-size: 0.75em;
   }
 
-  &::before {
-    content: '\2261';
-    transition: 0.2s;
+  input[type='checkbox'].ambivalent {
+    background-image: url(/i/2d.svg);
+    background-position: 0.3em center;
   }
-}
 
-@media screen and (min-width: 1024px) {
-  .viewSwitcher {
-    display: none;
-    visibility: hidden;
+  input:checked[type='checkbox'].ambivalent {
+    background-image: url(/i/3d.svg);
+    background-position: calc(100% - 0.3em) center;
   }
 }

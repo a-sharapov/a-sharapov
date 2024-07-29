@@ -17,6 +17,7 @@ export default {
   CV: 'CV',
   SERVICES: 'Услуги',
   THEME_SWITCHER_LABEL: 'Переключить тему (светлая/темная)',
+  VIEW_SWITCHER_LABEL: 'Переключить предпочтительный вид (3D/2D)',
   LOADING_TITLE: 'Загрузка...',
   ERROR_TITLE: 'Произошла ошибка',
   RETRY_TEXT: 'Повторите попытку или свяжитесь с нами по телефону',
