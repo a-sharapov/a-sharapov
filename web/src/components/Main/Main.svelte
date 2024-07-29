@@ -4,7 +4,7 @@
 </script>
 
 <main>
-  {#if $store.sceneReady}
+  {#if !$store.sceneReady}
     <section class="contentBox">
       <slot />
     </section>

@@ -4,8 +4,8 @@
 }
 
 ::selection {
-  color: var(--text);
-  background: var(--background);
+  color: var(--background);
+  background: var(--text);
   text-shadow: 0 1px 0 color-mix(in srgb, var(--background), transparent 50%);
 }
 
@@ -25,7 +25,7 @@ html {
 }
 
 body {
-  color: var(--dark);
+  color: var(--text);
   line-height: 1.25em;
   text-shadow: 0 1px 0 var(--text-shadow-color);
   min-height: 100vh;
@@ -38,7 +38,7 @@ body * {
 
 hr {
   border: 0;
-  border-top: 1px dotted var(--grayLight);
+  border-top: 1px dotted var(--text);
   margin: 0.5rem 0;
   width: 100%;
 }
@@ -168,8 +168,18 @@ label {
   user-select: none;
 }
 
+label.meshed {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
 form label {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
   text-align: left;
 }
 
@@ -233,7 +243,7 @@ textarea {
   height: 2.7em;
   line-height: 2.7em;
   border: 1px solid var(--gray);
-  background: none;
+  background: var(--light);
   outline: 0;
   box-shadow: 0 1px 0 color-mix(in srgb, var(--dark), transparent 50%);
   border-radius: 0em;
@@ -251,7 +261,8 @@ input[type='text'],
 input[type='date'],
 select:not([multiple]),
 textarea {
-  background-color: var(--light);
+  background-color: color-mix(in srgb, var(--light), transparent 30%);
+  color: var(--dark);
   padding: 0 1em;
   line-height: 2em;
   width: 100%;
@@ -383,12 +394,9 @@ input[type='range']:focus::-webkit-slider-runnable-track {
 }
 
 input[type='radio'] {
-  width: 20px;
-  height: 20px;
   vertical-align: middle;
-  margin: 0 7px 0 0;
   border: 2px solid var(--gray);
-  border-radius: 4px;
+  border-radius: 50%;
   transition: border-color 0.2s linear;
 }
 
@@ -400,12 +408,6 @@ input[type='radio'] {
   border-radius: 20px;
 }
 
-input[type='checkbox'][disabled],
-input[type='radio'][disabled] {
-  opacity: 0.5;
-  filter: grayscale(1);
-}
-
 input[type='radio']:checked {
   background-image: url(../i/round.svg);
   background-repeat: no-repeat;
@@ -414,26 +416,21 @@ input[type='radio']:checked {
 }
 
 input[type='checkbox'] {
-  width: 20px;
-  height: 20px;
   vertical-align: middle;
-  margin: 0 7px 0 0;
   border-radius: 2px;
 }
 
 input[type='checkbox']:hover {
-  filter: grayscale(0);
 }
 
 input[type='checkbox']:checked {
   background-image: url(../i/checked.svg);
   background-repeat: no-repeat;
-  background-position: top left;
-  background-size: 18px;
+  background-position: center center;
+  background-size: 80%;
 }
 
 input[type='checkbox'].ambivalent {
-  background-color: var(--light);
   background-image: url(../i/round.svg);
   background-repeat: no-repeat;
   background-position: -2px;
@@ -463,6 +460,18 @@ input[type='checkbox'].ambivalent.form-checkbox {
   float: right;
 }
 
+input[type='radio'],
+input[type='checkbox'] {
+  height: 1.4em;
+  object-fit: contain;
+  aspect-ratio: 1;
+}
+
+input[type='checkbox'][disabled],
+input[type='radio'][disabled] {
+  opacity: 0.5;
+}
+
 input[type='color'] {
   position: relative;
   padding: 0;
@@ -480,11 +489,10 @@ select:not([multiple]) {
   background-repeat: no-repeat;
   background-position: calc(100% - 0.6em) center;
   background-size: 1.2em;
-  color: inherit;
 }
 
 select:not([multiple]) > option:nth-child(even) {
-  background: color-mix(in srgb, var(--dark), transparent 10%);
+  background: color-mix(in srgb, var(--dark), transparent 90%);
 }
 
 .button,
@@ -502,7 +510,7 @@ input[type='submit'] {
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s linear;
-  text-shadow: 0 1px 0 #fffa;
+  text-shadow: 0 1px 0 var(--light);
   text-align: center;
 }
 
@@ -529,37 +537,6 @@ button:active,
 input[type='button']:active,
 input[type='reset']:active,
 input[type='submit']:active {
-  background: var(--grayLight);
-}
-
-[data-theme='dark'] .button,
-[data-theme='dark'] button,
-[data-theme='dark'] input[type='button'],
-[data-theme='dark'] input[type='reset'],
-[data-theme='dark'] input[type='submit'] {
-  background: linear-gradient(var(--dark), black);
-  color: var(--light);
-  border-color: var(--dark);
-  box-shadow: none;
-}
-
-[data-theme='dark'] .button:hover,
-[data-theme='dark'] .input-file:hover,
-[data-theme='dark'] button:hover,
-[data-theme='dark'] input[type='button']:hover,
-[data-theme='dark'] input[type='reset']:hover,
-[data-theme='dark'] input[type='submit']:hover {
-  background: linear-gradient(var(--dark), black);
-  border-bottom-color: black;
-}
-
-[data-theme='dark'] .button:active,
-[data-theme='dark'] .input-file:active,
-[data-theme='dark'] button:active,
-[data-theme='dark'] input[type='button']:active,
-[data-theme='dark'] input[type='reset']:active,
-[data-theme='dark'] input[type='submit']:active {
-  background: black;
 }
 
 .button:disabled,
@@ -568,7 +545,6 @@ button:disabled,
 input[type='button']:disabled,
 input[type='reset']:disabled,
 input[type='submit']:disabled {
-  filter: grayscale(1);
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -588,7 +564,7 @@ button > svg *,
 input[type='button'] > svg *,
 input[type='reset'] > svg *,
 input[type='submit'] > svg * {
-  fill: var(--light);
+  fill: var(--text);
 }
 
 form label button,
@@ -626,11 +602,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
   transition: 0.2s;
 }
 
-[data-theme='dark'] input[type='datetime-local']::-webkit-calendar-picker-indicator,
-[data-theme='dark'] input[type='date']::-webkit-calendar-picker-indicator {
-  filter: var(--inverted);
-}
-
 input[type='datetime-local']:hover::-webkit-calendar-picker-indicator,
 input[type='date']:hover::-webkit-calendar-picker-indicator {
   opacity: 1;
@@ -646,6 +617,25 @@ input[type='date']::-webkit-datetime-edit-fields-wrapper {
 *::placeholder {
   font-family: inherit;
   color: color-mix(in srgb, var(--dark), transparent 70%);
+}
+
+[data-theme='dark'] .button,
+[data-theme='dark'] button,
+[data-theme='dark'] input,
+[data-theme='dark'] select,
+[data-theme='dark'] textarea output,
+[data-theme='dark'] input[type='datetime-local'],
+[data-theme='dark'] input[type='file'],
+[data-theme='dark'] input[type='email'],
+[data-theme='dark'] input[type='number'],
+[data-theme='dark'] input[type='password'],
+[data-theme='dark'] input[type='search'],
+[data-theme='dark'] input[type='tel'],
+[data-theme='dark'] input[type='text'],
+[data-theme='dark'] input[type='date'],
+[data-theme='dark'] select:not([multiple]),
+[data-theme='dark'] textarea {
+  filter: invert(1) contrast(0.75);
 }
 
 /* Tables */
@@ -686,34 +676,34 @@ table th {
   text-shadow: 0 1px 0 black;
 }
 
-table.transparent-table {
+table.transparentTable {
   margin-bottom: 2rem;
 }
 
-table.transparent-table * {
+table.transparentTable * {
   border: none;
   background: transparent;
 }
 
-table.transparent-table tr {
+table.transparentTable tr {
   background: transparent;
 }
 
-table.transparent-table td,
-table.transparent-table th {
+table.transparentTable td,
+table.transparentTable th {
   padding: 0.7em 0;
 }
 
-table.transparent-table img {
+table.transparentTable img {
   vertical-align: middle;
   margin-right: 0.5rem;
 }
 
-table.transparent-table h1,
-table.transparent-table h2,
-table.transparent-table h3,
-table.transparent-table h4,
-table.transparent-table h5 {
+table.transparentTable h1,
+table.transparentTable h2,
+table.transparentTable h3,
+table.transparentTable h4,
+table.transparentTable h5 {
   margin: 0;
   font-size: 1.3rem;
 }
@@ -762,28 +752,6 @@ header,
 article,
 footer {
   width: 100%;
-}
-
-article#contentRoot {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  flex: 1;
-}
-
-article#contentRoot > section {
-  width: 100%;
-}
-
-article#contentRoot > section.pageContent {
-  padding: 4em;
-  font-size: 1.2em;
-  line-height: 1.4em;
-}
-
-article#contentRoot > section.pageContent h1,
-article#contentRoot > section.pageContent p:not(:last-of-type) {
-  margin-bottom: 1.25em;
 }
 
 span.action {
@@ -926,123 +894,6 @@ dialog.window h5 {
 
   h5 {
     font-size: 1.15rem;
-  }
-}
-
-.button.highlighted.blue {
-  background: linear-gradient(var(--primaryBlue), var(--primaryBlueMid));
-  color: var(--light);
-  border-color: var(--primaryBlueDark);
-  text-shadow: 0 1px 0 var(--primaryBlueDark);
-}
-.button.highlighted.blue:hover {
-  background: linear-gradient(var(--primaryBlueMid), var(--primaryBlue));
-}
-.button.highlighted.blue:active {
-  background: var(--primaryBlueMid);
-}
-
-.button.highlighted.primary {
-  background: linear-gradient(var(--primary), var(--primaryDark));
-  color: var(--light);
-  border-color: var(--primaryDark);
-  text-shadow: 0 1px 0 var(--primaryDark);
-}
-.button.highlighted.primary:hover {
-  background: linear-gradient(var(--primaryMid), var(--primary));
-}
-.button.highlighted.primary:active {
-  background: var(--primaryMid);
-}
-
-.button.highlighted,
-.button.highlighted.green {
-  background: linear-gradient(var(--primaryGreen), var(--primaryGreenMid));
-  color: var(--light);
-  border-color: var(--primaryGreenDark);
-  text-shadow: 0 1px 0 var(--primaryGreenDark);
-}
-.button.highlighted:hover,
-.button.highlighted.green:hover {
-  background: linear-gradient(var(--primaryGreenMid), var(--primaryGreen));
-}
-.button.highlighted:active,
-.button.highlighted.green:active {
-  background: var(--primaryGreenMid);
-}
-
-.button.highlighted.orange {
-  background: linear-gradient(var(--primaryOrange), var(--primaryOrangeMid));
-  color: var(--light);
-  border-color: var(--primaryOrangeDark);
-  text-shadow: 0 1px 0 var(--primaryOrangeDark);
-}
-.button.highlighted.orange:hover {
-  background: linear-gradient(var(--primaryOrangeMid), var(--primaryOrange));
-}
-.button.highlighted.orange:active {
-  background: var(--primaryOrangeMid);
-}
-
-.button.blink.highlighted {
-  position: relative;
-  overflow: hidden;
-}
-
-.button.blink.highlighted::after {
-  content: '';
-  position: absolute;
-  left: -160px;
-  top: -50px;
-  height: 140px;
-  width: 100px;
-  transform: rotate(25deg);
-  background: linear-gradient(#fff, #ffffff20, #fff);
-  background-blend-mode: hard-light;
-  filter: blur(2px) saturate(2);
-  animation: 3s linear 0s infinite blink_to_right;
-}
-
-.button.highlighted img {
-  filter: invert(1) drop-shadow(0 1px 0 #1116) !important;
-}
-
-.button.centered {
-  margin-inline: auto;
-  display: flex;
-  width: min-content;
-}
-
-.button.large {
-  font-size: 1.25em;
-}
-
-@keyframes blink_to_right {
-  0% {
-    left: -50%;
-    transform: rotate(25deg) scale(1);
-    opacity: 0;
-    filter: blur(5px);
-  }
-
-  20% {
-    opacity: 1;
-    transform: rotate(25deg) scale(1.5);
-    filter: blur(15px);
-  }
-
-  40% {
-    left: 150%;
-    transform: rotate(25deg) scale(1);
-    opacity: 0;
-    filter: blur(5px);
-  }
-
-  100% {
-    left: 150%;
-    transform: rotate(25deg) scale(1);
-    opacity: 0;
-    filter: blur(5px);
   }
 }
 

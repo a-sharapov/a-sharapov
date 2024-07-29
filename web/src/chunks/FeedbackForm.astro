@@ -1,0 +1,46 @@
+---
+import NotifyForm from '@lib/components/@Forms/NotifyForm/NotifyForm.svelte'
+import { DEFAULT_LOCALE, LOCALES } from '@lib/l18n'
+import { determineLocale } from '@lib/shared/utils'
+
+const { slug } = Astro.params
+const locale = (slug ? determineLocale(slug) : DEFAULT_LOCALE) as keyof typeof LOCALES
+---
+
+<NotifyForm {locale} client:only="svelte">
+  <slot />
+  <label>
+    {LOCALES[locale].INQUIRY_TYPE_LABEL}:
+    <select name="inquiryType">
+      <option value="" disabled selected>{LOCALES[locale].INQUIRY_TYPE_HINT}</option>
+      {
+        LOCALES[locale].INQUIRY_TYPE_ITEMS.map((label: string) => (
+          <option value={label}>{label}</option>
+        ))
+      }
+    </select>
+  </label>
+  <label>
+    {LOCALES[locale].PREFERRED_CONTACT_LABEL}:
+    <input
+      type="text"
+      name="preferredContact"
+      placeholder={LOCALES[locale].PREFERRED_CONTACT_HINT}
+      required
+    />
+  </label>
+  <label>
+    {LOCALES[locale].MESSAGE_LABEL}:
+    <textarea name="message" rows="5" placeholder={LOCALES[locale].MESSAGE_HINT} required
+    ></textarea>
+  </label>
+  <label class="meshed">
+    <input type="checkbox" name="acceptTerms" value="yes" required />
+    {LOCALES[locale].ACCEPT_TERMS}
+  </label>
+  <label>
+    <button type="submit">
+      {LOCALES[locale].SUBMIT_BUTTON_TEXT}
+    </button>
+  </label>
+</NotifyForm>

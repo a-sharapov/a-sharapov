@@ -1,13 +1,15 @@
 ---
 ---
 
-import '@lib/content/styles/Contacts.scss'
+import FeedbackForm from '@lib/chunks/FeedbackForm.astro'
+import '@lib/styles/Contacts.scss'
 
 <aside id="contacts">
   <figure data-role="avatar">
     <img src="/images/a-sharapov-photo.webp" width="300px" />
   </figure>
   ### Александр Шарапов
+  <hr />
   <ul class="contactsList">
     <li>
       <img src="/images/icons/phone.svg" />
@@ -53,3 +55,9 @@ import '@lib/content/styles/Contacts.scss'
     </li>
   </ul>
 </aside>
+<FeedbackForm>
+  <p>
+    Связаться со мной очень просто &ndash; выберите любой удобный для вас способ из колонки слева
+    или используйте эту форму, я всегда отвечаю на сообщения.
+  </p>
+</FeedbackForm>

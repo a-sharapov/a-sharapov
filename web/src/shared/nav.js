@@ -11,11 +11,11 @@ export default [
     title: 'CV',
     pageState: LANDSCAPE
   },
-  {
-    url: 'services',
-    title: 'SERVICES',
-    pageState: LANDSCAPE
-  },
+  // {
+  //   url: 'services',
+  //   title: 'SERVICES',
+  //   pageState: LANDSCAPE
+  // },
   {
     url: 'contacts',
     title: 'CONTACTS',

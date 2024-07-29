@@ -1,6 +1,8 @@
 @charset "utf-8";
 
 :root {
+  --ambient: #e6e3df;
+
   --textSize: 16px;
   --ratio: calc(1vw + 1vh);
   --maxContentWidth: 1400px;
@@ -54,6 +56,8 @@
 }
 
 :root[data-theme='dark'] {
+  --ambient: #444342;
+
   --text: var(--grayLight);
   --heading: #fff;
   --background: var(--dark);

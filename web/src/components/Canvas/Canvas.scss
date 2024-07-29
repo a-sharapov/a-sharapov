@@ -1,13 +1,13 @@
 canvas {
-  --ambientColor: #e1e1e1;
+  --canvasAmbientColor: #e1e1e1;
 
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   min-width: 100%;
   min-height: 100%;
   z-index: 0;
-  background: var(--ambientColor);
+  background: var(--canvasAmbientColor);
   transition: filter 0.5s;
 
   [data-theme='dark'] & {

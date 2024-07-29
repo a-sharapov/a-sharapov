@@ -3,14 +3,11 @@ main {
   position: relative;
   align-items: center;
   justify-content: center;
+  background: var(--ambient);
   height: 100vh;
 
   & > .contentBox {
     display: flex;
     margin: auto;
-  }
-
-  [data-theme='dark'] & {
-    background: var(--background);
   }
 }

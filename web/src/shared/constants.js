@@ -10,3 +10,5 @@ export var ZIP = '246050'
 export var SOURCE_LINK = 'https://github.com/a-sharapov/a-sharapov'
 
 export var INDEX = 'index'
+
+export var COLLECT_API_URL = '/api/collect/'
