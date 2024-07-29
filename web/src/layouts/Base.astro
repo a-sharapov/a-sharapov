@@ -13,11 +13,12 @@ import store from '@lib/shared/store'
 import { determineLocale } from '@lib/shared/utils'
 import Head from './Head.astro'
 
-export interface Props {
+export interface Props extends Record<string, any> {
   scripts?: string
+  modifier?: string
 }
 
-const { scripts } = Astro.props
+const { scripts, modifier, ...props } = Astro.props
 const { slug } = Astro.params
 const locale = slug ? determineLocale(slug) : DEFAULT_LOCALE
 
@@ -26,22 +27,32 @@ store.update((store: any) => ({ ...store, locale }))
 
 <!doctype html>
 <html lang={locale as string}>
-  <Head locale={locale as string} scripts={scripts} />
+  <Head {...props} locale={locale as string} scripts={scripts} />
   <body>
-    <Header transition:name="header" transition:persist>
-      <Nav currentUrl={slug} />
-      <Locales />
-      <ThemeSwitcher client:load />
-    </Header>
+    {
+      !modifier && (
+        <Header transition:name="header" transition:persist>
+          <Nav currentUrl={slug} />
+          <Locales slug={slug} />
+          <ThemeSwitcher client:load />
+        </Header>
+      )
+    }
     <Main client:load>
       <slot />
     </Main>
-    <Footer transition:name="footer" transition:persist>
-      <FooterContent locale={locale as string} />
-    </Footer>
+    {
+      !modifier && (
+        <Footer transition:name="footer" transition:persist>
+          <FooterContent locale={locale as string} />
+        </Footer>
+      )
+    }
     <slot name="assets" />
 
-    <Canvas {locale} {slug} client:only="svelte" />
+    <Canvas {locale} {slug} {modifier} client:only="svelte">
+      <slot />
+    </Canvas>
     <Vignette transition:name="vignette" transition:persist />
   </body>
 </html>

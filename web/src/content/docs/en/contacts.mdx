@@ -1,0 +1,58 @@
+---
+---
+
+import '@lib/chunks/FeedbackForm.astro'
+import '@lib/content/styles/Contacts.scss'
+
+<aside id="contacts">
+  <figure data-role="avatar">
+    <img src="/images/a-sharapov-photo.webp" width="300px" />
+  </figure>
+  ### Alexander Sharapov
+  <ul class="contactsList">
+    <li>
+      <img src="/images/icons/phone.svg" />
+      <a href="tel:+375445705702">
+        +375&nbsp;(44)&nbsp;<strong>570&nbsp;·&nbsp;570&nbsp;·&nbsp;2</strong>
+      </a>
+    </li>
+    <li>
+      <span class="indent" />
+      <a href="tel:+375295705702">
+        +375&nbsp;(29)&nbsp;<strong>570&nbsp;·&nbsp;570&nbsp;·&nbsp;2</strong>
+      </a>
+    </li>
+    <li class="indented">
+      <img src="/images/icons/telegram.svg" />
+      <a href="https://t.me/asharapov" target="_blank">
+        @asharapov
+      </a>
+    </li>
+    <li>
+      <img src="/images/icons/skype.svg" />
+      <a href="skype:a-sharapov?chat">a-sharapov</a>
+    </li>
+    <li>
+      <img src="/images/icons/letter.svg" />
+      mail@a-sharapov.com
+    </li>
+    <li class="indented">
+      <img src="/images/icons/linkedin.svg" />
+      <a
+        href="https://www.linkedin.com/in/sharapov-alexander/"
+        rel="external nofollow"
+        target="_blank"
+      >
+        Linkedin
+      </a>
+    </li>
+    <li>
+      <img src="/images/icons/github.svg" />
+      <a href="https://github.com/a-sharapov" rel="external nofollow" target="_blank">
+        Github
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<FeedbackForm />

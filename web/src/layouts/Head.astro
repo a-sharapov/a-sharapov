@@ -20,7 +20,7 @@ const canonicalUrl = Astro.url.toString().replace(/\?[^\s]*/gi, '')
 const ldMarkup = `<script type="application/ld+json">{
   "@context": "http://schema.org",
   "@type": "Organization",
-  "name": "${LOCALES[locale as keyof typeof LOCALES].BASE_TITLE}",
+  "name": "${pagetitle}",
   "url": "${Astro.url.origin}",
   "logo": "${Astro.url.origin}/logo.svg",
   "currenciesAccepted": "BYN",
@@ -37,7 +37,7 @@ const ldMarkup = `<script type="application/ld+json">{
     "email": "mail@${Astro.url.hostname}"
   },
   "openingHours": ["Mo-Fr 10:00 - 19:00"]
-  "description": "${LOCALES[locale as keyof typeof LOCALES].BASE_DESCRIPTION}"
+  "description": "${description}"
 }</script>`
 ---
 
@@ -56,7 +56,7 @@ const ldMarkup = `<script type="application/ld+json">{
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   />
-  <meta http-equiv="Cache-control" content="max-age=604800, must-revalidate" />
+  <meta http-equiv="Cache-control" content="max-age=604800, public, must-revalidate" />
   <meta name="generator" content={Astro.generator} />
   <meta name="keywords" content={keywords} />
   <meta name="description" content={description} />
@@ -86,4 +86,5 @@ const ldMarkup = `<script type="application/ld+json">{
   />
   <Fragment set:html={ldMarkup} />
   <Fragment set:html={scripts} />
+  <script defer src="/service-worker.js" type="text/javascript" is:inline></script>
 </head>

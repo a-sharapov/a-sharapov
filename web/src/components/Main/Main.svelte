@@ -1,15 +1,12 @@
 <script>
-  import { currentState } from '@lib/components/Scene/state'
   import store from '@lib/shared/store'
-  import { fade } from 'svelte/transition'
+  import './Main.scss'
 </script>
 
-{#if $store.sceneReady}
-  <main
-    data-layout={$currentState.description}
-    in:fade={{ duration: 1e3 }}
-    out:fade={{ duration: 1e3 }}
-  >
-    <slot />
-  </main>
-{/if}
+<main>
+  {#if $store.sceneReady}
+    <section class="contentBox">
+      <slot />
+    </section>
+  {/if}
+</main>

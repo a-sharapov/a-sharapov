@@ -1,9 +1,10 @@
 export default {
   TAGLINE: 'If a business needs an image',
-  TAGLINE_HOVER: 'Go to Curriculum Vitae',
-  BASE_TITLE: 'Full Cycle Web Development, Promo Sites and Web Applications for Business',
+  TAGLINE_HOVER: 'Just reach out to me',
+  BASE_TITLE:
+    'Full-service web development, 3D promotional websites, landing pages and web applications for businesses',
   BASE_DESCRIPTION:
-    'Complex solutions for creating effective web sites and applications. Analysis of requirements, design, development, testing and support. Modern technologies, high quality and stability. For business, marketing and web developers. Contact us for more information.',
+    'Comprehensive solutions for creating effective websites and applications for business and marketing. Requirements analysis, design, development, testing and support. Modern technologies and high quality.',
   SHORT_ADDRESS: 'Pushkina St. 2/4',
   CITY: 'Gomel',
   COUNTRY: 'Belarus',
@@ -14,6 +15,6 @@ export default {
   INDEX: 'VCard',
   CONTACTS: 'Contacts',
   CV: 'CV',
-  FOLIO: 'Portfolio',
+  SERVICES: 'Services',
   THEME_SWITCHER_LABEL: 'Switch theme (dark/light)'
 }

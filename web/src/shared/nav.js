@@ -12,8 +12,8 @@ export default [
     pageState: LANDSCAPE
   },
   {
-    url: 'folio',
-    title: 'FOLIO',
+    url: 'services',
+    title: 'SERVICES',
     pageState: LANDSCAPE
   },
   {

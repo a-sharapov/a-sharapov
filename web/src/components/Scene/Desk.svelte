@@ -9,5 +9,5 @@
 
 <T.Mesh rotation.x={rotationX} position={DESK_POSITION} receiveShadow>
   <T.CircleGeometry args={DESK_SIZE} />
-  <T.MeshStandardMaterial color={COLORS.LIGHT} />
+  <T.MeshStandardMaterial color={COLORS.LIGHT} metalness={0} roughness={1} />
 </T.Mesh>

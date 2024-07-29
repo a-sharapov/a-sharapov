@@ -3,8 +3,8 @@
   import store from '@lib/shared/store'
   import './Locales.scss'
 
-  let current = $store.locale
-  let url = `/${current}/`
+  let { locale: current } = $store
+  export let slug = `${current}`
 </script>
 
 <nav data-role="locales">
@@ -12,7 +12,7 @@
     {#if locale === current}
       <span class="localeItem">{locale}</span>
     {:else}
-      <a class="localeItem" href={url.replace(`/${current}/`, `/${locale}/`)}>
+      <a class="localeItem" href={slug.replace(`${current}`, `${locale}`)}>
         {locale}
       </a>
     {/if}

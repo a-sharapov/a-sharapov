@@ -39,6 +39,11 @@
   --darkMid: #27282d;
   --darkLight: #393b42;
 
+  --text: var(--dark);
+  --heading: var(--primary);
+  --background: var(--light);
+  --text-shadow-color: #fffb;
+
   --link: var(--primary);
   --linkVisited: color-mix(in srgb, var(--link), var(--dark) 50%);
   --linkHover: color-mix(in srgb, var(--link), var(--grayLight) 30%);
@@ -46,4 +51,13 @@
   /* filters */
   --inverted: grayscale(100) brightness(0.1) invert(1) drop-shadow(0 1px 0 #1112);
   --grayscaled: grayscale(100);
+}
+
+:root[data-theme='dark'] {
+  --text: var(--grayLight);
+  --heading: #fff;
+  --background: var(--dark);
+  --text-shadow-color: #1112;
+
+  --link: var(--heading);
 }

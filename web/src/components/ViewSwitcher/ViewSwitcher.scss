@@ -17,10 +17,6 @@
   transition: none;
   height: 7rem;
 
-  [data-theme='dark'] & {
-    text-shadow: 0 1px 0 black;
-  }
-
   .expanded & {
     position: absolute;
     height: 7rem;

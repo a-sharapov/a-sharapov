@@ -10,11 +10,12 @@
 
   export let slug
   export let locale
+  export let modifier
 
   let size = { width: 0, height: 0 }
   const { progress } = useProgress()
   export let tweenedProgress = tweened($progress, {
-    duration: 800
+    duration: 8e2
   })
 
   onMount(() => {
@@ -26,13 +27,10 @@
 
   tweenedProgress.subscribe(
     (progress) =>
-      void (
-        progress === 1 &&
-        store.update((store) => ({
-          ...store,
-          sceneReady: progress === 1
-        }))
-      )
+      void store.update((store) => ({
+        ...store,
+        sceneReady: progress === 1
+      }))
   )
 
   $: tweenedProgress.set($progress)
@@ -43,5 +41,7 @@
 {/if}
 
 <Canvas renderMode="on-demand" {size} useLegacyLights={false}>
-  <Scene {slug} {locale} />
+  <Scene {slug} {locale} {modifier}>
+    <slot />
+  </Scene>
 </Canvas>

@@ -1,12 +1,12 @@
-<script lang="ts">
+<script>
   import './Marks.scss'
 </script>
 
 <div class="errorMark">
   <div class="failedIcon">
-    <span class="iconLine lineLeft"></span>
-    <span class="iconLine lineRight"></span>
-    <div class="iconCircle"></div>
-    <div class="iconFix"></div>
+    <span class="iconLine lineLeft" />
+    <span class="iconLine lineRight" />
+    <div class="iconCircle" />
+    <div class="iconFix" />
   </div>
 </div>

@@ -10,27 +10,26 @@ const currentYear = new Date().getFullYear()
 const { locale } = Astro.props
 ---
 
-<p class="copyleft">
-  2011 &ndash; {currentYear}
-  <span class="glyph">&copy;</span>
-  <Fragment set:html={LOCALES[locale as keyof typeof LOCALES].COPYLEFT} />
-</p>
-<p>
-  {LOCALES[locale as keyof typeof LOCALES].FOOTER_CONTENT}
-</p>
-<p class="stack">
-  <a
-    href={SOURCE_LINK}
-    title={LOCALES[locale as keyof typeof LOCALES].SOURCE_LINK_TITLE}
-    target="_blank"
-    rel="noopener noreferrer nofollow external"
-  >
-    <Fragment set:html={SvelteIcon} />
-    &nbsp;&plus;&nbsp;
-    <Fragment set:html={ThreeIcon} />
-    &nbsp;&plus;&nbsp;
-    <Fragment set:html={AstroIcon} />
-    &nbsp;&equals;&nbsp;&nbsp;
-    <Fragment set:html={LOCALES[locale as keyof typeof LOCALES].SOURCE_LINK_TEXT} />
-  </a>
-</p>
+<div class="row">
+  <p class="copyleft">
+    2011 &ndash; {currentYear}
+    <span class="glyph">&copy;</span>
+    <Fragment set:html={LOCALES[locale as keyof typeof LOCALES].COPYLEFT} />
+  </p>
+  <p class="stack">
+    <a
+      href={SOURCE_LINK}
+      title={LOCALES[locale as keyof typeof LOCALES].SOURCE_LINK_TITLE}
+      target="_blank"
+      rel="noopener noreferrer nofollow external"
+    >
+      <Fragment set:html={SvelteIcon} />
+      &nbsp;&plus;&nbsp;
+      <Fragment set:html={ThreeIcon} />
+      &nbsp;&plus;&nbsp;
+      <Fragment set:html={AstroIcon} />
+      &nbsp;&equals;&nbsp;&nbsp;
+      <Fragment set:html={LOCALES[locale as keyof typeof LOCALES].SOURCE_LINK_TEXT} />
+    </a>
+  </p>
+</div>

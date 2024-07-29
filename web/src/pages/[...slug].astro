@@ -1,5 +1,25 @@
 ---
 import Base from '@lib/layouts/Base.astro'
+import { INDEX } from '@lib/shared/constants'
+import { hasNoExtension } from '@lib/shared/utils'
+import { getEntry } from 'astro:content'
+
+const { slug } = Astro.params
+const contentUrl = hasNoExtension(slug)
+  ? slug?.endsWith('/')
+    ? `${slug}${INDEX}`
+    : slug || INDEX
+  : null
+
+const entry = await (contentUrl ? getEntry('docs', contentUrl as string) : void 0)
+
+if (!entry) {
+  return Astro.redirect('/404', 404)
+}
+
+const { Content, headings } = await entry.render()
 ---
 
-<Base />
+<Base {...headings}>
+  <Content />
+</Base>

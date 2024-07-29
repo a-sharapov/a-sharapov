@@ -8,3 +8,5 @@ export var SOCIAL_LINKS = {}
 export var ZIP = '246050'
 
 export var SOURCE_LINK = 'https://github.com/a-sharapov/a-sharapov'
+
+export var INDEX = 'index'

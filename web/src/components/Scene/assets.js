@@ -22,6 +22,12 @@ export var CAMERA = {
   FAR: 100
 }
 
+export var ZOOM_STATES = {
+  INTRO: 1,
+  LANDSCAPE: 2,
+  PORTRAIT: 1.1
+}
+
 export var VCARD = {
   POSITION: {
     DEFAULT: [0, 2.5, 0],
@@ -116,6 +122,16 @@ export var DESK_LAMP = {
   SCALE: 0.3
 }
 
+export var GLASSES = {
+  POSITION: {
+    DEFAULT: [-14, 0.85, -6]
+  },
+  ROTATION: {
+    DEFAULT: [0, 2.2, 0]
+  },
+  SCALE: 0.03
+}
+
 export var PAPER_PLANE = {
   POSITION: {
     DEFAULT: [1.2, 0.27, -10]
@@ -126,7 +142,22 @@ export var PAPER_PLANE = {
   SCALE: 4.7
 }
 
+export var BULB = {
+  POSITION: [-1.06, 9.5, -8],
+  GLOW_RADIUS: 1e2,
+  FALLOFF: 0.7,
+  GEOMETRY: [5],
+  SCALE: 1
+}
+
+export var CUSTOM_TEXT = {
+  POSITION: [0, 0, 0],
+  ROTATION: [-0.1, 0.6, -0.1],
+  SCALE: 0.05
+}
+
 export var COLORS = {
+  PRIMARY: '#d71e00',
   LIGHT: '#fff',
   GROW: '#555',
   BG: '#efefef',
@@ -155,12 +186,17 @@ export var LIGHT = {
   ],
   LAMP: {
     color: 0xffa95c,
-    intensity: 1e2,
-    position: [-5, 9, -12],
-    angle: Math.PI / 6,
-    penumbra: 0.1,
+    intensity: 3e2,
+    position: [-2, 11, -17],
+    angle: Math.PI / 8,
+    penumbra: 0.2,
     decay: 2,
-    distance: 60
+    distance: 70
+  },
+  LAMP_POINT: {
+    position: [-2, 11, -5],
+    intensity: 1e2,
+    distance: 30
   }
 }
 

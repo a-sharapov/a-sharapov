@@ -8,8 +8,9 @@ canvas {
   min-height: 100%;
   z-index: 0;
   background: var(--ambientColor);
+  transition: filter 0.5s;
 
   [data-theme='dark'] & {
-    filter: grayscale(0.85) sepia(0.15) brightness(0.35) contrast(1.25) hue-rotate(210deg);
+    filter: grayscale(0.85) sepia(0.05) brightness(0.35) contrast(1.25);
   }
 }

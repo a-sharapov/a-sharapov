@@ -4,24 +4,9 @@
 }
 
 ::selection {
-  color: var(--light);
-  background: var(--dark);
-  text-shadow: 0 1px 0 color-mix(in srgb, var(--dark), transparent 50%);
-}
-
-[data-theme='dark'] {
-  background: var(--darkLight);
-}
-
-[data-theme='dark'] body {
-  color: var(--light);
-  text-shadow: 0 1px 0 #3333;
-}
-
-[data-theme='dark'] ::selection {
-  color: var(--dark);
-  background: var(--light);
-  text-shadow: 0 1px 0 color-mix(in srgb, var(--dark), transparent 80%);
+  color: var(--text);
+  background: var(--background);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--background), transparent 50%);
 }
 
 html:has(dialog[open]),
@@ -42,7 +27,7 @@ html {
 body {
   color: var(--dark);
   line-height: 1.25em;
-  text-shadow: 0 1px 0 var(--light);
+  text-shadow: 0 1px 0 var(--text-shadow-color);
   min-height: 100vh;
   width: 100%;
 }
@@ -93,7 +78,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--primary);
+  color: var(--heading);
   margin: 0 0 1rem;
   font-weight: 600;
   line-height: 1.2em;
@@ -765,15 +750,12 @@ table.transparent-table h5 {
 
 main {
   display: flex;
-  position: absolute;
   inset: 0;
   flex-direction: column;
   align-content: center;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: nowrap;
-  min-height: 100vh;
-  overflow: hidden;
 }
 
 header,
@@ -852,7 +834,7 @@ dialog.window[open] {
     0 0 20px rgba(0, 0, 0, 0.05),
     0 0 40px rgba(0, 0, 0, 0.15);
   color: var(--dark);
-  text-shadow: 0 1px 0 var(--light);
+  text-shadow: 0 1px 0 var(--text-shadow-color);
   z-index: 1000;
   opacity: 1;
   transition: 0.2s;

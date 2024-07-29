@@ -1,29 +1,28 @@
-<script lang="ts">
-  import { store } from '@lib/shared/store'
+<script>
+  import store from '@lib/shared/store'
   import { delay } from '@lib/shared/utils'
   import { onMount } from 'svelte'
   import { pinch } from 'svelte-gestures'
   import './PreviewBox.scss'
 
-  let dialog: HTMLDialogElement | null = null
-  let imagePreview: HTMLImageElement | null = null
+  let dialog = null
+  let imagePreview = null
   export let eventName = 'triggerGalleryPreview'
 
-  const closePreview = async (): Promise<void> => {
+  const closePreview = async () => {
     if (dialog) {
       await onClosed()
       void dialog.close?.()
     }
   }
 
-  const mouseListener = (event: WheelEvent): void =>
-    event.deltaY > 0 ? void zoomImageOut() : void zoomImageIn()
+  const mouseListener = (event) => (event.deltaY > 0 ? void zoomImageOut() : void zoomImageIn())
 
-  const onClosed = async (): Promise<void> => {
+  const onClosed = async () => {
     document.querySelector('html')?.classList.remove('no-scroll')
     dialog?.classList.add('closed')
     await delay(500)
-    store.update((store: Record<string, any>) => ({
+    store.update((store) => ({
       ...store,
       activeImage: null
     }))
@@ -32,16 +31,14 @@
     document.removeEventListener('wheel', mouseListener, false)
   }
 
-  const getNewtIndex = (next: number): number => {
-    if (!$store.activeImage) return 0
-
+  const getNewtIndex = (next) => {
     const currentIndex = $store.gallery.indexOf($store.activeImage)
     const nextIndex =
       currentIndex + next >= $store.gallery.length || currentIndex + next < 0
         ? currentIndex
         : currentIndex + next
 
-    return nextIndex
+    return !$store.activeImage ? 0 : nextIndex
   }
 
   const setNextImage = () => {
@@ -54,8 +51,7 @@
     $store && ($store.activeImage = $store.gallery[newIndex])
   }
 
-  const getCurrentZoom = (image: HTMLImageElement): number =>
-    Number(image.style.transform.match(/\d+/g)?.join('.')) || 1
+  const getCurrentZoom = (image) => Number(image.style.transform.match(/\d+/g)?.join('.')) || 1
 
   const zoomImageIn = () => {
     if (imagePreview) {
@@ -77,13 +73,7 @@
     }
   }
 
-  const pinchListener = ({
-    detail
-  }: {
-    detail: {
-      scale: number
-    }
-  }) => {
+  const pinchListener = ({ detail }) => {
     const { scale } = detail
 
     if (scale > 1) {
@@ -93,7 +83,7 @@
     }
   }
 
-  const setActiveImage = (src: string) => $store && ($store.activeImage = src)
+  const setActiveImage = (src) => $store && ($store.activeImage = src)
 
   const BINDINGS = {
     Escape: closePreview,
@@ -103,8 +93,7 @@
     ArrowDown: zoomImageOut
   }
 
-  const keyListener = (event: KeyboardEvent): void =>
-    void BINDINGS[event.key as keyof typeof BINDINGS]?.()
+  const keyListener = (event) => void BINDINGS[event.key]?.()
 
   onMount(() => {
     store.subscribe((store) => {
@@ -119,17 +108,12 @@
       }
     })
 
-    const productGalleryPreviewListener = (event: Event) => {
-      const {
-        detail: { gallery, image }
-      } = event as CustomEvent<{ gallery: string[]; image: string }>
-
+    const productGalleryPreviewListener = ({ detail }) =>
       store.update((store) => ({
         ...store,
         activeImage: image,
         gallery: gallery || []
       }))
-    }
 
     document.addEventListener(eventName, productGalleryPreviewListener)
 

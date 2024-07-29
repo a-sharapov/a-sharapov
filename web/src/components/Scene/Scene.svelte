@@ -2,15 +2,17 @@
   import nav from '@lib/shared/nav'
   import store from '@lib/shared/store'
   import { T, useThrelte } from '@threlte/core'
-  import { ContactShadows, Environment, interactivity } from '@threlte/extras'
+  import { ContactShadows, Environment, interactivity, transitions } from '@threlte/extras'
   import { onMount } from 'svelte'
   import { cubicOut, expoIn } from 'svelte/easing'
   import { spring, tweened } from 'svelte/motion'
-  import { CAMERA, COLORS, LIGHT, PAPER, SHADOWS, VCARD } from './assets'
+  import { CAMERA, COLORS, LIGHT, PAPER, SHADOWS, VCARD, ZOOM_STATES } from './assets'
   import CoffeeCup from './CoffeeCup.svelte'
+  import CustomText from './CustomText.svelte'
   import Desk from './Desk.svelte'
   import DeskLamp from './DeskLamp.svelte'
   import Dust from './Dust/Dust.svelte'
+  import Glasses from './Glasses.svelte'
   import PaperPlane from './PaperPlane.svelte'
   import PenHolder from './PenHolder.svelte'
   import { currentState, INTRO, LANDSCAPE, PORTRAIT } from './state'
@@ -18,6 +20,7 @@
 
   export let slug
   export let locale
+  export let modifier
 
   const possibleState = nav.find(({ url }) => slug && slug.includes(url))?.pageState || INTRO
   currentState.set(possibleState)
@@ -63,6 +66,7 @@
   }
 
   interactivity()
+  transitions()
 
   let sceneRotation = 0
   onMount(() => {
@@ -92,7 +96,7 @@
           vcardRotation.set(VCARD.ROTATION.DEFAULT)
           currentCameraPosition.set(CAMERA.POSITION.DEFAULT)
           currentCameraPov.set(CAMERA.LOOK_AT.VCARD_ACTIVE)
-          zoom.set(1)
+          zoom.set(ZOOM_STATES.INTRO)
           break
         case PORTRAIT:
           vcadGeometry.set(PAPER.GEOMETRY)
@@ -100,7 +104,7 @@
           vcardRotation.set(PAPER.ROTATION.DEFAULT)
           currentCameraPosition.set(CAMERA.POSITION.PORTRAIT)
           currentCameraPov.set(CAMERA.LOOK_AT.PORTRAIT)
-          zoom.set(1)
+          zoom.set(ZOOM_STATES.PORTRAIT)
           break
         case LANDSCAPE:
           vcadGeometry.set(PAPER.GEOMETRY)
@@ -108,11 +112,11 @@
           vcardRotation.set(PAPER.ROTATION.LANDSCAPE)
           currentCameraPosition.set(CAMERA.POSITION.LANDSCAPE)
           currentCameraPov.set(CAMERA.LOOK_AT.LANDSCAPE)
-          zoom.set(1.4)
+          zoom.set(ZOOM_STATES.LANDSCAPE)
           break
         default:
           currentCameraPov.set(CAMERA.LOOK_AT.DEFAULT)
-          zoom.set(1)
+          zoom.set(ZOOM_STATES.INTRO)
           break
       }
 
@@ -144,6 +148,7 @@
 
 {#if $store.theme === Symbol.for('light')}
   <T.SpotLight {...LIGHT.LAMP} />
+  <T.PointLight {...LIGHT.LAMP_POINT} color={LIGHT.LAMP.color} />
 {/if}
 
 <ContactShadows {...SHADOWS[0]} color={COLORS.GROW} />
@@ -155,21 +160,28 @@
 {/if}
 
 <T.Group position={[0, 0, 0]} rotation.y={sceneRotation}>
-  <VCard
-    {vcardPosition}
-    {vcardRotation}
-    {vcardScale}
-    {vcadGeometry}
-    {setVcardActive}
-    {setVcardInactive}
-    {vcardIsActive}
-    {locale}
-  />
+  {#if modifier}
+    <CustomText {locale} {modifier} />
+  {:else}
+    <VCard
+      {vcardPosition}
+      {vcardRotation}
+      {vcardScale}
+      {vcadGeometry}
+      {setVcardActive}
+      {setVcardInactive}
+      {vcardIsActive}
+      {locale}
+    >
+      <slot />
+    </VCard>
+  {/if}
 
   <CoffeeCup />
   <PenHolder />
   <PaperPlane />
   <DeskLamp />
+  <Glasses />
 
   <Desk />
 </T.Group>

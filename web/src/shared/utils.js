@@ -10,3 +10,13 @@ export var determineLocale = (url) =>
     (url) => url.split('/')[0],
     (url) => (AVAILABLE_LOCALES.includes(url) ? url : DEFAULT_LOCALE)
   )(url)
+
+export var delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export var toSneakeCase = (str) => str.replace(/ /g, '_').toLowerCase()
+
+export var closeDialog = (dialog) => dialog.close()
+
+export var showDialog = (dialog) => dialog.showModal()
+
+export var hasNoExtension = (slug) => (slug ? slug.split('.').length : 1)

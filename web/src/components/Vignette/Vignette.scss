@@ -3,6 +3,10 @@
   inset: 0;
   user-select: none;
   pointer-events: none;
-  background: radial-gradient(transparent 75%, rgba(0, 0, 0, 0.2) 100%);
+  background: radial-gradient(transparent 70%, #1111);
   z-index: 99999;
+
+  [data-theme='dark'] & {
+    background: radial-gradient(transparent 70%, #1114);
+  }
 }
