@@ -35,7 +35,7 @@ store.update((store: any) => ({ ...store, locale }))
         <Header transition:name="header" transition:persist>
           <ViewSwitcher client:load />
           <Nav currentUrl={slug} />
-          <Locales slug={slug} />
+          <Locales slug={slug} client:load />
           <ThemeSwitcher client:load />
         </Header>
       )

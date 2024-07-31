@@ -1,18 +1,20 @@
 <script>
-  import { AVAILABLE_LOCALES } from '@lib/l18n'
+  import { AVAILABLE_LOCALES, DEFAULT_LOCALE } from '@lib/l18n'
   import store from '@lib/shared/store'
+  import { determineLocale } from '@lib/shared/utils'
   import './Locales.scss'
 
-  let { locale: current } = $store
-  export let slug = `${current}`
+  export let slug = `${$store.locale}`
+
+  $: store.update((store) => ({ ...store, locale: determineLocale(slug) || DEFAULT_LOCALE }))
 </script>
 
 <nav data-role="locales">
   {#each AVAILABLE_LOCALES as locale, i}
-    {#if locale === current}
+    {#if locale === $store.locale}
       <span class="localeItem">{locale}</span>
     {:else}
-      <a class="localeItem" href={slug.replace(`${current}`, `${locale}`)}>
+      <a class="localeItem" href={slug.replace(`${$store.locale}`, `${locale}`)}>
         {locale}
       </a>
     {/if}

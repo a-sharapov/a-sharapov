@@ -24,7 +24,7 @@ export default {
   SUCCESS_TITLE: 'Данные отправлены',
   SUCCESS_TEXT: 'Мы уже получили ваше сообщение и занялись его обработкой',
   INQUIRY_TYPE_LABEL: 'Тема беседы',
-  INQUIRY_TYPE_HINT: 'Выьберите из списка',
+  INQUIRY_TYPE_HINT: 'Выберите из списка',
   INQUIRY_TYPE_ITEMS: ['Нанять меня', 'Обсудить проект', 'Предложение', 'Вопрос', 'Обратная связь'],
   PREFERRED_CONTACT_LABEL: 'Предпочитаемый способ связи',
   PREFERRED_CONTACT_HINT: 'Например: telegram @asharapov',
@@ -32,5 +32,14 @@ export default {
   MESSAGE_HINT: 'Любое сообщение, которое вы хотите написать',
   ACCEPT_TERMS:
     'Я согласен на обработку данных, в том числе и персональных, которые будут отправлены через эту форму',
-  SUBMIT_BUTTON_TEXT: 'Отправить'
+  SUBMIT_BUTTON_TEXT: 'Отправить',
+  PRESENT: 'Текущее время',
+  TIMETABLE: {
+    parttime: 'Частичная занятость',
+    remote: 'Удалённо',
+    hybrid: 'Гибрид',
+    office: 'Офис'
+  },
+  STACK: 'Стек технологий',
+  PROJECTS: 'Проекты'
 }

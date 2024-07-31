@@ -1,0 +1,175 @@
+section.timeline {
+  position: relative;
+  padding: 0 0 0 3em;
+  margin: 2em 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    right: auto;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gray) 85%, transparent 100%);
+  }
+
+  article {
+    &.freelance {
+      --currentColor: color-mix(in srgb, var(--text), transparent 30%);
+
+      display: flex;
+      position: relative;
+      font-size: 0.8em;
+      color: color-mix(in srgb, var(--currentColor), transparent 30%);
+      margin: 0 0 2em;
+      font-weight: bold;
+      padding: 1em;
+      text-align: center;
+
+      &::before,
+      &::after {
+        content: '';
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        margin: auto;
+        width: 40%;
+        height: 1px;
+        background: var(--currentColor);
+        align-items: center;
+        justify-content: space-evenly;
+      }
+    }
+
+    &.company {
+      position: relative;
+      width: 100%;
+      padding: 0.25em 0;
+      margin: 0 0 2em;
+
+      & > astro-slot > p:last-of-type,
+      & > p:last-of-type {
+        margin-bottom: 1em;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 1.15em 0 0 -3em;
+        width: 1.5em;
+        height: 1px;
+        background: linear-gradient(to right, var(--gray) 1%, transparent);
+        border-radius: 0.1em;
+      }
+
+      .dates {
+        display: flex;
+        font-size: 80%;
+        margin: 0 0 0.75em;
+        color: color-mix(in srgb, var(--text), transparent 30%);
+      }
+
+      .roleDescription {
+        display: flex;
+        font-size: 1.25em;
+        margin: 0 0 0.5em;
+        align-items: center;
+
+        span {
+          &.title {
+            font-weight: bold;
+          }
+
+          &.timetable {
+            color: color-mix(in srgb, var(--text), transparent 30%);
+          }
+
+          &.at {
+            font-weight: 200;
+            font-size: 70%;
+            margin: 0 0.5em;
+            color: color-mix(in srgb, var(--text), transparent 50%);
+          }
+        }
+
+        svg {
+          display: inline-flex;
+          object-fit: contain;
+        }
+      }
+
+      .project {
+        display: flex;
+        background: color-mix(in srgb, var(--background), transparent 90%);
+        padding: 1em;
+        font-size: 80%;
+        flex-direction: column;
+        margin: 0.5em 0 0;
+        transition: 0.15s;
+        border: 1px solid color-mix(in srgb, var(--background), transparent 50%);
+
+        &:hover {
+          border-left: 2px solid var(--primary);
+        }
+
+        &.active {
+          padding-inline: 1.5em;
+          border-left: 2px solid var(--primary);
+          background: color-mix(in srgb, var(--background), transparent 70%);
+          box-shadow: 0 0.1em 0.5em color-mix(in srgb, var(--dark), transparent 90%);
+        }
+
+        h5 {
+          font-size: 1.15em;
+          color: inherit;
+          cursor: pointer;
+
+          &:last-child {
+            margin: 0;
+          }
+
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--primary);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.2em;
+          }
+        }
+
+        ul.stack {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5em;
+          font-size: 0.9em;
+          color: color-mix(in srgb, var(--text), transparent 30%);
+          margin: 1em 0 0;
+
+          li {
+            display: inline-block;
+
+            &:first-of-type {
+              font-weight: bold;
+            }
+
+            &:not(:last-of-type):not(:first-of-type)::after {
+              content: ',';
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 426px) {
+  section.timeline {
+    padding-left: 0.5em;
+
+    article.company {
+      &::before {
+        top: 1.5em;
+        left: -0.5em;
+      }
+    }
+  }
+}

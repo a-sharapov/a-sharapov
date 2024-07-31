@@ -5,7 +5,7 @@
 
 <main>
   {#if !$store.sceneIsReady || !$store.sceneIs3D}
-    <section class="contentBox">
+    <section class="contentBox" data-layout="static">
       <slot />
     </section>
   {/if}

@@ -92,3 +92,23 @@ section.contentBox {
     }
   }
 }
+
+@media screen and (max-width: 426px) {
+  section.contentBox {
+    max-width: 100%;
+    max-height: 90vh;
+
+    &[data-layout='portrait'] {
+      scale: 1.5;
+    }
+
+    aside#contacts {
+      width: 100%;
+    }
+
+    form.notifyForm {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}

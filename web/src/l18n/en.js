@@ -32,5 +32,14 @@ export default {
   MESSAGE_HINT: 'Any message you want to write',
   ACCEPT_TERMS:
     'I agree to the processing of data, including personal data, that will be sent through this form',
-  SUBMIT_BUTTON_TEXT: 'Submit'
+  SUBMIT_BUTTON_TEXT: 'Submit',
+  PRESENT: 'Present',
+  TIMETABLE: {
+    parttime: 'Part-time',
+    remote: 'Remote',
+    hybrid: 'Hybrid',
+    office: 'Office'
+  },
+  STACK: 'Technology stack',
+  PROJECTS: 'Projects'
 }
