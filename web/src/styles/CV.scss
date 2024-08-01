@@ -55,6 +55,11 @@ section.contentBox {
     justify-content: flex-start;
     padding: 0em 0;
 
+    &[data-layout='static'] {
+      margin: 4em 1em 5em;
+      padding: 0 2em;
+    }
+
     aside#assets {
       width: 100%;
       height: auto;

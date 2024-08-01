@@ -16,6 +16,7 @@ export default {
   CONTACTS: 'Контакты',
   CV: 'CV',
   SERVICES: 'Услуги',
+  PORTFOLIO: 'Портфолио',
   THEME_SWITCHER_LABEL: 'Переключить тему (светлая/темная)',
   VIEW_SWITCHER_LABEL: 'Переключить предпочтительный вид (3D/2D)',
   LOADING_TITLE: 'Загрузка...',
@@ -36,6 +37,7 @@ export default {
   PRESENT: 'Текущее время',
   TIMETABLE: {
     parttime: 'Частичная занятость',
+    fulltime: 'Полная занятость',
     remote: 'Удалённо',
     hybrid: 'Гибрид',
     office: 'Офис'

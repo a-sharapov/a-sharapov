@@ -6,7 +6,6 @@
   import { useProgress } from '@threlte/extras'
   import { onMount } from 'svelte'
   import { tweened } from 'svelte/motion'
-  import './Canvas.scss'
 
   export let slug
   export let locale
@@ -27,7 +26,7 @@
 
   tweenedProgress.subscribe(
     (progress) =>
-      (progress === 1 || progress === 0) &&
+      progress === 1 &&
       store.update((store) => ({
         ...store,
         sceneIsReady: progress === 1

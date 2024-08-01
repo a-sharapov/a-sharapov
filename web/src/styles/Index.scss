@@ -1,0 +1,30 @@
+section.contentBox[data-layout='static'] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4em;
+
+  .logoWrapper {
+    --vcardWidth: 9em;
+    --vcardHeight: 5em;
+    --index: 2.5;
+    --darkerBackground: color-mix(in srgb, var(--background), var(--text) 5%);
+
+    background: linear-gradient(to top, var(--darkerBackground), var(--background));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--vcardWidth) * var(--index));
+    height: calc(var(--vcardHeight) * var(--index));
+    max-width: 95vw;
+    border-radius: 0.1em;
+    box-shadow: 0 0.5em 1.5em color-mix(in srgb, var(--dark), transparent 95%);
+    -webkit-box-reflect: below 0.1em
+      linear-gradient(to top, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0) 75%);
+
+    svg {
+      max-width: 70%;
+    }
+  }
+}

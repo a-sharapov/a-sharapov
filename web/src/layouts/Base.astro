@@ -13,6 +13,7 @@ import { DEFAULT_LOCALE } from '@lib/l18n'
 import store from '@lib/shared/store'
 import { determineLocale } from '@lib/shared/utils'
 import Head from './Head.astro'
+import ResponsiveButton from '@lib/components/Nav/ResponsiveButton.svelte'
 
 export interface Props extends Record<string, any> {
   scripts?: string
@@ -34,7 +35,9 @@ store.update((store: any) => ({ ...store, locale }))
       !modifier && (
         <Header transition:name="header" transition:persist>
           <ViewSwitcher client:load />
-          <Nav currentUrl={slug} />
+          <Nav currentUrl={slug}>
+            <ResponsiveButton client:load />
+          </Nav>
           <Locales slug={slug} client:load />
           <ThemeSwitcher client:load />
         </Header>
@@ -55,5 +58,9 @@ store.update((store: any) => ({ ...store, locale }))
     </Canvas>
     <Vignette transition:name="vignette" transition:persist />
     <slot name="assets" />
+
+    <script>
+      'serviceWorker' in navigator && navigator.serviceWorker.register('/service-worker.js')
+    </script>
   </body>
 </html>

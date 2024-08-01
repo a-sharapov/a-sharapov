@@ -16,6 +16,7 @@ export default {
   CONTACTS: 'Contacts',
   CV: 'CV',
   SERVICES: 'Services',
+  PORTFOLIO: 'Portfolio',
   THEME_SWITCHER_LABEL: 'Switch theme (dark/light)',
   VIEW_SWITCHER_LABEL: 'Switch view (3D/2D)',
   LOADING_TITLE: 'Loading...',
@@ -23,12 +24,12 @@ export default {
   RETRY_TEXT: 'Try again or contact us by phone',
   SUCCESS_TITLE: 'Data has been sent',
   SUCCESS_TEXT: 'We have already received your message and are in the process of processing it',
-  INQUIRY_TYPE_LABEL: 'Topic of conversation',
+  INQUIRY_TYPE_LABEL: 'Subject',
   INQUIRY_TYPE_HINT: 'Choose from list',
   INQUIRY_TYPE_ITEMS: ['Hire me', 'Discuss project', 'Proposal', 'Question', 'Feedback'],
   PREFERRED_CONTACT_LABEL: 'Preferred method of contact',
   PREFERRED_CONTACT_HINT: 'For example: telegram @asharapov',
-  MESSAGE_LABEL: 'Tell us in a few words what our conversation will be about',
+  MESSAGE_LABEL: 'Tell me in a few words what our conversation will be about',
   MESSAGE_HINT: 'Any message you want to write',
   ACCEPT_TERMS:
     'I agree to the processing of data, including personal data, that will be sent through this form',
@@ -36,6 +37,7 @@ export default {
   PRESENT: 'Present',
   TIMETABLE: {
     parttime: 'Part-time',
+    fulltime: 'Full-time',
     remote: 'Remote',
     hybrid: 'Hybrid',
     office: 'Office'

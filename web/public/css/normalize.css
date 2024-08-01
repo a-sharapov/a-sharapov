@@ -188,6 +188,7 @@ template {
   display: none;
 }
 
+astro-island,
 astro-slot {
   display: contents;
 }

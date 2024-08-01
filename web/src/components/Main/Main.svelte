@@ -1,11 +1,16 @@
 <script>
   import store from '@lib/shared/store'
+  import { fade } from 'svelte/transition'
   import './Main.scss'
+
+  let shouldDisplayStaticContent = true
+
+  $: shouldDisplayStaticContent = !$store.sceneIsReady || !$store.sceneIs3D
 </script>
 
 <main>
-  {#if !$store.sceneIsReady || !$store.sceneIs3D}
-    <section class="contentBox" data-layout="static">
+  {#if shouldDisplayStaticContent}
+    <section transition:fade class="contentBox" data-layout="static">
       <slot />
     </section>
   {/if}

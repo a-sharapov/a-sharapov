@@ -20,3 +20,6 @@ export var closeDialog = (dialog) => dialog.close()
 export var showDialog = (dialog) => dialog.showModal()
 
 export var hasNoExtension = (slug) => (slug ? slug.split('.').length : 1)
+
+export var isMobile = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)

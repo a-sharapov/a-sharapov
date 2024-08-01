@@ -1,10 +1,16 @@
 <script>
   import { LOCALES } from '@lib/l18n'
   import store from '@lib/shared/store'
+  import { isMobile } from '@lib/shared/utils'
+  import { onMount } from 'svelte'
   import './ViewSwitcher.scss'
 
   const changeView = () =>
     store.update(({ sceneIs3D, ...store }) => ({ ...store, sceneIs3D: !sceneIs3D }))
+
+  onMount(() => {
+    store.update(({ sceneIs3D, ...store }) => ({ ...store, sceneIs3D: !isMobile() }))
+  })
 </script>
 
 <div class="viewSwitcher">

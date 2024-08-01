@@ -7,47 +7,24 @@ import Project from '@lib/components/Timeline/Project.svelte'
 import Timeline from '@lib/components/Timeline/Timeline.svelte'
 import '@lib/styles/CV.scss'
 
-<aside id="assets">
-  ### Ожидаемая должность
-
-  FE (Front-end) &middot; FS (Full-stack) Software Engineer
-
-  *UX/UI Designer*
-
-  ### Языки программирования
-  
-  **Ключевые:** JavaScript (ecma262), Elixir
-  
-  **Дополнительные:** Ruby, Rust, PHP
-
-  #### Стек
-
-  Phoenix, Astro, Svelte, Preact, React, Express, Electron, Evolution, RubyOnRails, 
-  Tauri, Bun, Node.js, Vite, Docker, Podman, Nginx, Linux/BSD, Git, SQL, NoSQL
-
-  ### Образование
-  
-  - **Белорусская государственная академия связи**, 2010<br />
-  Инженер по телекоммуникациям
-  - **Сетевая академия Cisco** (курсы), 2008<br />
-  Сетевой инженер
-</aside>
 <article class="contnet">
     Активно занимаюсь веб-разработкой с 2010 года.
 
     Если коротко и ёмко описать весь свой опыт, то я &ndash; **Webdev generalist** (веб-разработчик полного цикла с экспертизой в UX/UI и DevOps), способный самостоятельно реализовать проект от зарисовки на салфетке до полноценного цифрового продукта, который не стыдно показать инвесторам на презентации.
-    
+
+    Менеджмент мне не интересен, я стремлюсь углубляться в технические аспекты и решать прикладные задачи.
+
     <Timeline>
         <Company
           start="2024"
           role="Ведущий инженер программист"
-          timetable="parttime"
+          timetable="parttime,remote"
           client:load
         >
-          Стартап в области распределённых систем, базирующихся на блокчейн и WEB3, специализирующаяся на рекламе и исскусственном интеллекте.
-          <Project 
-            name="Система для децентрализованного взаимодействия с AI (Web3)" 
-            stack="JavaScript, Astro, Svelte.js, PWA, GunDB, Node.js, Bun, Docker"
+          Стартап в области распределённых децентрализованных систем, базирующихся на WEB3, блокчейн и исскусственном интеллекте.
+          <Project
+            name="Система децентрализованного взаимодействия с AI (Web3)"
+            stack="JavaScript, Astro, Svelte.js, PWA, Pinokio.computer, GunDB, Node.js, Bun, Docker"
             client:load
             >
             <p>Реализация всех слоёв приложения предназначенного для запуска, мониторинга и взаимодействия информацией между узлами с запущенными экземплярами нейронных сетей в режиме реального времени.</p>
@@ -60,20 +37,20 @@ import '@lib/styles/CV.scss'
           end="2023"
           role="Ведущий инженер программист"
           companyName="itechart"
-          timetable="hybrid"
+          timetable="fulltime,hybrid"
           client:load
         >
           Компания в области разработки программного обеспечения, специализирующаяся на создании веб- и мобильных приложений для стартапов и быстрорастущих компаний.
-          <Project 
-            name="B2B система управления бизнесом" 
+          <Project
+            name="B2B система управления бизнесом"
             stack="JavaScript, React, ReactNative, Node.js, Express, Docker"
             client:load
             >
             <p>Участие в качестве линейного специалиста в разработке составной системы управления бизнесом для малых и средних предприятий в сфере оказания услуг.</p>
             <p>**Зоны ответсвенности:** Работа в команде, исправлние проблем безопасности, ревью кода, внедрение новых функций и рефакторинг (Frontend, Backend), смок-тестирование, участие в CI/CD процессах</p>
           </Project>
-          <Project 
-            name="Веб-приложение для организации процесса назначения на проекты" 
+          <Project
+            name="Веб-приложение для организации процесса назначения на проекты"
             stack="JavaScript, React, Next.js, Node.js, Nest.js, Docker"
             client:load
             >
@@ -87,28 +64,28 @@ import '@lib/styles/CV.scss'
           end="2020"
           role="Ведущий веб-разработчик &rarr; Руководитель отдела разработки"
           companyName="primect"
-          timetable="remote"
+          timetable="fulltime,remote"
           client:load
         >
           Компания, специализирующаяся на поставке, интеграции и установке систем безопасности для частного, гражданского и военного секторов.
-          <Project 
-            name="Кросс-платформенное приложение для создания и обмена рекламными объявлениями" 
+          <Project
+            name="Кросс-платформенное приложение для создания и обмена рекламными объявлениями"
             stack="JavaScript, Express, PWA, Node.js, React, ReactNative"
             client:load
             >
             <p>Реализация всех слоёв приложения предназначенного для эффективного размещения, управления и отслеживания рекламных кампаний.</p>
             <p>**Зоны ответсвенности:** Работа в команде, ревью кода, внедрение новых функций и рефакторинг (Frontend), смок-тестирование, участие в CI/CD процессах, Системный дизайн, UX/UI (в том числе и мобильного приложения)</p>
           </Project>
-          <Project 
-            name="Кросс-платформенное приложение для анализа изображений и видео в реальном времени" 
+          <Project
+            name="Кросс-платформенное приложение для анализа изображений и видео в реальном времени"
             stack="JavaScript, Express, PWA, Node.js, Vedentifier API"
             client:load
             >
             <p>Реализация графического интерфейса и программной оболочки для бинарной библиотеки Vedentifier. Приложение обеспечивает высокую производительность и точность обработки данных, поддерживает интеграцию с различными операционными системами и устройствами, а также включало в себя функционал для постраения многоуровневых связных графов и формирования формализованнх отчётов.</p>
             <p>**Зоны ответсвенности:** Работа в команде, внедрение новых функций и рефакторинг (Frontend), смок-тестирование, Системный дизайн, UX/UI</p>
           </Project>
-          <Project 
-            name="Веб-сайты компании" 
+          <Project
+            name="Веб-сайты компании"
             stack="JavaScript, MODX Evo"
             client:load
             >
@@ -121,12 +98,12 @@ import '@lib/styles/CV.scss'
           end="2012"
           role="Web-разработчик &middot; Web-дизайнер"
           companyName="azart"
-          timetable="office"
+          timetable="fulltime,office"
           client:load
         >
           Веб-агентство полного цикла, которе предлало комплексные решения для создания и продвижения веб-проектов с учётом индивидуальных требований и нужд клиентов.
-          <Project 
-            name="Корпортивные веб-сайты, промо сайты и интернет-магазины" 
+          <Project
+            name="Корпортивные веб-сайты, промо сайты и интернет-магазины"
             stack="JavaScript, jQuery, MODX Evo, Joomla"
             client:load
             >
@@ -134,4 +111,32 @@ import '@lib/styles/CV.scss'
           </Project>
         </Company>
     </Timeline>
+
 </article>
+
+<aside id="assets">
+  ### Ожидаемая должность
+
+FE (Front-end) &middot; FS (Full-stack) Software Engineer
+
+_UX/UI Designer_
+
+### Языки программирования
+
+**Ключевые:** JavaScript (ecma262), Elixir
+
+**Дополнительные:** Ruby, Rust, PHP
+
+#### Стек
+
+Phoenix, Astro, Svelte, Preact, React, Express, Electron, Evolution, RubyOnRails,
+Tauri, Bun, Node.js, Vite, Docker, Podman, Nginx, Linux/BSD, Git, SQL, NoSQL
+
+### Образование
+
+- **Белорусская государственная академия связи**, 2010<br />
+  Инженер по телекоммуникациям
+- **Сетевая академия Cisco** (курсы), 2008<br />
+  Сетевой инженер
+
+</aside>

@@ -6,9 +6,10 @@
 
   export let vcardIsActive = false
   export let locale
+  export let className = ''
 </script>
 
-<div class="logoWrapper">
+<div class={['logoWrapper', className].filter(Boolean).join(' ')}>
   {#if locale !== DEFAULT_LOCALE}
     {@html LogoEn}
   {:else}

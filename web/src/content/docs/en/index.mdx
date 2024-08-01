@@ -2,5 +2,6 @@
 ---
 
 import Logo from '@lib/components/Logo/Logo.svelte'
+import '@lib/styles/Index.scss'
 
-<Logo locale="en" vcardIsActive={false} />
+<Logo locale="en" vcardIsActive={false} client:load />

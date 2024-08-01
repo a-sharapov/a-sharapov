@@ -6,6 +6,7 @@ nav[data-role='navigation'] {
   align-items: center;
   color: var(--dark);
 
+  .viewToggle,
   .navItem {
     position: relative;
     padding: 0.75em;
@@ -22,7 +23,7 @@ nav[data-role='navigation'] {
       }
     }
 
-    &:is(span) {
+    &:is(span:not(.viewToggle)) {
       font-weight: bold;
       border-top-color: var(--primary);
 
@@ -40,6 +41,17 @@ nav[data-role='navigation'] {
     }
   }
 
+  .viewToggle {
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
   .navSeparator {
     color: var(--grayDark);
     font-size: 0.8em;
@@ -47,5 +59,69 @@ nav[data-role='navigation'] {
 
   [data-theme='dark'] & {
     color: var(--grayLight);
+  }
+}
+
+@media screen and (min-width: 601px) {
+  .viewToggle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  nav[data-role='navigation'] {
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 0;
+
+    .navItem,
+    .navSeparator {
+      display: none;
+    }
+
+    &[data-active='true'] {
+      position: absolute;
+      inset: auto;
+      height: auto;
+      width: 50vw;
+      flex-direction: column;
+      top: 5rem;
+      background: var(--background);
+
+      .viewToggle {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 0;
+        top: 0;
+        padding: 0;
+        margin: -1em;
+        width: 2em;
+        height: 2em;
+        color: var(--light);
+        background: var(--primary);
+        text-shadow: 0 1px 0 color-mix(in srgb, var(--primary), black 40%);
+        border-radius: 50%;
+        z-index: 1000;
+        box-shadow: 0 0 0.5em color-mix(in srgb, var(--primary), transparent 50%);
+      }
+
+      .navItem {
+        display: block;
+        width: 100%;
+
+        &:is(span) {
+          border: none;
+          background: var(--primary);
+          color: var(--light);
+          text-shadow: 0 1px 0 color-mix(in srgb, var(--primary), black 40%);
+
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }

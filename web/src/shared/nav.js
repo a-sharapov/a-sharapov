@@ -17,6 +17,11 @@ export default [
   //   pageState: LANDSCAPE
   // },
   {
+    url: 'portfolio',
+    title: 'PORTFOLIO',
+    pageState: LANDSCAPE
+  },
+  {
     url: 'contacts',
     title: 'CONTACTS',
     pageState: PORTRAIT

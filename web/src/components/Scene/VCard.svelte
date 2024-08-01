@@ -38,7 +38,7 @@
   scale={$vcardScale}
   on:pointerenter={$currentState === INTRO ? setVcardActive : void 0}
   on:pointerleave={$currentState === INTRO ? setVcardInactive : void 0}
-  on:click={$currentState === INTRO ? () => navigate([locale, TARGET_SLUG].join('/')) : void 0}
+  on:click={$currentState === INTRO ? () => navigate(`/${locale}/${TARGET_SLUG}`) : void 0}
   castShadow
   receiveShadow
 >
