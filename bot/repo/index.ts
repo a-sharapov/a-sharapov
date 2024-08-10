@@ -35,6 +35,10 @@ export var getAllChats = db.transaction(() => {
   );
 });
 
+export var removeChatByUsername = db.transaction((username) =>
+  db.prepare(`DELETE FROM chats WHERE username = $username;`).run(username)
+);
+
 export var insertMessage = db.transaction(
   (message, id = new Date().valueOf()) => {
     db.run(`CREATE TABLE IF NOT EXISTS messages (

@@ -6,23 +6,21 @@ import {
   getLastMessages,
   insertMessage,
 } from "../repo";
-import { AVAILABLE_LOCALES, DEFAULT_LOCALE } from "./../l18n/index";
+import { DEFAULT_LOCALE } from "./../l18n/index";
 import {
   INITIAL_SESSION,
   LIMIT,
   LINE_JOINER,
   MANAGER_TOKENS,
 } from "./constants";
-import { LOCALES } from "./dictionary";
 import { MESSAGE_ENDPOINT } from "./endpoints";
-import { getTimeStamp, handleAuth, sendPersistedMessage } from "./utils";
-
-const createDictionary = (locale: string) =>
-  LOCALES[
-    (locale in AVAILABLE_LOCALES
-      ? locale
-      : DEFAULT_LOCALE) as keyof typeof LOCALES
-  ];
+import {
+  createDictionary,
+  getTimeStamp,
+  handleAuth,
+  sendPersistedMessage,
+  unsubscribe,
+} from "./utils";
 
 interface Payload {
   path: string;
@@ -92,6 +90,12 @@ export var attachBotHandlers = (bot: Telegraf) => {
         case "/all":
           await (chats.includes(ctx.message.chat.id)
             ? sendPersistedMessage(ctx, getAllMessages, [LINE_JOINER])
+            : ctx.reply(DICTIONARY.ERROR_REPLY));
+          break;
+
+        case "/unsubscribe":
+          await (chats.includes(ctx.message.chat.id)
+            ? unsubscribe(ctx)
             : ctx.reply(DICTIONARY.ERROR_REPLY));
           break;
 

@@ -1,5 +1,16 @@
-import { insertChat } from "../repo";
-import DICTIONARY from "./dictionary";
+import { insertChat, removeChatByUsername } from "../repo";
+import DICTIONARY, {
+  AVAILABLE_LOCALES,
+  DEFAULT_LOCALE,
+  LOCALES,
+} from "./dictionary";
+
+export var createDictionary = (locale: string) =>
+  LOCALES[
+    (locale in AVAILABLE_LOCALES
+      ? locale
+      : DEFAULT_LOCALE) as keyof typeof LOCALES
+  ];
 
 export var pipe =
   (...fns: Function[]) =>
@@ -21,7 +32,22 @@ export var sendPersistedMessage = async (
       method instanceof Function ? method?.immediate?.(...args) : void 0;
     message && (await ctx.reply(message));
   } catch {
-    await ctx.reply(DICTIONARY.EMPTY_REPLY);
+    await ctx.reply(
+      createDictionary(ctx.session?.locale || DEFAULT_LOCALE).EMPTY_REPLY
+    );
+  }
+};
+
+export var unsubscribe = async (ctx: any): Promise<void> => {
+  try {
+    removeChatByUsername.immediate(ctx.message.from.username);
+    await ctx.reply(
+      createDictionary(ctx.session?.locale || DEFAULT_LOCALE).UNSUBSCRIBE_REPLY
+    );
+  } catch {
+    await ctx.reply(
+      createDictionary(ctx.session?.locale || DEFAULT_LOCALE).ERROR_REPLY
+    );
   }
 };
 
@@ -32,5 +58,7 @@ export var handleAuth = async (ctx: any, TIMESTAMP: string): Promise<void> => {
   console.log(
     `${TIMESTAMP} ${DICTIONARY.NEW_AUTH} ${ctx.from.first_name} ${ctx.from.last_name}`
   );
-  await ctx.reply(DICTIONARY.SUCCESS_REPLY);
+  await ctx.reply(
+    createDictionary(ctx.session?.locale || DEFAULT_LOCALE).SUCCESS_REPLY
+  );
 };
