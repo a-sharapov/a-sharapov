@@ -13,5 +13,6 @@ export default {
     `Here are all available methods:\n- To authorize, use the \`/start\` command and send your access key in the next message.\n- To get ${LIMIT} of recent messages use the \`/last\` command.\n- To get all messages use the \`/all\` command. To unsubscribe from messages use the \`/unsubscribe\` command.`,
   NOT_FOUND: "Not found...",
   NEW_MESSAGE_REQUEST: "[Received message request]",
+  UNSUBSCRIBE_REQUEST: "[Received unsubscribe request]",
   CAN_NOT_REPLY: "This bot cannot receive notifications, sorry bro 🤖",
 };

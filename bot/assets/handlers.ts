@@ -5,6 +5,7 @@ import {
   getAllMessages,
   getLastMessages,
   insertMessage,
+  removeChatByUsername,
 } from "../repo";
 import { DEFAULT_LOCALE } from "./../l18n/index";
 import {
@@ -13,7 +14,7 @@ import {
   LINE_JOINER,
   MANAGER_TOKENS,
 } from "./constants";
-import { MESSAGE_ENDPOINT } from "./endpoints";
+import { MESSAGE_ENDPOINT, UNSUBSCRIBE_ENDPOINT } from "./endpoints";
 import {
   createDictionary,
   getTimeStamp,
@@ -42,14 +43,29 @@ export var handleServiceRequest = async (
   let response = {
     message: DICTIONARY.NOT_FOUND,
   };
-
-  console.log(`${getTimeStamp()} ${DICTIONARY.NEW_MESSAGE_REQUEST}`, REQUEST);
+  const logRequest = (message: string, data?: any) =>
+    void console.log(`${getTimeStamp()}`, message, data || "", REQUEST);
 
   switch (REQUEST) {
+    case UNSUBSCRIBE_ENDPOINT:
+      const { username } = await readableStreamToJSON(
+        payload.body as ReadableStream
+      );
+
+      logRequest(DICTIONARY.UNSUBSCRIBE_REQUEST, username);
+
+      removeChatByUsername.deferred(username);
+
+      status = 200;
+      response.message = "OK";
+      break;
+
     case MESSAGE_ENDPOINT:
       const { message } = await readableStreamToJSON(
         payload.body as ReadableStream
       );
+
+      logRequest(DICTIONARY.NEW_MESSAGE_REQUEST);
 
       insertMessage.deferred(message);
       if (bot) {

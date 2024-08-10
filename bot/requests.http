@@ -1,7 +1,15 @@
-### Send message
+### Send any text message
 POST http://localhost:5702/sendMessage
 Content-Type: application/json
 
 {
    "message": "hello"
+}
+
+### Remove user by telegram username
+DELETE http://localhost:5702/user
+Content-Type: application/json
+
+{
+   "username": "test"
 }
