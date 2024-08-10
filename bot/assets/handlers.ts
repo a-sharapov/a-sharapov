@@ -1,4 +1,3 @@
-import { readableStreamToJSON } from "bun";
 import { session, type Telegraf } from "telegraf";
 import {
   getAllChats,
@@ -13,13 +12,17 @@ import {
   LIMIT,
   LINE_JOINER,
   MANAGER_TOKENS,
+  OK,
 } from "./constants";
 import { MESSAGE_ENDPOINT, UNSUBSCRIBE_ENDPOINT } from "./endpoints";
 import {
   createDictionary,
+  extractBody,
   getTimeStamp,
   handleAuth,
+  logRequest,
   sendPersistedMessage,
+  sendToAllChats,
   unsubscribe,
 } from "./utils";
 
@@ -43,99 +46,84 @@ export var handleServiceRequest = async (
   let response = {
     message: DICTIONARY.NOT_FOUND,
   };
-  const logRequest = (message: string, data?: any) =>
-    void console.log(`${getTimeStamp()}`, message, data || "", REQUEST);
 
   switch (REQUEST) {
     case UNSUBSCRIBE_ENDPOINT:
-      const { username } = await readableStreamToJSON(
-        payload.body as ReadableStream
-      );
+      const { username } = await extractBody(payload);
 
-      logRequest(DICTIONARY.UNSUBSCRIBE_REQUEST, username);
-
-      removeChatByUsername.deferred(username);
+      logRequest(REQUEST, DICTIONARY.UNSUBSCRIBE_REQUEST, username);
+      void removeChatByUsername.deferred(username);
 
       status = 200;
-      response.message = "OK";
+      response.message = OK.description as string;
       break;
 
     case MESSAGE_ENDPOINT:
-      const { message } = await readableStreamToJSON(
-        payload.body as ReadableStream
-      );
+      const { message } = await extractBody(payload);
 
-      logRequest(DICTIONARY.NEW_MESSAGE_REQUEST);
-
+      logRequest(REQUEST, DICTIONARY.NEW_MESSAGE_REQUEST);
       insertMessage.deferred(message);
-      if (bot) {
-        const activeChats = getAllChats.immediate() as unknown as number[];
-        activeChats.forEach((chatId: number) => {
-          bot.telegram.sendMessage(chatId, message);
-        });
-      }
+      bot && sendToAllChats(bot, message);
 
       status = 200;
-      response.message = "OK";
+      response.message = OK.description as string;
       break;
   }
 
   return { status, response };
 };
 
-export var attachBotHandlers = (bot: Telegraf) => {
-  bot.use(session());
-  bot.on("message", async (ctx: any): Promise<void> => {
-    var reactOnMessage = async (ctx: any): Promise<void> => {
-      const DICTIONARY = createDictionary(
-        ctx.session?.locale || DEFAULT_LOCALE
-      );
-      const chats = getAllChats.immediate() as unknown as number[];
+const createCommandHandler = (
+  ctx: any,
+  chats: number[],
+  DICTIONARY: Record<string, any>
+) => ({
+  "/help": async () => await ctx.reply(DICTIONARY.AVAILABLE_OPERATIONS(LIMIT)),
+  "/last": async () =>
+    await (chats.includes(ctx.message.chat.id)
+      ? sendPersistedMessage(ctx, getLastMessages, [LIMIT, LINE_JOINER])
+      : ctx.reply(DICTIONARY.ERROR_REPLY)),
+  "/all": async () =>
+    await (chats.includes(ctx.message.chat.id)
+      ? sendPersistedMessage(ctx, getAllMessages, [LINE_JOINER])
+      : ctx.reply(DICTIONARY.ERROR_REPLY)),
+  "/unsubscribe": async () =>
+    await (chats.includes(ctx.message.chat.id)
+      ? unsubscribe(ctx)
+      : ctx.reply(DICTIONARY.ERROR_REPLY)),
+  "/start": async () =>
+    (ctx.session = INITIAL_SESSION) &&
+    (await ctx.reply(DICTIONARY.INITIALIZE_SESSION(ctx))),
+});
 
-      switch (ctx.message.text) {
-        case "/help":
-          await ctx.reply(DICTIONARY.AVAILABLE_OPERATIONS(LIMIT));
-          break;
+const reactOnMessage = async (ctx: any): Promise<void> => {
+  const DICTIONARY = createDictionary(ctx.session?.locale || DEFAULT_LOCALE);
+  const chats = getAllChats.immediate() as unknown as number[];
+  const knownCommands = createCommandHandler(ctx, chats, DICTIONARY);
 
-        case "/last":
-          await (chats.includes(ctx.message.chat.id)
-            ? sendPersistedMessage(ctx, getLastMessages, [LIMIT, LINE_JOINER])
-            : ctx.reply(DICTIONARY.ERROR_REPLY));
-          break;
+  if (ctx.message.text in knownCommands) {
+    void (await knownCommands[
+      ctx.message.text as keyof typeof knownCommands
+    ]());
+  } else {
+    const isAuthComplete =
+      MANAGER_TOKENS &&
+      Array.isArray(MANAGER_TOKENS) &&
+      MANAGER_TOKENS?.includes(ctx.message.text);
 
-        case "/all":
-          await (chats.includes(ctx.message.chat.id)
-            ? sendPersistedMessage(ctx, getAllMessages, [LINE_JOINER])
-            : ctx.reply(DICTIONARY.ERROR_REPLY));
-          break;
-
-        case "/unsubscribe":
-          await (chats.includes(ctx.message.chat.id)
-            ? unsubscribe(ctx)
-            : ctx.reply(DICTIONARY.ERROR_REPLY));
-          break;
-
-        case "/start":
-          ctx.session = INITIAL_SESSION;
-          await ctx.reply(DICTIONARY.INITIALIZE_SESSION(ctx));
-          break;
-
-        default:
-          const isAuthComplete =
-            MANAGER_TOKENS &&
-            Array.isArray(MANAGER_TOKENS) &&
-            MANAGER_TOKENS?.includes(ctx.message.text);
-
-          await (isAuthComplete
-            ? handleAuth(ctx, getTimeStamp())
-            : ctx.reply(DICTIONARY.ERROR_REPLY));
-
-          break;
-      }
-    };
-
-    await (ctx.from.is_bot
-      ? ctx.reply(createDictionary(ctx.from.language_code).CAN_NOT_REPLY)
-      : reactOnMessage(ctx));
-  });
+    void (await (isAuthComplete
+      ? handleAuth(ctx, getTimeStamp())
+      : ctx.reply(DICTIONARY.ERROR_REPLY)));
+  }
 };
+
+export var attachBotHandlers = (bot: Telegraf) =>
+  bot
+    .use(session())
+    .on(
+      "message",
+      async (ctx: any): Promise<void> =>
+        await (ctx.from.is_bot
+          ? ctx.reply(createDictionary(ctx.from.language_code).CAN_NOT_REPLY)
+          : reactOnMessage(ctx))
+    );

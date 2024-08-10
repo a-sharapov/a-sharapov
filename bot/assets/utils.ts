@@ -1,4 +1,6 @@
-import { insertChat, removeChatByUsername } from "../repo";
+import { readableStreamToJSON } from "bun";
+import type { Telegraf } from "telegraf";
+import { getAllChats, insertChat, removeChatByUsername } from "../repo";
 import DICTIONARY, {
   AVAILABLE_LOCALES,
   DEFAULT_LOCALE,
@@ -20,7 +22,8 @@ export var pipe =
       arg
     );
 
-export var getTimeStamp = () => `[${new Date().toLocaleDateString()}]`;
+export var getTimeStamp = () =>
+  `[${new Date().toLocaleString(DEFAULT_LOCALE)}]`;
 
 export var sendPersistedMessage = async (
   ctx: any,
@@ -62,3 +65,16 @@ export var handleAuth = async (ctx: any, TIMESTAMP: string): Promise<void> => {
     createDictionary(ctx.session?.locale || DEFAULT_LOCALE).SUCCESS_REPLY
   );
 };
+
+export var sendToAllChats = (bot: Telegraf, message: string) =>
+  void (getAllChats.immediate() as unknown as number[]).forEach(
+    (chatId: number) => {
+      bot.telegram.sendMessage(chatId, message);
+    }
+  );
+
+export var logRequest = (REQUEST: string, message: string, data?: any) =>
+  void console.log(`${getTimeStamp()}`, message, data || "", REQUEST);
+
+export var extractBody = async (payload: any) =>
+  await readableStreamToJSON(payload.body as ReadableStream);

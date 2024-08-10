@@ -8,3 +8,6 @@ export var INITIAL_SESSION = {
 export var LINE_JOINER = "\n\n----\n\n";
 
 export var LIMIT = 10;
+
+export var OK = Symbol.for("OK");
+export var ERROR = Symbol.for("ERROR");
