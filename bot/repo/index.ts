@@ -7,7 +7,35 @@ db.exec("PRAGMA journal_mode = WAL;");
 
 export default db;
 
-export const insertMessage = db.transaction(
+export var insertChat = db.transaction((id, name) => {
+  db.run(`CREATE TABLE IF NOT EXISTS chats (
+        id INTEGER PRIMARY KEY,
+        chat_id INTEGER UNIQUE,
+        username TEXT
+    );`);
+  db.prepare(`INSERT INTO chats (chat_id, username) VALUES ($id, $name);`).run(
+    id,
+    name
+  );
+});
+
+export var getAllChats = db.transaction(() => {
+  db.run(`CREATE TABLE IF NOT EXISTS chats (
+    id INTEGER PRIMARY KEY,
+    chat_id INTEGER UNIQUE,
+    username TEXT
+  );`);
+
+  return (
+    db
+      .prepare("SELECT * FROM chats")
+      .all()
+      // @ts-expect-error
+      .map(({ chat_id }) => chat_id)
+  );
+});
+
+export var insertMessage = db.transaction(
   (message, id = new Date().valueOf()) => {
     db.run(`CREATE TABLE IF NOT EXISTS messages (
         id INTEGER PRIMARY KEY,
@@ -19,19 +47,20 @@ export const insertMessage = db.transaction(
   }
 );
 
-export const getLastMessages = db.transaction(
-  (limit: number, joiner = JOINER) =>
-    db
-      .prepare(`SELECT * FROM messages ORDER BY id DESC LIMIT ${limit}`)
-      .all()
-      .map(({ message }) => message)
-      .join(joiner)
+export var getLastMessages = db.transaction((limit: number, joiner = JOINER) =>
+  db
+    .prepare(`SELECT * FROM messages ORDER BY id DESC LIMIT ${limit}`)
+    .all()
+    // @ts-expect-error
+    .map(({ message }) => message)
+    .join(joiner)
 );
 
-export const getAllMessages = db.transaction((joiner = JOINER) =>
+export var getAllMessages = db.transaction((joiner = JOINER) =>
   db
     .prepare("SELECT * FROM messages ORDER BY id DESC")
     .all()
+    // @ts-expect-error
     .map(({ message }) => message)
     .join(joiner)
 );

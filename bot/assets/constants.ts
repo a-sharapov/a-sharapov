@@ -5,8 +5,6 @@ export var INITIAL_SESSION = {
   isAuth: false,
 };
 
-export var ACTIVE_CHATS = new Set<string>();
-
 export var LINE_JOINER = "\n\n----\n\n";
 
 export var LIMIT = 10;

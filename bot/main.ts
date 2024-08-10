@@ -37,7 +37,7 @@ try {
     fetch,
   });
 
-  console.log(`Token provided: ${!!token}`);
+  void (!token && console.warn(`❗ Bot token is not provided!`));
   console.log(setMotd(port));
 } catch (e) {
   console.log(

@@ -2,6 +2,9 @@
   "name": "tgbot",
   "module": "main.ts",
   "type": "module",
+  "scripts": {
+    "start": "bun run main.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

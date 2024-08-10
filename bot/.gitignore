@@ -176,3 +176,7 @@ dist
 
 # Persistence DB
 .persistance.db
+.persistance.db*
+
+.sessions.db
+.sessions.db*

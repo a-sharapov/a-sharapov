@@ -1,3 +1,4 @@
+import { insertChat } from "../repo";
 import DICTIONARY from "./dictionary";
 
 export var pipe =
@@ -24,14 +25,10 @@ export var sendPersistedMessage = async (
   }
 };
 
-export var handleAuth = async (
-  ctx: any,
-  ACTIVE_CHATS: Set<string>,
-  TIMESTAMP: string
-): Promise<void> => {
+export var handleAuth = async (ctx: any, TIMESTAMP: string): Promise<void> => {
   ctx.session?.messages.push(ctx.message.text);
   ctx.session.isAuth = true;
-  ACTIVE_CHATS.add(ctx.message.chat.id);
+  insertChat.immediate(ctx.message.chat.id, ctx.message.from.username);
   console.log(
     `${TIMESTAMP} ${DICTIONARY.NEW_AUTH} ${ctx.from.first_name} ${ctx.from.last_name}`
   );

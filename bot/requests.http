@@ -1,0 +1,7 @@
+### Send message
+POST http://localhost:5702/sendMessage
+Content-Type: application/json
+
+{
+   "message": "hello"
+}
