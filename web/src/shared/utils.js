@@ -23,3 +23,9 @@ export var hasNoExtension = (slug) => (slug ? slug.split('.').length : 1)
 
 export var isMobile = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
+export var sanitizeValue = (str) =>
+  String(str).replace(
+    new RegExp(`[${Object.keys(REPLACEABLE_SYMBOLS).join('')}]`, 'gi'),
+    (char) => REPLACEABLE_SYMBOLS[char]
+  )

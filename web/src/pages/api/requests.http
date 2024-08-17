@@ -1,0 +1,20 @@
+### Send any text message
+POST http://localhost:4321/api/collect
+Content-Type: multipart/form-data; boundary=
+-----011000010111000001101001
+Content-Disposition: form-data; name="inquiryType"
+
+Нанять меня
+------011000010111000001101001
+Content-Disposition: form-data; name="preferredContact"
+
+telegram @testAcc
+------011000010111000001101001
+Content-Disposition: form-data; name="message"
+
+Test message
+------011000010111000001101001
+Content-Disposition: form-data; name="acceptTerms"
+
+yes
+------011000010111000001101001--

@@ -1,4 +1,4 @@
-import { INTRO, LANDSCAPE, PORTRAIT } from '@lib/components/Scene/state'
+import { INTRO, PORTRAIT } from '@lib/components/Scene/state'
 
 export default [
   {
@@ -6,21 +6,21 @@ export default [
     title: 'INDEX',
     pageState: INTRO
   },
-  {
-    url: 'cv',
-    title: 'CV',
-    pageState: LANDSCAPE
-  },
+  // {
+  //   url: 'cv',
+  //   title: 'CV',
+  //   pageState: LANDSCAPE
+  // },
   // {
   //   url: 'services',
   //   title: 'SERVICES',
   //   pageState: LANDSCAPE
   // },
-  {
-    url: 'portfolio',
-    title: 'PORTFOLIO',
-    pageState: LANDSCAPE
-  },
+  // {
+  //   url: 'portfolio',
+  //   title: 'PORTFOLIO',
+  //   pageState: LANDSCAPE
+  // },
   {
     url: 'contacts',
     title: 'CONTACTS',

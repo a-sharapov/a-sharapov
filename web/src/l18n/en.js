@@ -21,7 +21,7 @@ export default {
   VIEW_SWITCHER_LABEL: 'Switch view (3D/2D)',
   LOADING_TITLE: 'Loading...',
   ERROR_TITLE: 'An error has occurred',
-  RETRY_TEXT: 'Try again or contact us by phone',
+  RETRY_TEXT: 'Something went wrong, please try again or contact me by phone',
   SUCCESS_TITLE: 'Data has been sent',
   SUCCESS_TEXT: 'We have already received your message and are in the process of processing it',
   INQUIRY_TYPE_LABEL: 'Subject',

@@ -12,3 +12,24 @@ export var SOURCE_LINK = 'https://github.com/a-sharapov/a-sharapov'
 export var INDEX = 'index'
 
 export var COLLECT_API_URL = '/api/collect/'
+
+export var REPLACEABLE_SYMBOLS = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+  '/': '&#x2F;'
+}
+
+export var ALLOWED_MAIL_FIELDS = {
+  inquiryType: 'Тема сообщения',
+  preferredContact: 'Способ связи',
+  message: 'Сообщение'
+}
+
+export var DISALLOWED_MAIL_FIELDS = ['subject']
+
+export var MAIL_TITLE = 'Новое сообщение с сайта'
+
+export var TG_WEBHOOK = 'http://a-sharapov_bot:5702/sendMessage'
