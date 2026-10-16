@@ -1,0 +1,6 @@
+handle_errors 5xx {
+	root * /srv/custom
+	rewrite * /fallback.html
+	header Cache-Control "no-store"
+	file_server
+}

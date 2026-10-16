@@ -1,129 +1,125 @@
-import { session, type Telegraf } from "telegraf";
-import {
-  getAllChats,
-  getAllMessages,
-  getLastMessages,
-  insertMessage,
-  removeChatByUsername,
-} from "../repo";
-import { DEFAULT_LOCALE } from "./../l18n/index";
-import {
-  INITIAL_SESSION,
-  LIMIT,
-  LINE_JOINER,
-  MANAGER_TOKENS,
-  OK,
-} from "./constants";
-import { MESSAGE_ENDPOINT, UNSUBSCRIBE_ENDPOINT } from "./endpoints";
-import {
-  createDictionary,
-  extractBody,
-  getTimeStamp,
-  handleAuth,
-  logRequest,
-  sendPersistedMessage,
-  sendToAllChats,
-  unsubscribe,
-} from "./utils";
+import type { Telegraf } from 'telegraf';
+import { type Dictionary, selectDictionary } from '../l18n';
+import type { Repo } from '../repo';
+import { tokensMatch } from './auth';
+import { LIMIT, LINE_JOINER, MAX_MESSAGE_LENGTH } from './constants';
+import { chunkParts, log as defaultLog, errorMessage, type Log } from './utils';
 
-interface Payload {
-  path: string;
-  method: string;
-  body?: unknown;
-  bot?: Telegraf;
-}
+export type MessageContext = {
+  chatId: number;
+  text: string;
+  from?: {
+    is_bot?: boolean;
+    language_code?: string;
+    first_name?: string;
+    username?: string;
+  };
+  reply: (text: string) => Promise<unknown>;
+};
 
-export var handleServiceRequest = async (
-  payload: Payload
-): Promise<{
-  status: number;
-  response: { message: string };
-}> => {
-  const { path, method, bot } = payload;
-  const REQUEST = `${method}:${new URL(path).pathname}`;
-  const DICTIONARY = createDictionary(DEFAULT_LOCALE);
-  let status = 404;
-  let response = {
-    message: DICTIONARY.NOT_FOUND,
+type Command = (
+  ctx: MessageContext,
+  dictionary: Dictionary
+) => Promise<unknown>;
+
+type HandlersDeps = {
+  repo: Repo;
+  managerTokens: string[];
+  limit?: number;
+  log?: Log;
+};
+
+export var parseCommand = (text: string): string =>
+  ((word) => word.split('@')[0] ?? '')(text.trim().split(/\s+/)[0] ?? '');
+
+export var defineHandlers = ({
+  repo,
+  managerTokens,
+  limit = LIMIT,
+  log = defaultLog,
+}: HandlersDeps) => {
+  const _isManagerKey = (text: string): boolean =>
+    managerTokens.reduce<boolean>(
+      (found, key) => tokensMatch(text, key) || found,
+      false
+    );
+
+  const _replyMessages = (
+    ctx: MessageContext,
+    dictionary: Dictionary,
+    messages: string[]
+  ): Promise<unknown> =>
+    messages.length
+      ? chunkParts(messages, LINE_JOINER, MAX_MESSAGE_LENGTH).reduce<
+          Promise<unknown>
+        >(
+          (chain, chunk) => chain.then(() => ctx.reply(chunk)),
+          Promise.resolve()
+        )
+      : ctx.reply(dictionary.EMPTY_REPLY);
+
+  const _subscribersOnly =
+    (command: Command): Command =>
+    (ctx, dictionary) =>
+      repo.chats.has(ctx.chatId)
+        ? command(ctx, dictionary)
+        : ctx.reply(dictionary.ERROR_REPLY);
+
+  const _subscribe: Command = (ctx, dictionary) => (
+    repo.chats.add(ctx.chatId, ctx.from?.username),
+    log(`subscribed chat=${ctx.chatId} @${ctx.from?.username ?? '-'}`),
+    ctx.reply(dictionary.SUCCESS_REPLY)
+  );
+
+  const _unsubscribe: Command = (ctx, dictionary) => (
+    repo.chats.remove(ctx.chatId),
+    log(`unsubscribed chat=${ctx.chatId}`),
+    ctx.reply(dictionary.UNSUBSCRIBE_REPLY)
+  );
+
+  const commands: Record<string, Command> = {
+    '/start': (ctx, dictionary) =>
+      ctx.reply(dictionary.GREETING(ctx.from?.first_name)),
+    '/help': (ctx, dictionary) => ctx.reply(dictionary.HELP(limit)),
+    '/last': _subscribersOnly((ctx, dictionary) =>
+      _replyMessages(ctx, dictionary, repo.messages.last(limit))
+    ),
+    '/all': _subscribersOnly((ctx, dictionary) =>
+      _replyMessages(ctx, dictionary, repo.messages.all())
+    ),
+    '/unsubscribe': _subscribersOnly(_unsubscribe),
+    _: (ctx, dictionary) =>
+      _isManagerKey(ctx.text.trim())
+        ? _subscribe(ctx, dictionary)
+        : ctx.reply(dictionary.ERROR_REPLY),
   };
 
-  switch (REQUEST) {
-    case UNSUBSCRIBE_ENDPOINT:
-      const { username } = await extractBody(payload);
-
-      logRequest(REQUEST, DICTIONARY.UNSUBSCRIBE_REQUEST, username);
-      void removeChatByUsername.deferred(username);
-
-      status = 200;
-      response.message = OK.description as string;
-      break;
-
-    case MESSAGE_ENDPOINT:
-      const { message } = await extractBody(payload);
-
-      logRequest(REQUEST, DICTIONARY.NEW_MESSAGE_REQUEST);
-      insertMessage.deferred(message);
-      bot && sendToAllChats(bot, message);
-
-      status = 200;
-      response.message = OK.description as string;
-      break;
-  }
-
-  return { status, response };
-};
-
-const createCommandHandler = (
-  ctx: any,
-  chats: number[],
-  DICTIONARY: Record<string, any>
-) => ({
-  "/help": async () => await ctx.reply(DICTIONARY.AVAILABLE_OPERATIONS(LIMIT)),
-  "/last": async () =>
-    await (chats.includes(ctx.message.chat.id)
-      ? sendPersistedMessage(ctx, getLastMessages, [LIMIT, LINE_JOINER])
-      : ctx.reply(DICTIONARY.ERROR_REPLY)),
-  "/all": async () =>
-    await (chats.includes(ctx.message.chat.id)
-      ? sendPersistedMessage(ctx, getAllMessages, [LINE_JOINER])
-      : ctx.reply(DICTIONARY.ERROR_REPLY)),
-  "/unsubscribe": async () =>
-    await (chats.includes(ctx.message.chat.id)
-      ? unsubscribe(ctx)
-      : ctx.reply(DICTIONARY.ERROR_REPLY)),
-  "/start": async () =>
-    (ctx.session = INITIAL_SESSION) &&
-    (await ctx.reply(DICTIONARY.INITIALIZE_SESSION(ctx))),
-});
-
-const reactOnMessage = async (ctx: any): Promise<void> => {
-  const DICTIONARY = createDictionary(ctx.session?.locale || DEFAULT_LOCALE);
-  const chats = getAllChats.immediate() as unknown as number[];
-  const knownCommands = createCommandHandler(ctx, chats, DICTIONARY);
-
-  if (ctx.message.text in knownCommands) {
-    void (await knownCommands[
-      ctx.message.text as keyof typeof knownCommands
-    ]());
-  } else {
-    const isAuthComplete =
-      MANAGER_TOKENS &&
-      Array.isArray(MANAGER_TOKENS) &&
-      MANAGER_TOKENS?.includes(ctx.message.text);
-
-    void (await (isAuthComplete
-      ? handleAuth(ctx, getTimeStamp())
-      : ctx.reply(DICTIONARY.ERROR_REPLY)));
-  }
-};
-
-export var attachBotHandlers = (bot: Telegraf) =>
-  bot
-    .use(session())
-    .on(
-      "message",
-      async (ctx: any): Promise<void> =>
-        await (ctx.from.is_bot
-          ? ctx.reply(createDictionary(ctx.from.language_code).CAN_NOT_REPLY)
-          : reactOnMessage(ctx))
+  const _command = (text: string): Command =>
+    ((name) => (Object.hasOwn(commands, name) ? commands[name] : commands._))(
+      parseCommand(text)
     );
+
+  const onMessage = (ctx: MessageContext): Promise<unknown> =>
+    ((dictionary) =>
+      ctx.from?.is_bot
+        ? ctx.reply(dictionary.CAN_NOT_REPLY)
+        : _command(ctx.text)(ctx, dictionary))(
+      selectDictionary(ctx.from?.language_code)
+    );
+
+  const attach = (bot: Telegraf): Telegraf =>
+    bot
+      .on('message', (ctx) =>
+        onMessage({
+          chatId: ctx.chat.id,
+          text: 'text' in ctx.message ? ctx.message.text : '',
+          from: ctx.from,
+          reply: (text) => ctx.reply(text),
+        })
+      )
+      .catch((error, ctx) =>
+        log(`bot error update=${ctx.updateType}:`, errorMessage(error))
+      );
+
+  return { onMessage, attach };
+};

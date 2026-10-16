@@ -1,0 +1,267 @@
+.scene-loader {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-content) + 1);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.15rem;
+  color: var(--grayDark);
+  background: var(--background);
+  pointer-events: none;
+  transition:
+    opacity var(--motion-slow) var(--ease),
+    visibility 0s var(--motion-slow),
+    background-color var(--motion-slow) var(--ease);
+
+  .caption {
+    display: grid;
+    place-items: center;
+
+    > * {
+      grid-area: 1 / 1;
+    }
+  }
+
+  .runner {
+    position: relative;
+    width: 6rem;
+    height: 0.0625rem;
+    background: color-mix(in srgb, var(--grayDark), transparent 85%);
+    transition: opacity 0.2s var(--ease);
+
+    > span {
+      position: absolute;
+      inset: 0;
+      border-radius: 0.125rem;
+      background: var(--primary);
+      box-shadow: 0 0 0.75rem var(--primary);
+      transform-origin: left center;
+      animation: scene-runner 1.3s linear infinite;
+    }
+  }
+
+  .tagline {
+    margin: 0;
+    font-family: var(--font-narrow);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0;
+    translate: 0 0.25rem;
+    transition:
+      opacity 0.2s var(--ease),
+      translate 0.2s var(--ease);
+  }
+}
+
+body:has(.viewer:not([data-phase='boot'])) .scene-loader {
+  .runner {
+    opacity: 0;
+  }
+
+  .tagline {
+    opacity: 1;
+    translate: 0;
+  }
+
+  .signed {
+    opacity: 1;
+  }
+}
+
+body:has(
+    .viewer:is(
+        [data-phase='moving'],
+        [data-phase='settled'],
+        [data-phase='leaving']
+      )
+  )
+  .scene-loader {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes scene-runner {
+  0% {
+    transform: translateX(0.00%) scaleX(0.001);
+  }
+
+  2.5% {
+    transform: translateX(0.54%) scaleX(0.0392);
+  }
+
+  5% {
+    transform: translateX(1.09%) scaleX(0.0782);
+  }
+
+  7.5% {
+    transform: translateX(1.66%) scaleX(0.1167);
+  }
+
+  10% {
+    transform: translateX(2.27%) scaleX(0.1545);
+  }
+
+  12.5% {
+    transform: translateX(2.93%) scaleX(0.1913);
+  }
+
+  15% {
+    transform: translateX(3.65%) scaleX(0.227);
+  }
+
+  17.5% {
+    transform: translateX(4.44%) scaleX(0.2612);
+  }
+
+  20% {
+    transform: translateX(5.31%) scaleX(0.2939);
+  }
+
+  22.5% {
+    transform: translateX(6.26%) scaleX(0.3247);
+  }
+
+  25% {
+    transform: translateX(7.32%) scaleX(0.3536);
+  }
+
+  27.5% {
+    transform: translateX(8.49%) scaleX(0.3802);
+  }
+
+  30% {
+    transform: translateX(9.77%) scaleX(0.4045);
+  }
+
+  32.5% {
+    transform: translateX(11.18%) scaleX(0.4263);
+  }
+
+  35% {
+    transform: translateX(12.72%) scaleX(0.4455);
+  }
+
+  37.5% {
+    transform: translateX(14.40%) scaleX(0.4619);
+  }
+
+  40% {
+    transform: translateX(16.22%) scaleX(0.4755);
+  }
+
+  42.5% {
+    transform: translateX(18.19%) scaleX(0.4862);
+  }
+
+  45% {
+    transform: translateX(20.31%) scaleX(0.4938);
+  }
+
+  47.5% {
+    transform: translateX(22.58%) scaleX(0.4985);
+  }
+
+  50% {
+    transform: translateX(25.00%) scaleX(0.5);
+  }
+
+  52.5% {
+    transform: translateX(27.58%) scaleX(0.4985);
+  }
+
+  55% {
+    transform: translateX(30.31%) scaleX(0.4938);
+  }
+
+  57.5% {
+    transform: translateX(33.19%) scaleX(0.4862);
+  }
+
+  60% {
+    transform: translateX(36.22%) scaleX(0.4755);
+  }
+
+  62.5% {
+    transform: translateX(39.40%) scaleX(0.4619);
+  }
+
+  65% {
+    transform: translateX(42.72%) scaleX(0.4455);
+  }
+
+  67.5% {
+    transform: translateX(46.18%) scaleX(0.4263);
+  }
+
+  70% {
+    transform: translateX(49.77%) scaleX(0.4045);
+  }
+
+  72.5% {
+    transform: translateX(53.49%) scaleX(0.3802);
+  }
+
+  75% {
+    transform: translateX(57.32%) scaleX(0.3536);
+  }
+
+  77.5% {
+    transform: translateX(61.26%) scaleX(0.3247);
+  }
+
+  80% {
+    transform: translateX(65.31%) scaleX(0.2939);
+  }
+
+  82.5% {
+    transform: translateX(69.44%) scaleX(0.2612);
+  }
+
+  85% {
+    transform: translateX(73.65%) scaleX(0.227);
+  }
+
+  87.5% {
+    transform: translateX(77.93%) scaleX(0.1913);
+  }
+
+  90% {
+    transform: translateX(82.27%) scaleX(0.1545);
+  }
+
+  92.5% {
+    transform: translateX(86.66%) scaleX(0.1167);
+  }
+
+  95% {
+    transform: translateX(91.09%) scaleX(0.0782);
+  }
+
+  97.5% {
+    transform: translateX(95.54%) scaleX(0.0392);
+  }
+
+  100% {
+    transform: translateX(100.00%) scaleX(0.001);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-loader .runner > span {
+    transform: translateX(35%) scaleX(0.3);
+    animation: none;
+  }
+}
+
+@media (max-width: 48rem), (max-height: 30rem) {
+  .scene-loader {
+    display: none;
+  }
+}
+
+:is(:root:has(.no-js), :root[data-scene='failed']) .scene-loader {
+  display: none;
+}

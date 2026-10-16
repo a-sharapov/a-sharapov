@@ -1,0 +1,75 @@
+---
+import type { ContactKind, ContactRecord } from '$lib/common/types';
+import { localize, splitLabel } from '$lib/common/utils';
+import Github from '/i/github.svg?raw';
+import Linkedin from '/i/linkedin.svg?raw';
+import Mail from '/i/mail.svg?raw';
+import Phone from '/i/phone.svg?raw';
+import Telegram from '/i/telegram.svg?raw';
+import './Contacts.css';
+
+interface Props {
+  t: Record<string, unknown>;
+  contacts: ContactRecord[];
+  content: string;
+  title: string;
+}
+
+const _ICONS: Record<ContactKind, string> = {
+  phone: Phone,
+  telegram: Telegram,
+  email: Mail,
+  linkedin: Linkedin,
+  github: Github,
+};
+
+const _EXTERNAL: ContactKind[] = ['telegram', 'linkedin', 'github'];
+
+const _LINK_ATTRS = { target: '_blank', rel: 'noopener noreferrer external' };
+
+const _rows = (group: ContactRecord[]) =>
+  group.map(({ kind, label, href }, index) => ({
+    Tag: href ? 'a' : 'span',
+    attrs: href ? { href, ...(_EXTERNAL.includes(kind) ? _LINK_ATTRS : {}) } : {},
+    icon: group[index - 1]?.kind === kind ? '' : _ICONS[kind],
+    parts: splitLabel(label),
+  }));
+
+const { t: dictionary, contacts, content, title } = Astro.props;
+const t = localize(dictionary ?? {});
+const groups = Object.values(
+  contacts.reduce<Record<number, ContactRecord[]>>(
+    (acc, contact) => ({
+      ...acc,
+      [contact.group]: [...(acc[contact.group] ?? []), contact],
+    }),
+    {}
+  )
+).map(_rows);
+---
+
+<div class="contacts">
+  <aside class="profile">
+    <h1><span class="sr-only">{title} — </span>{t('profile.name')}</h1>
+    <p class="role">{t('profile.role')}</p>
+    <div class="reach">
+      {groups.map((group) => (
+        <ul>
+          {group.map(({ Tag, attrs, icon, parts: { 0: head, 1: tail } }) => (
+            <li>
+              <span class="icon" aria-hidden="true" set:html={icon} />
+              <Tag {...attrs}>
+                {head}
+                {tail && <strong>{tail}</strong>}
+              </Tag>
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </aside>
+  <section class="write">
+    <div class="lead" set:html={content} />
+    <slot />
+  </section>
+</div>

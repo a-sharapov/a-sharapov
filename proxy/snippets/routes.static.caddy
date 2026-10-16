@@ -1,0 +1,18 @@
+handle /health {
+	root * /srv/custom
+	rewrite * /health.html
+	header Cache-Control "no-store"
+	file_server
+}
+
+handle /fallback {
+	root * /srv/custom
+	rewrite * /fallback.html
+	header Cache-Control "no-store"
+	file_server
+}
+
+handle_path /_proxy/* {
+	root * /srv/custom
+	file_server
+}

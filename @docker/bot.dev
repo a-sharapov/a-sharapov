@@ -1,0 +1,36 @@
+FROM oven/bun:1.4.3
+
+ARG TG_PORT=5702
+ARG TG_ROOT=/var/www/bot
+ARG UID=1000
+ARG GID=1000
+
+ENV UID=${UID}
+ENV GID=${GID}
+ENV NODE_ENV=development
+ENV TG_PORT=${TG_PORT}
+
+RUN set -eux; \
+  apt-get update; \
+  apt-get install -y --no-install-recommends gosu wget; \
+  rm -rf /var/lib/apt/lists/*; \
+  mkdir -p "${TG_ROOT}/data"
+
+WORKDIR ${TG_ROOT}
+
+COPY bot/package.json bot/bun.lock ./
+RUN bun install --frozen-lockfile
+
+COPY bot/tsconfig.json bot/bunfig.toml bot/main.ts ./
+COPY bot/assets ./assets
+COPY bot/l18n ./l18n
+COPY bot/repo ./repo
+COPY bot/__tests__ ./__tests__
+COPY bot/entrypoint.sh /usr/local/bin/bot-entrypoint
+RUN chmod +x /usr/local/bin/bot-entrypoint
+
+EXPOSE ${TG_PORT}
+
+USER root
+ENTRYPOINT ["bot-entrypoint"]
+CMD ["bun", "run", "--watch", "main.ts"]

@@ -1,0 +1,21 @@
+request_body /api/inquiry {
+	max_size 64KB
+}
+
+handle /api/* {
+	reverse_proxy web:5701
+}
+
+handle {
+	reverse_proxy web:5701 {
+		@unavailable status 5xx
+		handle_response @unavailable {
+			root * /srv/custom
+			rewrite * /fallback.html
+			header Cache-Control "no-store"
+			file_server {
+				status 503
+			}
+		}
+	}
+}

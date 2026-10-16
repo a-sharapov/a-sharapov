@@ -1,0 +1,22 @@
+---
+import type { Shot } from '$lib/common/types';
+import Head, { type IHead } from './Head.astro';
+import '$lib/styles/Html.css';
+
+export interface IHtml extends IHead {
+  shot: Shot;
+  template: string;
+}
+
+const { shot = 'intro', template = 'card', ...head } = Astro.props satisfies Partial<IHtml>;
+const locale = Astro.locals.locale;
+---
+
+<!doctype html>
+<html lang={locale} data-shot={shot} data-template={template} transition:animate="none">
+  <Head {...head} />
+  <body>
+    <noscript><span class="no-js" hidden></span></noscript>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,41 @@
+.sound {
+  :is(.wave, .mute) {
+    stroke-dasharray: 1;
+    transition: stroke-dashoffset var(--motion-slow) var(--ease);
+  }
+
+  .wave {
+    stroke-dashoffset: 1;
+  }
+
+  .wave + .wave {
+    transition-delay: 0.08s;
+  }
+
+  .mute {
+    stroke-dashoffset: 0;
+    transition-delay: 0.12s;
+  }
+
+  &[data-look='on'] {
+    .wave {
+      stroke-dashoffset: 0;
+      transition-delay: 0.1s;
+    }
+
+    .wave + .wave {
+      transition-delay: 0.18s;
+    }
+
+    .mute {
+      stroke-dashoffset: 1;
+      transition-delay: 0s;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound :is(.wave, .mute) {
+    transition: none;
+  }
+}

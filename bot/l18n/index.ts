@@ -1,12 +1,20 @@
-import en from "./en";
-import ru from "./ru";
+import en from './en';
+import ru from './ru';
 
-var LOCALES = {
-  ru,
-  en,
-};
+export var LOCALES = { ru, en };
 
-export var DEFAULT_LOCALE = Object.keys(LOCALES)[0];
-export var AVAILABLE_LOCALES = Object.keys(LOCALES);
+export type Locale = keyof typeof LOCALES;
+export type Dictionary = typeof ru;
 
-export default LOCALES;
+export var DEFAULT_LOCALE: Locale = 'ru';
+
+export var resolveLocale = (languageCode?: string): Locale =>
+  ((base) =>
+    Object.hasOwn(LOCALES, base) ? (base as Locale) : DEFAULT_LOCALE)(
+    String(languageCode ?? '')
+      .toLowerCase()
+      .split('-')[0]
+  );
+
+export var selectDictionary = (languageCode?: string): Dictionary =>
+  LOCALES[resolveLocale(languageCode)];

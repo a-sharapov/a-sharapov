@@ -1,0 +1,69 @@
+.bulb-switch {
+  .ray {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.25s ease-in calc((3 - var(--i)) * 0.04s);
+  }
+
+  .glass-glow {
+    opacity: 0;
+    transition: opacity 0.25s ease-in;
+  }
+
+  .bulb,
+  .filament {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+
+  &[data-look='on'] {
+    .ray {
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.35s ease-out
+        calc(0.15s + var(--i) * 0.06s);
+    }
+
+    .glass-glow {
+      opacity: 0.2;
+      transition: opacity 0.4s ease-out 0.12s;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bulb-switch[data-hovered] {
+    .bulb {
+      animation: bulb-screw 0.45s cubic-bezier(0.3, 0.6, 0.4, 1);
+    }
+
+    .filament {
+      animation: bulb-twist 0.45s linear;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulb-switch :is(.ray, .glass-glow) {
+    transition: none;
+  }
+}
+
+@keyframes bulb-screw {
+  from {
+    translate: 0 -2px;
+  }
+}
+
+@keyframes bulb-twist {
+  0%,
+  50% {
+    scale: 1 1;
+    animation-timing-function: ease-in;
+  }
+
+  25%,
+  75% {
+    scale: 0.3 1;
+    animation-timing-function: ease-out;
+  }
+}

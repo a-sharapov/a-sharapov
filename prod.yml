@@ -1,0 +1,127 @@
+name: a-sharapov
+
+networks:
+  edge:
+    driver: bridge
+  app:
+    driver: bridge
+    internal: true
+  egress:
+    driver: bridge
+
+services:
+  proxy:
+    image: caddy:2-alpine
+    container_name: a-sharapov_proxy
+    restart: unless-stopped
+    networks: [edge]
+    ports:
+      - "${PROXY_HTTP_PORT:-80}:80"
+      - "${PROXY_HTTPS_PORT:-443}:443"
+      - "${PROXY_HTTPS_PORT:-443}:443/udp"
+    volumes:
+      - ./proxy/Caddyfile.prod:/etc/caddy/Caddyfile:ro,z
+      - ./proxy/snippets:/etc/caddy/snippets:ro,z
+      - ./proxy/assets:/srv/custom:ro,z
+      - caddy_data:/data
+      - caddy_config:/config
+    env_file: [env/proxy.env]
+    read_only: true
+    tmpfs: [/tmp]
+    deploy:
+      resources:
+        limits: { memory: 256M }
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE, DAC_OVERRIDE]
+    security_opt: [no-new-privileges:true]
+
+  web:
+    build:
+      context: ./web
+      dockerfile: ../@docker/web.prod
+    container_name: a-sharapov_web
+    restart: unless-stopped
+    init: true
+    networks: [edge, app]
+    env_file: [env/web.env]
+    environment:
+      NODE_ENV: production
+    depends_on:
+      cms: { condition: service_started }
+      bot: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:5701/api/health >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+      start_interval: 2s
+    read_only: true
+    tmpfs: [/tmp]
+    volumes:
+      - web_cache:/var/www/web/.cache
+    deploy:
+      resources:
+        limits: { memory: 512M, cpus: "1.0" }
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+
+  bot:
+    build:
+      context: .
+      dockerfile: ./@docker/bot.prod
+    container_name: a-sharapov_bot
+    restart: unless-stopped
+    init: true
+    networks: [app, egress]
+    volumes:
+      - ./bot/data:/var/www/bot/data:rw,z
+    env_file: [env/bot.env]
+    environment:
+      NODE_ENV: production
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:5702/health >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits: { memory: 256M, cpus: "0.5" }
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+    cap_drop: [ALL]
+    cap_add: [CHOWN, FOWNER, DAC_OVERRIDE, SETUID, SETGID]
+
+  cms:
+    build:
+      context: ./cms
+      dockerfile: ../@docker/cms.prod
+    container_name: a-sharapov_cms
+    restart: unless-stopped
+    networks: [app]
+    volumes:
+      - ./cms/pb_data:/var/www/cms/pb_data:rw,z
+      - ./cms/pb_migrations:/var/www/cms/pb_migrations:rw,z
+      - ./cms/pb_hooks:/var/www/cms/pb_hooks:rw,z
+    env_file: [env/cms.env]
+    deploy:
+      resources:
+        limits: { memory: 256M, cpus: "0.5" }
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+    cap_drop: [ALL]
+    cap_add: [CHOWN, FOWNER, DAC_OVERRIDE]
+
+volumes:
+  caddy_data: { driver: local }
+  caddy_config: { driver: local }
+  web_cache: { driver: local }

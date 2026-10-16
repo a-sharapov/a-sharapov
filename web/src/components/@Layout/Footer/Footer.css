@@ -1,0 +1,58 @@
+footer.colophon {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: var(--z-chrome);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: var(--footer-h);
+  padding: 1em 1em calc(1em + env(safe-area-inset-bottom, 0));
+  text-align: center;
+  color: var(--muted);
+  pointer-events: none;
+
+  p {
+    max-width: 37.5rem;
+    margin: 0;
+    font-size: 0.6875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.02em;
+    pointer-events: auto;
+  }
+
+  .years {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .divider {
+    margin-inline: 0.35em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: transparent;
+
+    &:hover {
+      color: var(--text);
+      text-decoration-color: color-mix(
+        in srgb,
+        var(--primary),
+        transparent 30%
+      );
+    }
+  }
+
+  .glyph {
+    display: inline-block;
+    scale: -1 1;
+  }
+}
+
+@media (max-width: 48rem), (max-height: 30rem) {
+  footer.colophon {
+    position: static;
+    min-height: auto;
+    padding-top: 0.5rem;
+  }
+}

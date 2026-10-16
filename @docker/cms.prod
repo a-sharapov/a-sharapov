@@ -1,0 +1,27 @@
+FROM alpine:latest
+
+ARG PB_VERSION=0.40.5
+ARG TARGETARCH=amd64
+ARG UID=0
+ARG GID=0
+
+ENV UID=${UID}
+ENV GID=${GID}
+
+RUN apk add --no-cache \
+  unzip \
+  ca-certificates
+
+ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_${TARGETARCH}.zip /tmp/pb.zip
+RUN mkdir -p /var/www/cms/pb_data /var/www/cms/pb_migrations /var/www/cms/pb_hooks
+RUN unzip -q /tmp/pb.zip pocketbase -d /var/www/cms
+
+COPY entrypoint.sh /var/www/cms/entrypoint.sh
+COPY pb_migrations/ /var/www/cms/pb_migrations/
+COPY pb_hooks/ /var/www/cms/pb_hooks/
+RUN chmod +x /var/www/cms/entrypoint.sh
+
+WORKDIR /var/www/cms
+
+EXPOSE 5703
+ENTRYPOINT ["/var/www/cms/entrypoint.sh"]

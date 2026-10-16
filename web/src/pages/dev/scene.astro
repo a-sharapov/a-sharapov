@@ -1,0 +1,44 @@
+---
+import { shotFor } from '$lib/common/routes';
+import type { PageTemplate, Shot } from '$lib/common/types';
+import Sheet from '$lib/components/@Content/Sheet/Sheet.astro';
+import SceneLoader from '$lib/components/@UX/SceneLoader/SceneLoader.astro';
+import Viewer from '$lib/components/@Viewer/Viewer.svelte';
+import Html from '$lib/layouts/Html.astro';
+import content from '$lib/services/content';
+
+if (import.meta.env.PROD) return new Response(null, { status: 404 });
+
+const _TEMPLATES: Record<Shot, PageTemplate> = {
+  intro: 'card',
+  portrait: 'contacts',
+  landscape: 'article',
+  resume: 'resume',
+  sketchbook: 'services',
+  tablet: 'portfolio',
+};
+const requested = Astro.url.searchParams.get('shot') as Shot | null;
+const shot: Shot = requested && requested in _TEMPLATES ? requested : 'intro';
+const template = _TEMPLATES[shot];
+const contacts = await content.contacts.list();
+---
+
+<Html title="Scene lookdev" robots="noindex" shot={shotFor(template)} template={template}>
+  <main id="content">
+    {shot !== 'intro' && (
+        <Sheet shot={shot} layout={shot === 'landscape' || shot === 'portrait' ? template : 'article'}>
+          <h1>Лукдев листа</h1>
+          <p>Лист для проверки подгонки бумаги и камеры.</p>
+        </Sheet>
+      )}
+  </main>
+  <SceneLoader t={Astro.locals.i18n ?? {}} />
+  <Viewer
+    client:load
+    transition:persist="viewer"
+    transition:persist-props
+    t={Astro.locals.i18n ?? {}}
+    shot={shot}
+    contacts={contacts}
+  />
+</Html>

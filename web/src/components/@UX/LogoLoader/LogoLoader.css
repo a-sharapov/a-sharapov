@@ -1,0 +1,82 @@
+.logo-loader {
+  --veil: var(--background);
+
+  position: relative;
+  display: grid;
+  width: 12rem;
+  color: var(--grayDark);
+
+  > svg {
+    position: relative;
+    grid-area: 1 / 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: currentColor;
+  }
+
+  .sketch {
+    opacity: 0.2;
+  }
+
+  .signed {
+    opacity: 0;
+    transition: opacity 0.2s var(--ease);
+  }
+
+  .ink {
+    animation: logo-ink 2.8s ease-in infinite;
+  }
+
+  .veil {
+    position: absolute;
+    inset: -30% -15%;
+    background: var(--veil);
+    transform: skewX(-14deg);
+    animation: logo-veil 2.8s cubic-bezier(0.45, 0, 0.35, 1) infinite;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      right: 100%;
+      width: 25%;
+      background: linear-gradient(to right, transparent, var(--veil));
+    }
+  }
+}
+
+@keyframes logo-veil {
+  0% {
+    transform: translateX(0) skewX(-14deg);
+  }
+
+  65%,
+  100% {
+    transform: translateX(125%) skewX(-14deg);
+  }
+}
+
+@keyframes logo-ink {
+  0%,
+  82% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-loader {
+    :is(.veil, .sketch) {
+      display: none;
+    }
+
+    .ink {
+      opacity: 0.6;
+      animation: none;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scene);
+  background: var(--background);
+  transition: background-color var(--motion-slow) var(--ease);
+
+  > div,
+  canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.9s var(--ease);
+  }
+
+  &:is([data-phase='boot'], [data-phase='loaded']) canvas {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 48rem), (max-height: 30rem) {
+  .viewer {
+    display: none;
+  }
+}
+
+:is(:root:has(.no-js), :root[data-scene='failed']) .viewer canvas {
+  display: none;
+}

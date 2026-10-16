@@ -1,20 +1,12 @@
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open('a-sharapov-v5.0.1-cache').then((cache) => {
-      return cache.addAll([
-        '/models/coffee.glb',
-        '/models/desk_lamp.glb',
-        '/models/paper_plane.glb',
-        '/models/pen_holder.glb',
-        '/models/pencil.glb',
-        '/models/glasses.glb'
-      ])
-    })
-  )
-})
+self.addEventListener('install', () => self.skipWaiting());
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => response || fetch(event.request))
-  )
-})
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+      .then(() => self.registration.unregister())
+      .then(() => self.clients.matchAll({ type: 'window' }))
+      .then((clients) => clients.forEach((client) => client.navigate(client.url)))
+  );
+});

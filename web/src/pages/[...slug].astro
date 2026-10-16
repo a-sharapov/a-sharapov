@@ -1,25 +1,100 @@
 ---
-import Base from '@lib/layouts/Base.astro'
-import { INDEX } from '@lib/shared/constants'
-import { hasNoExtension } from '@lib/shared/utils'
-import { getEntry } from 'astro:content'
+import { CONTACTS_SLUG, INQUIRY_SENT_QUERY, OG_COVERS, SCENE_MEDIA } from '$lib/common/constants';
+import { hrefFor, reroute, shotFor } from '$lib/common/routes';
+import { markdownUrl, pageGraph } from '$lib/common/seo';
+import type { PageTemplate } from '$lib/common/types';
+import { localize } from '$lib/common/utils';
+import Card from '$lib/components/@Content/Card/Card.astro';
+import Contacts from '$lib/components/@Content/Contacts/Contacts.astro';
+import Deck from '$lib/components/@Content/Deck/Deck.svelte';
+import { inlineArt } from '$lib/components/@Content/Sheet/art';
+import Sheet from '$lib/components/@Content/Sheet/Sheet.astro';
+import InquiryForm from '$lib/components/@Forms/InquiryForm/InquiryForm.svelte';
+import Footer from '$lib/components/@Layout/Footer/Footer.astro';
+import Header from '$lib/components/@Layout/Header/Header.svelte';
+import SceneLoader from '$lib/components/@UX/SceneLoader/SceneLoader.astro';
+import Viewer from '$lib/components/@Viewer/Viewer.svelte';
+import Html from '$lib/layouts/Html.astro';
+import content from '$lib/services/content';
 
-const { slug } = Astro.params
-const contentUrl = hasNoExtension(slug)
-  ? slug?.endsWith('/')
-    ? `${slug}${INDEX}`
-    : slug || INDEX
-  : null
+const { locale, slug, i18n, nav } = Astro.locals;
+const _UNAVAILABLE = { status: 503, headers: { 'Retry-After': '30' } };
+const shape = reroute(Astro.url.pathname);
 
-const entry = await (contentUrl ? getEntry('docs', contentUrl as string) : void 0)
+if (shape && 'redirect' in shape) return Astro.redirect(shape.redirect, 301);
 
-if (!entry) {
-  return Astro.redirect('/404', 404)
-}
+if (shape) return Astro.rewrite('/404');
 
-const { Content, headings } = await entry.render()
+const page = await content.pages.find(locale, slug).then(
+  ($) => $,
+  () => undefined
+);
+
+if (page === undefined) return new Response(null, _UNAVAILABLE);
+
+if (!page) return Astro.rewrite('/404');
+
+const shot = shotFor(page.template);
+const _LAYOUTS: Partial<Record<PageTemplate, PageTemplate>> = {
+  resume: 'article',
+  services: 'article',
+  portfolio: 'article',
+};
+const layout = _LAYOUTS[page.template] ?? page.template;
+const contacts = await content.contacts.list();
+const contactsHref = hrefFor({ locale, slug: CONTACTS_SLUG });
+const t = localize(i18n ?? {});
+const origin = (Astro.site ?? Astro.url).origin;
+const schema = pageGraph({ origin, dictionary: i18n ?? {} }, page);
+const _PROFILES = ['index', 'cv'];
 ---
 
-<Base {...headings}>
-  <Content />
-</Base>
+<Html
+  title={page.longtitle || page.title}
+  description={page.description}
+  keywords={page.keywords}
+  shot={shot}
+  template={page.template}
+  cover={OG_COVERS[page.slug] ?? OG_COVERS.index}
+  coverAlt={t(`seo.covers.${OG_COVERS[page.slug] ? page.slug : 'index'}`)}
+  schema={schema}
+  markdown={markdownUrl(origin, page)}
+  ogType={_PROFILES.includes(page.slug) ? 'profile' : 'website'}
+>
+  <Header client:load transition:persist="chrome" t={i18n} nav={nav} slug={slug} />
+  <main id="content" tabindex="-1">
+    {page.template === 'card' ? (
+        <Card t={i18n} href={contactsHref} content={page.content} contacts={contacts} />
+      ) : (
+        <Sheet shot={shot} layout={layout}>
+          {page.template === 'contacts' ? (
+            <Contacts t={i18n} contacts={contacts} content={page.content} title={page.title}>
+              <InquiryForm
+                client:visible
+                t={i18n}
+                locale={locale}
+                page={Astro.url.pathname}
+                sent={Astro.url.searchParams.has(INQUIRY_SENT_QUERY)}
+              />
+            </Contacts>
+          ) : page.template === 'portfolio' ? (
+            <Deck client:load t={i18n}>
+              <Fragment set:html={inlineArt(page.content)} />
+            </Deck>
+          ) : (
+            <Fragment set:html={inlineArt(page.content)} />
+          )}
+        </Sheet>
+      )}
+  </main>
+  <Footer t={i18n} />
+  <SceneLoader t={i18n} />
+  <Viewer
+    client:media={SCENE_MEDIA}
+    transition:persist="viewer"
+    transition:persist-props
+    t={i18n}
+    shot={shot}
+    contacts={contacts}
+  />
+</Html>

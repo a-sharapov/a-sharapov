@@ -1,42 +1,46 @@
-# Alexander Sharapov
+# Александр Шарапов
 
-![WebDev Generalist](https://img.shields.io/static/v1?style=for-the-badge&label=&message=WebDev%20Generalist&color=e33b26&logo=thirdweb&logoColor=fff)
-![:](https://img.shields.io/badge/:-1A1B20?style=for-the-badge&logoColor=ff3c00)
-![Fullstack web developer](https://img.shields.io/static/v1?style=for-the-badge&label=&message=Fullstack%20web%20developer&color=155DD6&logo=PolymerProject&logoColor=fff)
-![+](https://img.shields.io/badge/+-1A1B20?style=for-the-badge&logoColor=ff3c00)
-![UX/UI-Designer](https://img.shields.io/static/v1?style=for-the-badge&label=&message=UX/UI-Designer&color=008A4B&logo=Inkscape&logoColor=fff)
+Разработчик полного цикла: один человек в тандеме с LLM — от идеи до продакшена
 
-Experienced full-lifecycle developer who seamlessly transforms ideas into robust,
-well-supported applications with a deep underlying knowledge of
-Frontend/Backend technologies and DevOps. My passion for development started
-with learning HTML, CSS, JavaScript and MODX Evo before moving on to Ruby,
-Elixir and Rust.
+[a-sharapov.com](https://a-sharapov.com) · [mail@a-sharapov.com](mailto:mail@a-sharapov.com) · [t.me/asharapov](https://t.me/asharapov) · [linkedin.com/in/sharapov-alexander](https://www.linkedin.com/in/sharapov-alexander/)
 
-## Core
+## Профиль
 
-![Vanilla.js](<https://img.shields.io/badge/JavaScript%20(ecma262)-f7df1e?style=for-the-badge&logo=JavaScript&logoColor=333>)&nbsp;
-![Elixir](https://img.shields.io/badge/Elixir-4e2a8e?style=for-the-badge&logo=Elixir&logoColor=fff)
+В коммерческой разработке с 2010 года. Веду проект один на всех этапах: архитектура и бэкенд, интерфейсы и 3D, ИИ-функции, DevOps и сопровождение. В тандеме с LLM архитектура, ревью и ответственность за результат остаются за мной. Также делаю дизайн: логотипы, айдентику, векторную графику и промо-ролики.
 
-## Minor
+## Опыт работы
 
-![Ruby](https://img.shields.io/badge/Ruby-900701?style=for-the-badge&logo=Ruby&logoColor=fff)&nbsp;
-![Rust](https://img.shields.io/badge/Rust-e33b26?style=for-the-badge&logo=Rust&logoColor=fff)&nbsp;
-![PHP](https://img.shields.io/badge/PHP-556096?style=for-the-badge&logo=PHP&logoColor=fff)
+**Principal Software Engineer** · проектно, удалённо · 2023 – н. в.
 
-## Stack
+- Вёл проекты целиком: от идеи и архитектуры до запуска и стабильных релизов
+- Спроектировал архитектуру и написал ключевые модули, настроил CI/CD и обновления без простоев
 
-![Phoenix](https://img.shields.io/badge/Phoenix-1A1B20?style=for-the-badge&logo=PhoenixFramework&logoColor=fff)&nbsp;
-![Astro](https://img.shields.io/badge/Astro-1A1B20?style=for-the-badge&logo=Astro&logoColor=fff)&nbsp;
-![Svelte](https://img.shields.io/badge/Svelte-1A1B20?style=for-the-badge&logo=Svelte&logoColor=fff)&nbsp;
-![Preact](https://img.shields.io/badge/Preact-1A1B20?style=for-the-badge&logo=Preact&logoColor=fff)&nbsp;
-![React](https://img.shields.io/badge/React-1A1B20?style=for-the-badge&logo=React&logoColor=fff)&nbsp;
-![Express](https://img.shields.io/badge/Express-1A1B20?style=for-the-badge&logo=Express&logoColor=fff)&nbsp;
-![Electron](https://img.shields.io/badge/Electron-1A1B20?style=for-the-badge&logo=Electron&logoColor=fff)&nbsp;
-![Tauri](https://img.shields.io/badge/Tauri-1A1B20?style=for-the-badge&logo=Tauri&logoColor=fff)&nbsp;
-![Bun](https://img.shields.io/badge/Bun-1A1B20?style=for-the-badge&logo=Bun&logoColor=fff)&nbsp;
-![RubyOnRails](https://img.shields.io/badge/RubyOnRails-1A1B20?style=for-the-badge&logo=RubyOnRails&logoColor=fff)&nbsp;
-![Vite](https://img.shields.io/badge/Vite-1A1B20?style=for-the-badge&logo=Vite&logoColor=fff)&nbsp;
-![Docker](https://img.shields.io/badge/Docker-1A1B20?style=for-the-badge&logo=Docker&logoColor=fff)&nbsp;
-![Nginx](https://img.shields.io/badge/Nginx-1A1B20?style=for-the-badge&logo=Nginx&logoColor=fff)&nbsp;
-![Linux](https://img.shields.io/badge/Linux-1A1B20?style=for-the-badge&logo=Linux&logoColor=fff)&nbsp;
-![Git](https://img.shields.io/badge/Git-1A1B20?style=for-the-badge&logo=Git&logoColor=fff)&nbsp;
+**Senior Software Engineer** · iTechArt · 2021 – 2023
+
+- Вёл эпики целиком — от постановки задачи до релиза
+- Менторил группу младших разработчиков
+
+**Senior Web Developer** · PRIME · 2014 – 2020
+
+- Разработал все дочерние проекты компании
+- Спроектировал архитектуру нескольких систем и руководил их разработкой
+
+**Веб-разработчик и дизайнер** · AZ ART · 2010 – 2012
+
+- Разрабатывал сайты под ключ: дизайн интерфейса, вёрстка, настройка CMS
+
+## Навыки
+
+- **Разработка с ИИ:** LLM на всех этапах разработки, RAG и агенты
+- **Фронтенд и 3D:** JavaScript, TypeScript, Svelte, SvelteKit, Astro, Three.js
+- **Бэкенд:** Node.js, Bun, Elixir, Phoenix, SQL и NoSQL
+- **Приложения:** Flutter, Electrobun, Electron, PWA
+- **DevOps:** Docker, Podman, Nginx, Caddy, CI/CD, Linux, BSD
+- **Дизайн:** логотипы, айдентика, векторная графика, интерфейсы, промо-ролики
+
+## Образование
+
+- Белорусская государственная академия связи — инженер телекоммуникаций, 2010
+- Сетевая академия Cisco — сетевой инженер, 2008
+
+Полное резюме — [a-sharapov.com/ru/cv](https://a-sharapov.com/ru/cv)

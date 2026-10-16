@@ -1,0 +1,176 @@
+.sheet {
+  --sheet-w: 64rem;
+  --sheet-pad: clamp(1.25rem, 3.5vw, 3.25rem);
+
+  --text: var(--ink);
+  --heading: var(--primary);
+  --surface: var(--light);
+  --textShadowColor: #fffb;
+  --link: var(--primary);
+  --linkVisited: color-mix(in srgb, var(--primary), var(--dark) 50%);
+  --linkHover: color-mix(in srgb, var(--primary), var(--grayLight) 30%);
+
+  position: fixed;
+  inset-block: calc(var(--header-h) + var(--space-4))
+    calc(var(--footer-h) + var(--space-3));
+  inset-inline: 0;
+  width: min(100% - 2 * var(--space-4), var(--sheet-w));
+  margin-inline: auto;
+  padding: var(--sheet-pad);
+  overflow: auto;
+  overscroll-behavior: contain;
+  color: var(--text);
+  background: var(--paper);
+  border-radius: 0.125rem;
+  box-shadow: var(--shadow-sheet);
+  color-scheme: light;
+  transition:
+    opacity var(--motion-med) var(--ease),
+    translate var(--motion-med) var(--ease),
+    background-color var(--motion-med) var(--ease),
+    box-shadow var(--motion-med) var(--ease);
+
+  &[data-shot='landscape'] {
+    --sheet-w: 70rem;
+  }
+
+  &[data-shot='resume'],
+  &[data-shot='sketchbook'],
+  &[data-shot='tablet'] {
+    --sheet-h: calc(
+      100dvh -
+      var(--header-h) -
+      var(--space-4) -
+      var(--footer-h) -
+      var(--space-3)
+    );
+
+    inset-block-end: auto;
+    width: min(
+      100% -
+      2 *
+      var(--space-4),
+      var(--sheet-h) *
+      var(--sheet-ratio),
+      var(--sheet-w)
+    );
+    aspect-ratio: var(--sheet-ratio);
+  }
+
+  &[data-shot='resume'] {
+    --sheet-ratio: 0.70707;
+  }
+
+  &[data-shot='sketchbook'] {
+    --sheet-ratio: 1.40952;
+
+    column-count: 2;
+    column-gap: calc(2 * var(--sheet-pad));
+
+    & :is(h1, h2, h3) {
+      break-after: avoid;
+    }
+
+    & :is(p, li, dd) {
+      break-inside: avoid;
+    }
+
+    &:has(> .page) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: minmax(0, 1fr);
+      column-count: auto;
+      overflow: hidden;
+
+      > .page {
+        min-height: 0;
+        overflow: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+      }
+    }
+  }
+
+  &[data-shot='tablet'] {
+    --sheet-ratio: 1.57895;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ink), transparent 78%) transparent;
+
+  @starting-style {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+
+:root[data-theme='dark'] .sheet[data-shot='tablet'] {
+  --ink: var(--grayLight);
+  --heading: #fff;
+  --paper: #1a1e25;
+  --textShadowColor: #1112;
+  --link: var(--heading);
+  --linkVisited: var(--grayDark);
+  --linkHover: var(--grayLight);
+
+  scrollbar-color: color-mix(in srgb, var(--ink), transparent 70%) transparent;
+  color-scheme: dark;
+}
+
+@media (min-width: 48.0625rem) and (min-height: 30.0625rem) {
+  body:has(.viewer[data-phase='settled']) .sheet,
+  body:has(.viewer[data-phase='moving']) .sheet,
+  body:has(.viewer[data-phase='leaving']) .sheet {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+html[data-thrown] .sheet {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 48rem), (max-height: 30rem) {
+  .sheet,
+  .sheet:is(
+      [data-shot='resume'],
+      [data-shot='sketchbook'],
+      [data-shot='tablet']
+    ) {
+    position: relative;
+    inset: auto;
+    width: auto;
+    max-width: 40rem;
+    aspect-ratio: auto;
+    margin-inline: auto;
+    padding: 1.75rem 1.25rem 2rem;
+    overflow: visible;
+  }
+
+  .sheet[data-shot='sketchbook'] {
+    column-count: auto;
+    background-image: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--ink), transparent 80%) 0.055rem,
+      transparent 0.07rem
+    );
+    background-position: 0.625rem 0.625rem;
+    background-size: 1.25rem 1.25rem;
+  }
+
+  :root[data-theme='dark'] .sheet:not([data-layout='notfound']) {
+    background-color: #f1eadf;
+  }
+
+  .sheet[data-shot='sketchbook']:has(> .page) {
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
+    overflow: visible;
+
+    > .page {
+      overflow: visible;
+    }
+  }
+}

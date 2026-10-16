@@ -1,5 +1,40 @@
 ---
-import Base from '@lib/layouts/Base.astro'
+import { NOT_FOUND_TEMPLATE, SCENE_MEDIA } from '$lib/common/constants';
+import { localize } from '$lib/common/utils';
+import NotFound from '$lib/components/@Content/NotFound/NotFound.astro';
+import Sheet from '$lib/components/@Content/Sheet/Sheet.astro';
+import Footer from '$lib/components/@Layout/Footer/Footer.astro';
+import Header from '$lib/components/@Layout/Header/Header.svelte';
+import SceneLoader from '$lib/components/@UX/SceneLoader/SceneLoader.astro';
+import Viewer from '$lib/components/@Viewer/Viewer.svelte';
+import Html from '$lib/layouts/Html.astro';
+import content from '$lib/services/content';
+
+Astro.response.status = 404;
+
+const { locale, i18n, nav } = Astro.locals;
+const t = localize(i18n ?? {});
+const contacts = await content.contacts.list();
 ---
 
-<Base modifier="404" pagetitle="Page not found" />
+<Html
+  title={t('error.notFound.title')}
+  robots="noindex"
+  shot="tablet"
+  template={NOT_FOUND_TEMPLATE}
+>
+  <Header client:load transition:persist="chrome" t={i18n} nav={nav ?? []} slug="404" />
+  <main id="content" tabindex="-1">
+    <Sheet shot="tablet" layout="notfound"> <NotFound t={i18n} locale={locale} /> </Sheet>
+  </main>
+  <Footer t={i18n} />
+  <SceneLoader t={i18n} />
+  <Viewer
+    client:media={SCENE_MEDIA}
+    transition:persist="viewer"
+    transition:persist-props
+    t={i18n}
+    shot="tablet"
+    contacts={contacts}
+  />
+</Html>

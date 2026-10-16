@@ -1,0 +1,24 @@
+{
+	servers :443 {
+		protocols h1 h2 h3
+	}
+}
+
+(app) {
+	import snippets/redirects.html.caddy
+	import snippets/routes.static.caddy
+	import snippets/routes.cms.caddy
+	import snippets/routes.web.caddy
+	import snippets/routes.errors.caddy
+}
+
+:80 {
+	import app
+}
+
+:443 {
+	tls internal {
+		on_demand
+	}
+	import app
+}

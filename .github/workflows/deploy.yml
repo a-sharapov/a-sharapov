@@ -1,0 +1,130 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify CI
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.ci.outputs.sha }}
+    steps:
+      - id: ci
+        name: Require green CI for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          conclusion="$(
+            gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/ci.yml/runs?head_sha=${SHA}&event=push&status=completed&per_page=10" \
+              --jq '.workflow_runs[0].conclusion // ""'
+          )"
+          [[ "$conclusion" == success ]] || {
+            echo "::error::CI для ${SHA} не зелёный (${conclusion:-нет завершённого запуска}) — деплой отменён"
+            exit 1
+          }
+          echo "sha=${SHA}" >> "$GITHUB_OUTPUT"
+          echo "CI для ${SHA}: success"
+
+  deploy:
+    name: Deploy production
+    needs: verify
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.DEPLOY_URL }}
+    env:
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      DEPLOY_HOST_KEY: ${{ vars.DEPLOY_HOST_KEY }}
+      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT || '22' }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+      DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      SHA: ${{ needs.verify.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.verify.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Check settings
+        run: |
+          set -euo pipefail
+          missing=()
+          for name in DEPLOY_HOST DEPLOY_HOST_KEY DEPLOY_USER DEPLOY_PATH DEPLOY_URL DEPLOY_KEY; do
+            [[ -n "${!name:-}" ]] || missing+=("$name")
+          done
+          [[ ${#missing[@]} -eq 0 ]] || {
+            echo "::error::Не заданы в окружении production: ${missing[*]} (DEPLOY_KEY — секрет DEPLOY_SSH_KEY, остальное — переменные)"
+            exit 1
+          }
+
+      - name: Prepare SSH
+        run: |
+          set -euo pipefail
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" | tr -d '\r' > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          ssh-keygen -y -f ~/.ssh/deploy >/dev/null
+          host="$([[ "$DEPLOY_PORT" == 22 ]] && echo "$DEPLOY_HOST" || echo "[$DEPLOY_HOST]:$DEPLOY_PORT")"
+          case "$DEPLOY_HOST_KEY" in
+            ssh-* | ecdsa-* | sk-*) printf '%s %s\n' "$host" "$DEPLOY_HOST_KEY" ;;
+            *) printf '%s\n' "$DEPLOY_HOST_KEY" ;;
+          esac > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          ssh-keygen -F "$host" -f ~/.ssh/known_hosts >/dev/null
+          {
+            echo "Host deploy"
+            echo "  HostName $DEPLOY_HOST"
+            echo "  Port $DEPLOY_PORT"
+            echo "  User $DEPLOY_USER"
+            echo "  IdentityFile ~/.ssh/deploy"
+            echo "  IdentitiesOnly yes"
+            echo "  BatchMode yes"
+            echo "  StrictHostKeyChecking yes"
+            echo "  ConnectTimeout 15"
+            echo "  ServerAliveInterval 30"
+          } > ~/.ssh/config
+          ssh -n deploy 'echo "ssh: $(whoami)@$(hostname)"'
+
+      - name: Upload bundle
+        run: |
+          set -euo pipefail
+          git bundle create "$RUNNER_TEMP/repository.bundle" HEAD
+          git bundle verify -q "$RUNNER_TEMP/repository.bundle"
+          printf -v dir '%q' "$DEPLOY_PATH"
+          # shellcheck disable=SC2029
+          ssh -n deploy "mkdir -p $dir/.deploy"
+          scp -q "$RUNNER_TEMP/repository.bundle" "deploy:$DEPLOY_PATH/.deploy/repository.bundle.next"
+
+      - name: Deploy on server
+        run: |
+          set -euo pipefail
+          printf -v args '%q %q %q' "$DEPLOY_PATH" "$SHA" master
+          # shellcheck disable=SC2029
+          ssh deploy "bash -s -- $args" < scripts/deploy/receive.sh
+
+      - name: Check public site
+        run: |
+          set -euo pipefail
+          for _ in $(seq 1 10); do
+            if curl -fsS --max-time 10 "$DEPLOY_URL/api/health" | grep -q '"ok":true'; then
+              echo "$DEPLOY_URL/api/health: ok"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "::error::$DEPLOY_URL/api/health не отвечает ok после деплоя"
+          exit 1

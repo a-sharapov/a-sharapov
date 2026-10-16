@@ -1,0 +1,50 @@
+[
+  {
+    "kind": "phone",
+    "label": "+375 (44) 570 · 570 · 2",
+    "href": "tel:+375445705702",
+    "group": 0,
+    "sort": 0,
+    "published": true
+  },
+  {
+    "kind": "phone",
+    "label": "+375 (29) 570 · 570 · 2",
+    "href": "tel:+375295705702",
+    "group": 0,
+    "sort": 10,
+    "published": true
+  },
+  {
+    "kind": "telegram",
+    "label": "@asharapov",
+    "href": "https://t.me/asharapov",
+    "group": 1,
+    "sort": 20,
+    "published": true
+  },
+  {
+    "kind": "email",
+    "label": "mail@a-sharapov.com",
+    "href": "mailto:mail@a-sharapov.com",
+    "group": 1,
+    "sort": 40,
+    "published": true
+  },
+  {
+    "kind": "linkedin",
+    "label": "LinkedIn",
+    "href": "https://www.linkedin.com/in/sharapov-alexander/",
+    "group": 2,
+    "sort": 50,
+    "published": true
+  },
+  {
+    "kind": "github",
+    "label": "GitHub",
+    "href": "https://github.com/a-sharapov",
+    "group": 2,
+    "sort": 60,
+    "published": true
+  }
+]

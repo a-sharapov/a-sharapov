@@ -1,0 +1,12 @@
+@public path /textures/* /images/* /fonts/* /i/* /sounds/* /logo.svg /favicon.svg /favicon.ico /apple-touch-icon.png /icon-192.png /icon-512.png
+header @public {
+	Cache-Control "public, max-age=86400, stale-while-revalidate=604800"
+	defer
+	match status 2xx
+}
+
+@revalidate path /css/* /js/*
+header @revalidate {
+	Cache-Control "no-cache"
+	defer
+}

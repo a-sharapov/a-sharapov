@@ -1,0 +1,350 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
+  "root": true,
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "master"
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!!**/node_modules",
+      "!!**/dist",
+      "!!**/.astro",
+      "!**/coverage",
+      "!**/_TMP",
+      "!**/_tmp",
+      "!**/cms/pb_data",
+      "!**/bot/data",
+      "!**/web/public",
+      "!**/public",
+      "!**/*.min.js",
+      "!**/*.min.css"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf",
+    "bracketSpacing": true,
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "recommended": true,
+        "useHtmlLang": "warn",
+        "useButtonType": "warn",
+        "useKeyWithClickEvents": "warn",
+        "noSvgWithoutTitle": "info",
+        "useSemanticElements": "info"
+      },
+      "complexity": {
+        "recommended": true,
+        "noCommaOperator": "off",
+        "noImportantStyles": "info",
+        "noUselessFragments": "warn",
+        "useLiteralKeys": "info"
+      },
+      "correctness": {
+        "recommended": true,
+        "noUnusedImports": "warn",
+        "noUnusedVariables": "warn",
+        "noUnusedFunctionParameters": "info",
+        "useExhaustiveDependencies": "off",
+        "noUnknownMediaFeatureName": "warn",
+        "noUnknownProperty": "warn"
+      },
+      "performance": {
+        "recommended": true,
+        "noAccumulatingSpread": "info"
+      },
+      "security": {
+        "recommended": true,
+        "noDangerouslySetInnerHtml": "info"
+      },
+      "style": {
+        "recommended": true,
+        "useConst": "off",
+        "useImportType": "warn",
+        "useExportType": "warn",
+        "useNodejsImportProtocol": "warn",
+        "useTemplate": "info",
+        "noNonNullAssertion": "info",
+        "noParameterAssign": "info",
+        "useDefaultParameterLast": "info",
+        "useNumberNamespace": "info",
+        "noDescendingSpecificity": "info"
+      },
+      "suspicious": {
+        "recommended": true,
+        "noVar": "off",
+        "noExplicitAny": "info",
+        "noDoubleEquals": "warn",
+        "noAssignInExpressions": "off",
+        "noConfusingVoidType": "info",
+        "noArrayIndexKey": "info",
+        "noDocumentCookie": "warn",
+        "noTsIgnore": "warn"
+      }
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedAttributes": "off",
+        "useSortedKeys": "off"
+      }
+    }
+  },
+  "javascript": {
+    "globals": [
+      "Astro",
+      "Browser",
+      "bun",
+      "Bun",
+      "$state",
+      "$derived",
+      "$effect",
+      "$props",
+      "$bindable",
+      "$inspect",
+      "$host"
+    ],
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": false,
+      "jsxEverywhere": false
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 80,
+      "lineEnding": "lf",
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "es5",
+      "semicolons": "always",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "attributePosition": "auto"
+    },
+    "linter": {
+      "enabled": true
+    },
+    "assist": {
+      "enabled": true
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": true,
+      "allowTrailingCommas": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 80,
+      "lineEnding": "lf",
+      "trailingCommas": "none",
+      "bracketSpacing": true,
+      "expand": "auto"
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": false
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 80,
+      "lineEnding": "lf",
+      "quoteStyle": "single"
+    },
+    "linter": {
+      "enabled": true
+    },
+    "assist": {
+      "enabled": true
+    }
+  },
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "parser": {
+      "interpolation": false
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 100,
+      "lineEnding": "lf",
+      "attributePosition": "auto",
+      "bracketSameLine": false,
+      "whitespaceSensitivity": "css",
+      "indentScriptAndStyle": true,
+      "selfCloseVoidElements": "always"
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.svelte"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "warn"
+          },
+          "style": {
+            "useConst": "off"
+          },
+          "suspicious": {
+            "noVar": "off",
+            "noAssignInExpressions": "off",
+            "noExplicitAny": "info"
+          },
+          "a11y": {
+            "useKeyWithClickEvents": "info",
+            "noNoninteractiveElementInteractions": "info",
+            "useSemanticElements": "info",
+            "useValidAriaRole": "info"
+          }
+        }
+      },
+      "javascript": {
+        "formatter": {
+          "quoteStyle": "single",
+          "jsxQuoteStyle": "double"
+        }
+      }
+    },
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "warn"
+          },
+          "style": {
+            "useConst": "off"
+          },
+          "suspicious": {
+            "noVar": "off",
+            "noAssignInExpressions": "off"
+          },
+          "a11y": {
+            "useKeyWithClickEvents": "info",
+            "useValidAriaRole": "info"
+          }
+        }
+      },
+      "javascript": {
+        "globals": ["Astro"]
+      }
+    },
+    {
+      "includes": ["**/*.{css,scss}"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noImportantStyles": "info"
+          },
+          "style": {
+            "noDescendingSpecificity": "info"
+          },
+          "correctness": {
+            "noUnknownProperty": "warn",
+            "noUnknownMediaFeatureName": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/*.{test,spec}.{ts,js,tsx,jsx}",
+        "**/__tests__/**",
+        "**/tests/**"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off",
+            "noAssignInExpressions": "off"
+          },
+          "style": {
+            "noNonNullAssertion": "off"
+          },
+          "performance": {
+            "noAccumulatingSpread": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/bot/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noVar": "off",
+            "noAssignInExpressions": "off"
+          },
+          "style": {
+            "useConst": "off"
+          },
+          "complexity": {
+            "noCommaOperator": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/scripts/**",
+        "**/Makefile",
+        "**/*.config.{js,ts,mjs,cjs}"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off",
+            "noExplicitAny": "off"
+          },
+          "style": {
+            "useNodejsImportProtocol": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/public/**", "**/normalize.css"],
+      "linter": {
+        "enabled": false
+      },
+      "formatter": {
+        "enabled": false
+      }
+    }
+  ]
+}
