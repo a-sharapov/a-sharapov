@@ -45,12 +45,12 @@ jobs:
       name: production
       url: ${{ vars.DEPLOY_URL }}
     env:
-      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
-      DEPLOY_HOST_KEY: ${{ vars.DEPLOY_HOST_KEY }}
-      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
-      DEPLOY_PORT: ${{ vars.DEPLOY_PORT || '22' }}
-      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
-      DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+      VAR_DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      VAR_DEPLOY_HOST_KEY: ${{ vars.DEPLOY_HOST_KEY }}
+      VAR_DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+      VAR_DEPLOY_PORT: ${{ vars.DEPLOY_PORT || '22' }}
+      VAR_DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      VAR_DEPLOY_URL: ${{ vars.DEPLOY_URL }}
       DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
       SHA: ${{ needs.verify.outputs.sha }}
     steps:
@@ -63,9 +63,18 @@ jobs:
         run: |
           set -euo pipefail
           missing=()
-          for name in DEPLOY_HOST DEPLOY_HOST_KEY DEPLOY_USER DEPLOY_PATH DEPLOY_URL DEPLOY_KEY; do
-            [[ -n "${!name:-}" ]] || missing+=("$name")
+          for name in DEPLOY_HOST DEPLOY_HOST_KEY DEPLOY_USER DEPLOY_PORT DEPLOY_PATH DEPLOY_URL; do
+            raw="VAR_$name"
+            value="$(printf '%s' "${!raw:-}" | tr -d '\r' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | sed -e '/^$/d')"
+            [[ "$value" == "${!raw:-}" ]] || echo "::warning::$name: убраны пробелы и переводы строк по краям — поправьте переменную в окружении production"
+            [[ "$name" == DEPLOY_HOST_KEY || "$value" != *[[:space:]]* ]] || {
+              echo "::error::$name содержит пробел или перевод строки внутри: «$value»"
+              exit 1
+            }
+            [[ -n "$value" ]] || missing+=("$name")
+            printf '%s<<__DEPLOY_END__\n%s\n__DEPLOY_END__\n' "$name" "$value" >> "$GITHUB_ENV"
           done
+          [[ -n "${DEPLOY_KEY:-}" ]] || missing+=(DEPLOY_KEY)
           [[ ${#missing[@]} -eq 0 ]] || {
             echo "::error::Не заданы в окружении production: ${missing[*]} (DEPLOY_KEY — секрет DEPLOY_SSH_KEY, остальное — переменные)"
             exit 1
