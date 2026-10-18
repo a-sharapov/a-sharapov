@@ -1,10 +1,9 @@
 import { afterEach, describe, expect, test } from 'bun:test';
-import type { APIContext } from 'astro';
-import { GET } from '$lib/pages/api/health';
+import { GET } from '../../routes/api/health/+server.ts';
 
 const _fetch = globalThis.fetch;
 
-const _get = () => GET({} as APIContext) as Promise<Response>;
+const _get = () => GET({} as Parameters<typeof GET>[0]) as Promise<Response>;
 
 describe('api/health', () => {
   afterEach(() => {

@@ -61,14 +61,6 @@
       "home": "Вернуться к визитке"
     }
   },
-  "portfolio": {
-    "deck": "слайды",
-    "label": "Портфолио",
-    "slide": "Слайд",
-    "of": "из",
-    "prev": "Предыдущая работа",
-    "next": "Следующая работа"
-  },
   "seo": {
     "alternateName": "Alexander Sharapov",
     "givenName": "Александр",

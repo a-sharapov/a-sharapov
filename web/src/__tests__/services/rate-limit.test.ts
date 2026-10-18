@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { clientKey, defineRateLimit } from '$lib/services/rate-limit';
+import { clientKey, defineRateLimit } from '#lib/services/rate-limit.ts';
 
 describe('rate-limit', () => {
   test('пускает perKey раз за окно, потом отказывает, после окна снова пускает', () => {

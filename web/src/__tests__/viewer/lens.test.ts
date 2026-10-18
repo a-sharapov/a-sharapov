@@ -4,12 +4,12 @@ import {
   bokehKernel,
   catEyePoint,
   chordPoint,
-} from '$lib/components/@Viewer/Scene/lens/dof';
+} from '#lib/components/@Viewer/Scene/lens/dof.ts';
 import {
   GRAIN,
   grainWeight,
   halationTints,
-} from '$lib/components/@Viewer/Scene/lens/film';
+} from '#lib/components/@Viewer/Scene/lens/film.ts';
 import {
   DAY_GRADE,
   gradeDay,
@@ -18,8 +18,11 @@ import {
   luma,
   lutData,
   type RGB,
-} from '$lib/components/@Viewer/Scene/lens/grade';
-import { MOTION, shutterFor } from '$lib/components/@Viewer/Scene/lens/motion';
+} from '#lib/components/@Viewer/Scene/lens/grade.ts';
+import {
+  MOTION,
+  shutterFor,
+} from '#lib/components/@Viewer/Scene/lens/motion.ts';
 
 var _random = ((seed) => () => (
   (seed = (seed * 16807) % 2147483647), (seed - 1) / 2147483646

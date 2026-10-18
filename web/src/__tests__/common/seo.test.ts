@@ -9,8 +9,8 @@ import {
   siteGraph,
   sitemapXml,
   toMarkdown,
-} from '$lib/common/seo';
-import type { ContactRecord, PageRecord } from '$lib/common/types';
+} from '#lib/common/seo.ts';
+import type { ContactRecord, PageRecord } from '#lib/common/types.ts';
 
 const _ORIGIN = 'https://a-sharapov.com';
 

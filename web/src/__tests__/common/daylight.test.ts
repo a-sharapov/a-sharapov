@@ -1,24 +1,27 @@
 import { afterAll, describe, expect, setSystemTime, test } from 'bun:test';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
 
 type Resolved = { theme: string; until: number };
 
 type Script = (...args: unknown[]) => void;
 
-const _ZONE = process.env.TZ;
+const _ZONE = Bun.env.TZ;
 
 const _compile = (path: string) =>
-  new Function(
-    'window',
-    'document',
-    'localStorage',
-    'setTimeout',
-    readFileSync(join(import.meta.dir, path), 'utf8')
-  ) as Script;
+  Bun.file(`${import.meta.dir}/${path}`)
+    .text()
+    .then(
+      (code) =>
+        new Function(
+          'window',
+          'document',
+          'localStorage',
+          'setTimeout',
+          code
+        ) as Script
+    );
 
-const _SHELL = _compile('../../../public/js/shell-init.js');
-const _PROXY = _compile('../../../../proxy/assets/js/theme.js');
+const _SHELL = await _compile('../../../static/js/shell-init.js');
+const _PROXY = await _compile('../../../../proxy/assets/js/theme.js');
 
 const _run = (script: Script, stored: string | null = null) => {
   const dataset: Record<string, string> = {};
@@ -37,7 +40,7 @@ const _run = (script: Script, stored: string | null = null) => {
 };
 
 const _at = (zone: string, local: string) => (
-  (process.env.TZ = zone), setSystemTime(new Date(local)), Date.now()
+  (Bun.env.TZ = zone), setSystemTime(new Date(local)), Date.now()
 );
 
 const _clock = (time: number) =>
@@ -48,7 +51,7 @@ const _clock = (time: number) =>
 
 afterAll(() => {
   setSystemTime();
-  process.env.TZ = _ZONE;
+  Bun.env.TZ = _ZONE;
 });
 
 describe('тема по времени', () => {
@@ -99,7 +102,7 @@ describe('тема по времени', () => {
       Array.from({ length: 365 * 8 }, (_, step) => start + step * 3 * 36e5)
         .map(
           (time) => (
-            (process.env.TZ = zone),
+            (Bun.env.TZ = zone),
             setSystemTime(new Date(time)),
             { zone, time, shell: _run(_SHELL).theme, proxy: _run(_PROXY).theme }
           )

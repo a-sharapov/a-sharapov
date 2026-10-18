@@ -1,24 +1,24 @@
 import { describe, expect, test } from 'bun:test';
 import { PerspectiveCamera, Quaternion, Vector3 } from 'three';
-import type { XYZ } from '$lib/common/types';
+import type { XYZ } from '#lib/common/types.ts';
 import {
   type Carried,
   carryClearance,
   carryPath,
-} from '$lib/components/@Viewer/Scene/carry';
+} from '#lib/components/@Viewer/Scene/carry.ts';
 import {
   CARD,
   CUP,
   PAPER_PLANE,
   PEN_HOLDER,
   PILE_PLACE,
-} from '$lib/components/@Viewer/Scene/layout';
+} from '#lib/components/@Viewer/Scene/layout.ts';
 import {
   add,
   type Pose,
   type Rect,
   scale,
-} from '$lib/components/@Viewer/Scene/shots';
+} from '#lib/components/@Viewer/Scene/shots.ts';
 import {
   carryTravel,
   FACES,
@@ -39,8 +39,8 @@ import {
   SLIDES,
   stageFit,
   yawQuaternion,
-} from '$lib/components/@Viewer/Scene/staging';
-import type { Actor } from '$lib/components/@Viewer/Scene/state.svelte';
+} from '#lib/components/@Viewer/Scene/staging.ts';
+import type { Actor } from '#lib/components/@Viewer/Scene/state.svelte.ts';
 
 const viewport = { width: 1440, height: 900 };
 
@@ -135,14 +135,14 @@ describe('ROOM', () => {
 });
 
 describe('ROOM лениво', () => {
-  const _STAGING = '$lib/components/@Viewer/Scene/staging';
+  const _STAGING = '#lib/components/@Viewer/Scene/staging.ts';
   const _PROP_NAMES: Prop[] = ['card', 'cup', 'penHolder', 'plane', 'pile'];
   let _instance = 0;
 
   const _fresh = async () =>
     (await import(
-      `${_STAGING}.ts?lazy=${(_instance += 1)}`
-    )) as typeof import('$lib/components/@Viewer/Scene/staging');
+      `${_STAGING}?lazy=${(_instance += 1)}`
+    )) as typeof import('#lib/components/@Viewer/Scene/staging.ts');
 
   const _EAGER = Object.fromEntries(
     (Object.keys(FACES) as Actor[]).map((actor) => [actor, roomOf(actor)])

@@ -5,8 +5,8 @@ import {
   formatInquiry,
   isSpam,
   parseInquiry,
-} from '$lib/services/inquiry';
-import { defineNotifyService } from '$lib/services/notify';
+} from '#lib/services/inquiry.ts';
+import { defineNotifyService } from '#lib/services/notify.ts';
 
 const _form = (fields: Record<string, string>) =>
   Object.entries(fields).reduce(

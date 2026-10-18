@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { PerspectiveCamera, Vector3 } from 'three';
-import { PAPER } from '$lib/components/@Viewer/Scene/layout';
+import { PAPER } from '#lib/components/@Viewer/Scene/layout.ts';
 import {
   easeShot,
   interpolatePose,
@@ -9,7 +9,7 @@ import {
   type Rect,
   sheetPose,
   shortestYaw,
-} from '$lib/components/@Viewer/Scene/shots';
+} from '#lib/components/@Viewer/Scene/shots.ts';
 
 const viewport = { width: 1440, height: 900 };
 

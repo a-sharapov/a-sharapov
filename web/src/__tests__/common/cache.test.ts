@@ -1,17 +1,14 @@
 import { afterAll, describe, expect, test } from 'bun:test';
-import { mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
 import {
   type CacheStore,
   defineCache,
   defineFileStore,
   storeFor,
-} from '$lib/common/cache';
+} from '#lib/common/cache.ts';
 
-const _dir = mkdtempSync(join(tmpdir(), 'as-cache-'));
+const _dir = `${Bun.env.TMPDIR ?? '/tmp'}/as-cache-${crypto.randomUUID()}`;
 
-afterAll(() => rmSync(_dir, { recursive: true, force: true }));
+afterAll(async () => void (await Bun.$`rm -rf ${_dir}`.quiet()));
 
 const _store = (initial: Record<string, unknown> = {}) => {
   const data = new Map(Object.entries(initial));
@@ -162,14 +159,14 @@ describe('cache', () => {
   });
 
   test('файловое хранилище: запись и чтение, нет файла — пусто, битый — отказ', async () => {
-    const dir = join(_dir, 'store');
+    const dir = `${_dir}/store`;
     const store = defineFileStore(dir);
     expect(await store.read('pages:ru')).toBeUndefined();
     await store.write('pages:ru', [{ slug: 'cv' }]);
     await store.write('pages:ru', [{ slug: 'index' }]);
     expect(await store.read('pages:ru')).toEqual([{ slug: 'index' }]);
-    expect(readdirSync(dir)).toEqual(['pages%3Aru.json']);
-    writeFileSync(join(dir, 'contacts.json'), '{"value": [');
+    expect([...new Bun.Glob('*').scanSync(dir)]).toEqual(['pages%3Aru.json']);
+    await Bun.write(`${dir}/contacts.json`, '{"value": [');
     expect(
       await store.read('contacts').then(
         () => 'resolved',

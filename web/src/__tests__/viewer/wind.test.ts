@@ -4,8 +4,8 @@ import {
   MOVER_NAMES,
   movers,
   resetMovers,
-} from '$lib/components/@Viewer/Scene/movers';
-import { AXIS_LEVELS } from '$lib/components/@Viewer/Scene/Steam/axis';
+} from '#lib/components/@Viewer/Scene/movers.ts';
+import { AXIS_LEVELS } from '#lib/components/@Viewer/Scene/Steam/axis.ts';
 import {
   createSteamDrift,
   driftReach,
@@ -13,14 +13,14 @@ import {
   levelHeight,
   settleDrift,
   stepDrift,
-} from '$lib/components/@Viewer/Scene/Steam/drift';
+} from '#lib/components/@Viewer/Scene/Steam/drift.ts';
 import {
   createWind,
   pushEnvelope,
   WAKE,
   WIND,
   wakeEnvelope,
-} from '$lib/components/@Viewer/Scene/wind';
+} from '#lib/components/@Viewer/Scene/wind.ts';
 
 var _still = () =>
   MOVER_NAMES.forEach(

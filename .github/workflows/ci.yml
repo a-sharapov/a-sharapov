@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  BUN_VERSION: 1.4.3
+  BUN_VERSION: 1.4.4
 
 jobs:
   lint:
@@ -35,7 +35,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - name: Install, test, astro check, build
+      - name: Install, test, svelte-check, build
         run: make check-web
 
   bot:

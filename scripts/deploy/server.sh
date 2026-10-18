@@ -28,8 +28,15 @@ log "env"
 "${MAKE[@]}" env ENV=prod
 "${MAKE[@]}" env-check ENV=prod || die "env-check: исправьте .env — стек не тронут"
 
+build() {
+  local app
+  for app in "${APP[@]}"; do
+    "${DC[@]}" build "$app" || return 1
+  done
+}
+
 log "build ${APP[*]} at ${REF:0:7}"
-"${DC[@]}" build "${APP[@]}" || die "сборка не удалась — стек не тронут"
+build || die "сборка не удалась — стек не тронут"
 
 up() {
   "${DC[@]}" up -d --remove-orphans "${APP[@]}" &&
@@ -63,7 +70,7 @@ rollback() {
   [[ -n "$PREVIOUS_REF" && "$PREVIOUS_REF" != "$REF" ]] || die "$1; предыдущей версии нет — откатываться некуда"
   warn "$1 — откат на ${PREVIOUS_REF:0:7}"
   git -c core.hooksPath=/dev/null checkout -q -f -B "$BRANCH" "$PREVIOUS_REF"
-  if "${DC[@]}" build "${APP[@]}" && up && healthy; then
+  if build && up && healthy; then
     die "$1 — выкатка ${REF:0:7} отменена, работает ${PREVIOUS_REF:0:7}"
   fi
   die "$1 — откат на ${PREVIOUS_REF:0:7} не поднял сайт, нужна ручная проверка"

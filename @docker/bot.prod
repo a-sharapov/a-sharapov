@@ -1,4 +1,17 @@
-FROM oven/bun:1.4.3-alpine
+FROM oven/bun:1.4.4-alpine AS builder
+
+WORKDIR /var/www/bot
+
+COPY bot/package.json bot/bun.lock ./
+RUN bun install --frozen-lockfile --production
+
+COPY bot/tsconfig.json bot/main.ts ./
+COPY bot/assets ./assets
+COPY bot/l18n ./l18n
+COPY bot/repo ./repo
+RUN bun run build
+
+FROM alpine:3.22 AS runtime
 
 ARG TG_PORT=5702
 ARG TG_ROOT=/var/www/bot
@@ -10,17 +23,11 @@ ENV GID=${GID}
 ENV NODE_ENV=production
 ENV TG_PORT=${TG_PORT}
 
-RUN apk add --no-cache su-exec
+RUN apk add --no-cache ca-certificates libstdc++ libgcc su-exec
 
 WORKDIR ${TG_ROOT}
 
-COPY bot/package.json bot/bun.lock ./
-RUN bun install --frozen-lockfile --production
-
-COPY bot/tsconfig.json bot/main.ts ./
-COPY bot/assets ./assets
-COPY bot/l18n ./l18n
-COPY bot/repo ./repo
+COPY --from=builder /var/www/bot/dist/bot ./bot
 COPY --chown=root:root bot/entrypoint.sh /usr/local/bin/bot-entrypoint
 RUN chmod +x /usr/local/bin/bot-entrypoint && mkdir -p data && chown "${UID}:${GID}" data
 
@@ -28,4 +35,4 @@ EXPOSE ${TG_PORT}
 
 USER root
 ENTRYPOINT ["bot-entrypoint"]
-CMD ["bun", "run", "main.ts"]
+CMD ["./bot"]

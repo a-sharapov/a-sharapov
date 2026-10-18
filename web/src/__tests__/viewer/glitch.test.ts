@@ -3,7 +3,7 @@ import {
   GLITCH,
   glitchAt,
   tapCard,
-} from '$lib/components/@Viewer/Scene/glitch';
+} from '#lib/components/@Viewer/Scene/glitch.ts';
 
 describe('glitch', () => {
   beforeEach(() => void tapCard(-1e9));

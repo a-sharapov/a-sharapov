@@ -13,14 +13,14 @@
       "**",
       "!!**/node_modules",
       "!!**/dist",
-      "!!**/.astro",
+      "!!**/.svelte-kit",
+      "!!**/web/build",
       "!**/coverage",
       "!**/_TMP",
       "!**/_tmp",
       "!**/cms/pb_data",
       "!**/bot/data",
-      "!**/web/public",
-      "!**/public",
+      "!**/web/static",
       "!**/*.min.js",
       "!**/*.min.css"
     ]
@@ -108,7 +108,6 @@
   },
   "javascript": {
     "globals": [
-      "Astro",
       "Browser",
       "bun",
       "Bun",
@@ -237,31 +236,6 @@
           "quoteStyle": "single",
           "jsxQuoteStyle": "double"
         }
-      }
-    },
-    {
-      "includes": ["**/*.astro"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUnusedVariables": "off",
-            "noUnusedImports": "warn"
-          },
-          "style": {
-            "useConst": "off"
-          },
-          "suspicious": {
-            "noVar": "off",
-            "noAssignInExpressions": "off"
-          },
-          "a11y": {
-            "useKeyWithClickEvents": "info",
-            "useValidAriaRole": "info"
-          }
-        }
-      },
-      "javascript": {
-        "globals": ["Astro"]
       }
     },
     {

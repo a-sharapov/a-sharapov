@@ -37,9 +37,8 @@ services:
       [
         "bun",
         "--bun",
-        "./node_modules/astro/bin/astro.mjs",
+        "./node_modules/vite/bin/vite.js",
         "dev",
-        "--ignore-lock",
         "--host",
         "0.0.0.0",
         "--port",
@@ -49,10 +48,8 @@ services:
     ports: ["127.0.0.1:5701:5701"]
     volumes:
       - ./web/src:/var/www/web/src:rw,z
-      - ./web/public:/var/www/web/public:rw,z
-      - ./web/astro.config.mjs:/var/www/web/astro.config.mjs:ro,z
-      - ./web/defaults.js:/var/www/web/defaults.js:ro,z
-      - ./web/svelte.config.js:/var/www/web/svelte.config.js:ro,z
+      - ./web/static:/var/www/web/static:rw,z
+      - ./web/vite.config.ts:/var/www/web/vite.config.ts:ro,z
       - ./web/tsconfig.json:/var/www/web/tsconfig.json:ro,z
       - ./web/package.json:/var/www/web/package.json:ro,z
     env_file: [env/web.env]

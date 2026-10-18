@@ -1,12 +1,11 @@
 import { describe, expect, test } from 'bun:test';
-import { readFileSync } from 'node:fs';
 import { type BufferGeometry, ShapePath, Vector3 } from 'three';
 import {
   anchor,
   extrudeFrom,
   latheFrom,
   sweepFrom,
-} from '$lib/components/@Viewer/Scene/models/svg';
+} from '#lib/components/@Viewer/Scene/models/svg.ts';
 
 var _line = (points: [number, number][]) =>
   ((path) => (
@@ -130,12 +129,13 @@ var _shapePath = (d: string) =>
 
 var _PEN: Record<string, ShapePath> = Object.fromEntries(
   [
-    ...readFileSync(
-      new URL(
-        '../../components/@Viewer/Scene/models/svg/pen.svg',
-        import.meta.url
-      ),
-      'utf8'
+    ...(
+      await Bun.file(
+        new URL(
+          '../../lib/components/@Viewer/Scene/models/svg/pen.svg',
+          import.meta.url
+        )
+      ).text()
     ).matchAll(/<path id="([^"]+)" d="([^"]+)"/g),
   ].map((match) => [match[1]!, _shapePath(match[2]!)])
 );

@@ -1,21 +1,19 @@
 import { describe, expect, test } from 'bun:test';
-import { readFileSync } from 'node:fs';
-import type { XYZ } from '$lib/common/types';
+import type { XYZ } from '#lib/common/types.ts';
 import {
   createPaperGeometry,
   createPlaneFold,
   type Face,
   PAPER_THICKNESS,
   SHEET_LIFT,
-} from '$lib/components/@Viewer/Scene/models/plane-fold';
+} from '#lib/components/@Viewer/Scene/models/plane-fold.ts';
 
-var source = readFileSync(
+var source = await Bun.file(
   new URL(
-    '../../components/@Viewer/Scene/models/svg/paper-plane.svg',
+    '../../lib/components/@Viewer/Scene/models/svg/paper-plane.svg',
     import.meta.url
-  ),
-  'utf8'
-);
+  )
+).text();
 var fold = createPlaneFold(source);
 var _FACES: Face[] = [
   [21, 15.2],

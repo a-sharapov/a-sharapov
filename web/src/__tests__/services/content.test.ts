@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'bun:test';
 import type PocketBase from 'pocketbase';
-import { defineCache } from '$lib/common/cache';
-import type { PageRecord } from '$lib/common/types';
-import { defineContentService } from '$lib/services/content';
+import { defineCache } from '#lib/common/cache.ts';
+import type { PageRecord } from '#lib/common/types.ts';
+import { defineContentService } from '#lib/services/content.ts';
 
 const _page = (slug: string, nav: boolean) =>
   ({ slug, nav, locale: 'ru', title: slug, template: 'article' }) as PageRecord;

@@ -11,7 +11,7 @@ import {
   panOf,
   planeVoice,
   rustleActivity,
-} from '$lib/components/@UX/Sound/cues';
+} from '#lib/components/@UX/Sound/cues.ts';
 
 describe('уровни и панорама', () => {
   test('dB → множитель', () => {

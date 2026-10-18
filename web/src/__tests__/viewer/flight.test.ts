@@ -1,22 +1,21 @@
 import { describe, expect, test } from 'bun:test';
-import { readFileSync } from 'node:fs';
 import { PerspectiveCamera, Quaternion, Vector3 } from 'three';
-import { obstacleGap, roomGap } from '$lib/components/@Viewer/Scene/carry';
+import { obstacleGap, roomGap } from '#lib/components/@Viewer/Scene/carry.ts';
 import {
   carrySeconds,
   createPlaneFlight,
   G,
   PLANE_SECONDS,
   type PlanePose,
-} from '$lib/components/@Viewer/Scene/flight';
+} from '#lib/components/@Viewer/Scene/flight.ts';
 import {
   INTRO_AZIMUTH,
   PAPER_PLANE,
-} from '$lib/components/@Viewer/Scene/layout';
+} from '#lib/components/@Viewer/Scene/layout.ts';
 import {
   createPaperGeometry,
   createPlaneFold,
-} from '$lib/components/@Viewer/Scene/models/plane-fold';
+} from '#lib/components/@Viewer/Scene/models/plane-fold.ts';
 import {
   ACTOR_SECONDS,
   CARRY_SPAN,
@@ -26,16 +25,15 @@ import {
   TABLE_STAGE,
   THROW,
   yawQuaternion,
-} from '$lib/components/@Viewer/Scene/staging';
-import type { Actor } from '$lib/components/@Viewer/Scene/state.svelte';
+} from '#lib/components/@Viewer/Scene/staging.ts';
+import type { Actor } from '#lib/components/@Viewer/Scene/state.svelte.ts';
 
-var source = readFileSync(
+var source = await Bun.file(
   new URL(
-    '../../components/@Viewer/Scene/models/svg/paper-plane.svg',
+    '../../lib/components/@Viewer/Scene/models/svg/paper-plane.svg',
     import.meta.url
-  ),
-  'utf8'
-);
+  )
+).text();
 var fold = createPlaneFold(source);
 var FACE: [number, number] = [29.7, 20.7];
 var flight = createPlaneFlight(fold, () => FACE);

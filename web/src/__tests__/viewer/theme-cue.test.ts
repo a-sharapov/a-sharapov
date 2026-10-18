@@ -3,7 +3,7 @@ import {
   clickAt,
   THEME_CUE,
   themeCue,
-} from '$lib/components/@Viewer/Scene/theme-cue';
+} from '#lib/components/@Viewer/Scene/theme-cue.ts';
 
 const DAY = { ambient: 0, power: 0 };
 const NIGHT = { ambient: 1, power: 1 };

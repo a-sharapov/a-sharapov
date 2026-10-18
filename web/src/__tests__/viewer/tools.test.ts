@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { Quaternion, Vector3 } from 'three';
-import { lampGap } from '$lib/components/@Viewer/Scene/carry';
+import { lampGap } from '#lib/components/@Viewer/Scene/carry.ts';
 import {
   CARD,
   CUP,
@@ -8,7 +8,7 @@ import {
   PAPER_PLANE,
   PEN_HOLDER,
   PEN_SLOTS,
-} from '$lib/components/@Viewer/Scene/layout';
+} from '#lib/components/@Viewer/Scene/layout.ts';
 import {
   carryEase,
   FACES,
@@ -19,13 +19,13 @@ import {
   TOOLS,
   type Tool,
   type ToolJitter,
-} from '$lib/components/@Viewer/Scene/staging';
-import type { Actor } from '$lib/components/@Viewer/Scene/state.svelte';
+} from '#lib/components/@Viewer/Scene/staging.ts';
+import type { Actor } from '#lib/components/@Viewer/Scene/state.svelte.ts';
 import {
   TOOL_OUT_SHARE,
   toolPose,
   toolProgress,
-} from '$lib/components/@Viewer/Scene/tools';
+} from '#lib/components/@Viewer/Scene/tools.ts';
 
 const _TOOLS = Object.keys(TOOLS) as Tool[];
 const _HOME: Record<Actor, number> = {

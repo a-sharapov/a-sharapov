@@ -1,6 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import type { APIContext } from 'astro';
-import { POST } from '$lib/pages/api/inquiry';
+import { POST } from '../../routes/api/inquiry/+server.ts';
 
 const _SITE = new URL('https://a-sharapov.com');
 
@@ -18,10 +17,9 @@ const _post = (
         new FormData()
       ),
     }),
-    site: _SITE,
     url: new URL('http://web:5701/api/inquiry'),
-    clientAddress: '10.0.0.2',
-  } as unknown as APIContext) as Promise<Response>;
+    getClientAddress: () => '10.0.0.2',
+  } as unknown as Parameters<typeof POST>[0]) as Promise<Response>;
 
 describe('api/inquiry', () => {
   test('без Origin и с чужим Origin — 403', async () => {

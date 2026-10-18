@@ -1,16 +1,10 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["node_modules/*", "dist/*"],
+  "extends": "$app/tsconfig",
+  "include": ["src", "*.ts"],
+  "exclude": ["node_modules", "build", "src/service-worker"],
   "compilerOptions": {
-    "strictNullChecks": true,
-    "module": "esnext",
-    "target": "esnext",
-    "types": ["bun"],
-    "paths": {
-      "$lib/*": ["./src/*"]
-    },
-    "sourceMap": true,
-    "allowJs": true
+    "strict": true,
+    "types": ["$app/types", "bun"],
+    "sourceMap": true
   }
 }

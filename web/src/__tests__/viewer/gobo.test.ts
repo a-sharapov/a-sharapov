@@ -5,7 +5,7 @@ import {
   gustEnvelope,
   leavesAt,
   swayAt,
-} from '$lib/components/@Viewer/Scene/gobo';
+} from '#lib/components/@Viewer/Scene/gobo.ts';
 
 describe('гобо', () => {
   test('переплёт гаснет к краям области теней — без резкой границы на дальнем столе', () =>

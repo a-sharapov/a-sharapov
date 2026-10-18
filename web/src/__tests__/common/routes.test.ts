@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { hrefFor, parseRoute, reroute, shotFor } from '$lib/common/routes';
+import { hrefFor, parseRoute, reroute, shotFor } from '#lib/common/routes.ts';
 
 describe('routes', () => {
   test.each([

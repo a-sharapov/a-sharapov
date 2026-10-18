@@ -6,7 +6,7 @@ import {
   Vector2,
   Vector3,
 } from 'three';
-import { extrudeFrom } from '$lib/components/@Viewer/Scene/models/svg';
+import { extrudeFrom } from '#lib/components/@Viewer/Scene/models/svg.ts';
 import {
   createFlex,
   createSag,
@@ -15,7 +15,7 @@ import {
   sliceGeometry,
   stepFlex,
   stepSag,
-} from '$lib/components/@Viewer/Scene/paper-bend';
+} from '#lib/components/@Viewer/Scene/paper-bend.ts';
 
 var _ease = (t: number) =>
   ((x) => x * x * x * (x * (x * 6 - 15) + 10))(Math.min(1, Math.max(0, t)));

@@ -79,8 +79,8 @@ check: check-lint check-bot check-web check-compose check-proxy check-deploy ## 
 check-lint: ## Biome: формат и линт всего репозитория
 	@cd $(PROJECT_DIR) && bunx $(BIOME) ci .
 
-check-bot: ## Бот: install, тесты, проверка типов
-	@cd $(PROJECT_DIR)/bot && bun install --frozen-lockfile && bun test && bun run check
+check-bot: ## Бот: install, тесты, проверка типов, сборка бинарника
+	@cd $(PROJECT_DIR)/bot && bun install --frozen-lockfile && bun test && bun run check && bun run build
 
 check-web: ## Web: install, тесты, сборка
 	@cd $(PROJECT_DIR)/web && bun install --frozen-lockfile && bun run test && bun run check && bun run build

@@ -1,15 +1,7 @@
 #!/usr/bin/env bun
 
-import {
-  chmodSync,
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  readFileSync,
-  unlinkSync,
-  writeFileSync,
-} from 'node:fs';
-import { join, resolve } from 'node:path';
+import { chmod } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import source from './keys.toml';
 
@@ -136,8 +128,18 @@ const _parseEnv = (text: string): Env =>
       {}
     );
 
-const _readEnv = (path: string): Env =>
-  existsSync(path) ? _parseEnv(readFileSync(path, 'utf8')) : {};
+const _absent =
+  <T>(fallback: () => T) =>
+  (error: unknown): T | Promise<never> =>
+    (error as { code?: string }).code === 'ENOENT'
+      ? fallback()
+      : Promise.reject(error);
+
+const _readText = (path: string, fallback: () => string): Promise<string> =>
+  Bun.file(path).text().then(undefined, _absent(fallback));
+
+const _readEnv = (path: string): Promise<Env> =>
+  _readText(path, () => '').then(_parseEnv);
 
 const quote = (value: string): string =>
   SAFE.test(value)
@@ -146,10 +148,11 @@ const quote = (value: string): string =>
       ? `'${value}'`
       : `"${value.replace(/[\\"$`]/g, '\\$&')}"`;
 
-const _writePrivate = (path: string, text: string): void => {
-  writeFileSync(path, text, { mode: 0o600 });
-  chmodSync(path, 0o600);
-};
+const _writePrivate = (path: string, text: string): Promise<void> =>
+  Bun.write(path, '')
+    .then(() => chmod(path, 0o600))
+    .then(() => Bun.write(path, text))
+    .then(() => undefined);
 
 const _real = (value: string | undefined): string =>
   value && !PLACEHOLDER.test(value) ? value : '';
@@ -459,31 +462,38 @@ const problems = (manifest: Manifest, env: Env, mode: Mode): Report => {
   )({ errors: [], warnings: [] });
 };
 
-const _requireEnv = (path: string): Env =>
-  existsSync(path)
-    ? _readEnv(path)
-    : _fail(`нет ${path} — сначала make dot-env`);
+const _requireEnv = (path: string): Promise<Env> =>
+  Bun.file(path)
+    .exists()
+    .then((found) =>
+      found ? _readEnv(path) : _fail(`нет ${path} — сначала make dot-env`)
+    );
+
+const SERVICE_FILES = new Bun.Glob('*.env');
 
 const _writeServiceFiles = (
   manifest: Manifest,
   values: Env,
   out: string
-): string[] => {
+): Promise<string[]> => {
   const services = _services(manifest);
-  mkdirSync(out, { recursive: true });
-  services.forEach((service) => {
-    _writePrivate(
-      join(out, `${service}.env`),
-      _serviceText(manifest, values, service)
+  return Promise.all(
+    services.map((service) =>
+      _writePrivate(
+        `${out}/${service}.env`,
+        _serviceText(manifest, values, service)
+      )
+    )
+  )
+    .then(() => Array.fromAsync(SERVICE_FILES.scan({ cwd: out })))
+    .then((files) =>
+      files.filter((file) => !services.includes(file.slice(0, -4))).toSorted()
+    )
+    .then((stale) =>
+      Promise.all(
+        stale.map((file) => Bun.file(`${out}/${file}`).delete())
+      ).then(() => stale)
     );
-  });
-  const stale = readdirSync(out).filter(
-    (file) => file.endsWith('.env') && !services.includes(file.slice(0, -4))
-  );
-  stale.forEach((file) => {
-    unlinkSync(join(out, file));
-  });
-  return stale;
 };
 
 type SplitState = {
@@ -494,40 +504,40 @@ type SplitState = {
   removed: string[];
 };
 
-const cmdSplit = (options: Options, manifest: Manifest): number => {
-  const _passSource = (state: SplitState): SplitState => {
-    const env = _requireEnv(options.envFile);
-    return { ...state, env, mode: _detectMode(env, options.mode) };
-  };
+const cmdSplit = (options: Options, manifest: Manifest): Promise<number> => {
+  const _passSource = (state: SplitState): Promise<SplitState> =>
+    _requireEnv(options.envFile).then((env) => ({
+      ...state,
+      env,
+      mode: _detectMode(env, options.mode),
+    }));
   const _passGenerate = (state: SplitState): SplitState => ({
     ...state,
     generated: _missingSecrets(manifest, state.env),
   });
-  const _passPersist = (state: SplitState): SplitState => {
+  const _passPersist = (state: SplitState): Promise<SplitState> => {
     const persisted =
       options.persist && Object.keys(state.generated).length > 0;
-    void (
-      persisted &&
-      _writePrivate(
-        options.envFile,
-        _upsertLines(
-          readFileSync(options.envFile, 'utf8'),
-          state.generated,
-          false
-        )
-      )
-    );
-    return { ...state, persisted };
+    return (
+      persisted
+        ? Bun.file(options.envFile)
+            .text()
+            .then((text) =>
+              _writePrivate(
+                options.envFile,
+                _upsertLines(text, state.generated, false)
+              )
+            )
+        : Promise.resolve()
+    ).then(() => ({ ...state, persisted }));
   };
-  const _passWrite = (state: SplitState): SplitState => ({
-    ...state,
-    removed: _writeServiceFiles(
+  const _passWrite = (state: SplitState): Promise<SplitState> =>
+    _writeServiceFiles(
       manifest,
       resolveValues(manifest, { ...state.env, ...state.generated }, state.mode),
       options.out
-    ),
-  });
-  const _passReport = (state: SplitState): SplitState => {
+    ).then((removed) => ({ ...state, removed }));
+  const _passReport = (state: SplitState): number => {
     const names = Object.keys(state.generated).join(', ');
     const note = [
       names &&
@@ -540,20 +550,25 @@ const cmdSplit = (options: Options, manifest: Manifest): number => {
     console.log(
       `env: ${state.mode}, ${options.out}/{${_services(manifest).join(',')}}.env${note}`
     );
-    return state;
+    return 0;
   };
-  pipe<SplitState>(
-    _passSource,
-    _passGenerate,
-    _passPersist,
-    _passWrite,
-    _passReport
-  )({ env: {}, mode: 'dev', generated: {}, persisted: false, removed: [] });
-  return 0;
+  return _passSource({
+    env: {},
+    mode: 'dev',
+    generated: {},
+    persisted: false,
+    removed: [],
+  })
+    .then(_passGenerate)
+    .then(_passPersist)
+    .then(_passWrite)
+    .then(_passReport);
 };
 
-const cmdCheck = (options: Options, manifest: Manifest): number => {
-  const env = _requireEnv(options.envFile);
+const cmdCheck = (options: Options, manifest: Manifest): Promise<number> =>
+  _requireEnv(options.envFile).then((env) => _report(manifest, env, options));
+
+const _report = (manifest: Manifest, env: Env, options: Options): number => {
   const mode = _detectMode(env, options.mode);
   const { errors, warnings } = problems(manifest, env, mode);
   warnings.forEach((line) => {
@@ -568,11 +583,12 @@ const cmdCheck = (options: Options, manifest: Manifest): number => {
   return errors.length ? 1 : 0;
 };
 
-const _createDotEnv = (options: Options, manifest: Manifest): number => {
+const _createDotEnv = (
+  options: Options,
+  manifest: Manifest,
+  template: string
+): Promise<number> => {
   const mode = options.mode ?? 'dev';
-  const template = existsSync(options.example)
-    ? readFileSync(options.example, 'utf8')
-    : renderExample(manifest);
   const secrets = _missingSecrets(manifest, {});
   const values: Env = {
     ENV: mode,
@@ -587,23 +603,38 @@ const _createDotEnv = (options: Options, manifest: Manifest): number => {
   const externals = manifest.keys
     .filter((key) => key.kind === 'external')
     .map((key) => key.name);
-  _writePrivate(options.envFile, _upsertLines(template, values, true));
-  console.log(
-    `dot-env: ${options.envFile} (${mode}), сгенерированы: ${Object.keys(secrets).join(', ')}; вписать вручную: ${externals.join(', ')}`
-  );
-  return 0;
+  return _writePrivate(
+    options.envFile,
+    _upsertLines(template, values, true)
+  ).then(() => {
+    console.log(
+      `dot-env: ${options.envFile} (${mode}), сгенерированы: ${Object.keys(secrets).join(', ')}; вписать вручную: ${externals.join(', ')}`
+    );
+    return 0;
+  });
 };
 
-const cmdDotEnv = (options: Options, manifest: Manifest): number =>
-  existsSync(options.envFile)
-    ? (console.log(`dot-env: ${options.envFile} уже есть — не трогаю`), 0)
-    : _createDotEnv(options, manifest);
+const cmdDotEnv = (options: Options, manifest: Manifest): Promise<number> =>
+  Bun.file(options.envFile)
+    .exists()
+    .then((found) =>
+      found
+        ? (console.log(`dot-env: ${options.envFile} уже есть — не трогаю`), 0)
+        : _readText(options.example, () => renderExample(manifest)).then(
+            (template) => _createDotEnv(options, manifest, template)
+          )
+    );
 
-const cmdExample = (options: Options, manifest: Manifest): number => {
-  const text = renderExample(manifest);
-  const current = existsSync(options.example)
-    ? readFileSync(options.example, 'utf8')
-    : '';
+const cmdExample = (options: Options, manifest: Manifest): Promise<number> =>
+  _readText(options.example, () => '').then((current) =>
+    _syncExample(options, renderExample(manifest), current)
+  );
+
+const _syncExample = (
+  options: Options,
+  text: string,
+  current: string
+): number | Promise<number> => {
   const stale = current !== text;
   const _checkOnly = (): number =>
     stale
@@ -612,26 +643,27 @@ const cmdExample = (options: Options, manifest: Manifest): number => {
         ),
         1)
       : (console.log(`example: ${options.example} актуален`), 0);
-  const _write = (): number => (
-    writeFileSync(options.example, text),
-    console.log(`example: ${options.example}`),
-    0
-  );
+  const _write = (): Promise<number> =>
+    Bun.write(options.example, text).then(
+      () => (console.log(`example: ${options.example}`), 0)
+    );
   return options.check ? _checkOnly() : _write();
 };
 
-const cmdGet = (options: Options, manifest: Manifest): number => {
-  const name = options.positionals[0] ?? '';
-  const env = _readEnv(options.envFile);
-  const values = resolveValues(manifest, env, _detectMode(env, options.mode));
-  return name in values
-    ? (console.log(values[name]), 0)
-    : _fail(`get: ключа ${name || '(пусто)'} нет в манифесте`);
-};
+const cmdGet = (options: Options, manifest: Manifest): Promise<number> =>
+  _readEnv(options.envFile).then((env) =>
+    ((name, values) =>
+      name in values
+        ? (console.log(values[name]), 0)
+        : _fail(`get: ключа ${name || '(пусто)'} нет в манифесте`))(
+      options.positionals[0] ?? '',
+      resolveValues(manifest, env, _detectMode(env, options.mode))
+    )
+  );
 
 const COMMANDS: Record<
   string,
-  (options: Options, manifest: Manifest) => number
+  (options: Options, manifest: Manifest) => Promise<number>
 > = {
   example: cmdExample,
   'dot-env': cmdDotEnv,
@@ -662,7 +694,7 @@ const _parseOptions = (argv: string[]): Options => {
     command: positionals[0] ?? '',
     positionals: positionals.slice(1),
     envFile: resolve(root, (values['env-file'] as string) ?? '.env'),
-    example: join(root, '.env.example'),
+    example: `${root}/.env.example`,
     out: resolve(root, (values.out as string) ?? 'env'),
     mode:
       mode === undefined || MODES.includes(mode)
@@ -675,4 +707,4 @@ const _parseOptions = (argv: string[]): Options => {
 
 const options = _parseOptions(Bun.argv.slice(2));
 const command = COMMANDS[options.command] ?? (() => _fail(USAGE));
-process.exit(command(options, _loadManifest(source)));
+command(options, _loadManifest(source)).then((code) => process.exit(code));

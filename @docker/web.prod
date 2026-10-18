@@ -1,12 +1,4 @@
-FROM oven/bun:1.4.3-alpine AS deps
-
-WORKDIR /var/www/web
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile --production
-
-FROM oven/bun:1.4.3 AS builder
-
-ENV ASTRO_TELEMETRY_DISABLED=1
+FROM oven/bun:1.4.4 AS builder
 
 WORKDIR /var/www/web
 COPY package.json bun.lock ./
@@ -14,21 +6,20 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM oven/bun:1.4.3-alpine AS runtime
+FROM oven/bun:1.4.4-alpine AS runtime
 
 ARG WEB_PORT=5701
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=${WEB_PORT}
-ENV ASTRO_TELEMETRY_DISABLED=1
+ENV BODY_SIZE_LIMIT=64K
 
 WORKDIR /var/www/web
-COPY --from=deps --chown=bun:bun /var/www/web/node_modules ./node_modules
 COPY --from=builder --chown=bun:bun /var/www/web/package.json ./package.json
-COPY --from=builder --chown=bun:bun /var/www/web/dist ./dist
+COPY --from=builder --chown=bun:bun /var/www/web/build ./build
 RUN install -d -o bun -g bun .cache
 
 USER bun
 EXPOSE ${WEB_PORT}
-CMD ["bun", "--bun", "run", "./dist/server/entry.mjs"]
+CMD ["bun", "./build"]

@@ -8,7 +8,7 @@ import { defineNotify, skipNotify } from './assets/notify';
 import { errorMessage, log } from './assets/utils';
 import { defineRepo, openDatabase } from './repo';
 
-const config = readConfig(process.env);
+const config = readConfig(Bun.env);
 const db = openDatabase(config.dbPath);
 const repo = defineRepo(db);
 const bot = config.telegramToken ? new Telegraf(config.telegramToken) : null;

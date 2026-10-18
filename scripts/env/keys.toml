@@ -1,7 +1,7 @@
 [groups]
 host = "Режим и скрипты хоста"
 proxy = "Proxy: домен и сертификаты Caddy"
-web = "Web: сайт на Astro"
+web = "Web: сайт на SvelteKit"
 bot = "Telegram-бот"
 cms = "CMS: PocketBase"
 
@@ -16,7 +16,7 @@ DOMAIN = { kind = "setting", to = ["proxy", "cms"], default = "localhost", prod 
 ACME_EMAIL = { kind = "setting", to = ["proxy"], default = "webmaster@a-sharapov.com", from = ["DOMAIN_NAME_EMAIL"], doc = "Email аккаунта Let's Encrypt." }
 
 [web]
-WEB_PORT = { kind = "setting", to = ["web"], default = "5701", pinned = true, doc = "Порт Astro в сети compose." }
+WEB_PORT = { kind = "setting", to = ["web"], default = "5701", pinned = true, doc = "Порт SvelteKit в сети compose." }
 PB_URL = { kind = "derived", to = ["web"], value = "http://cms:{CMS_PORT}", doc = "PocketBase внутри сети compose." }
 BOT_URL = { kind = "derived", to = ["web"], value = "http://bot:{TG_PORT}", doc = "HTTP API бота внутри сети compose." }
 CACHE_STRATEGY = { kind = "setting", to = ["web"], default = "file", choices = ["file", "memory"], doc = "Кэш контента CMS: file — память процесса и файлы .cache/content (в prod — том web_cache; переживают перезапуск и отказ CMS), memory — только память процесса." }

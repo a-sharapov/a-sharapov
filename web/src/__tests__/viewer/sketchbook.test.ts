@@ -13,12 +13,12 @@ import {
   RIBBON,
   ribbonForms,
   SPINE,
-} from '$lib/components/@Viewer/Scene/models/sketchbook-rig';
+} from '#lib/components/@Viewer/Scene/models/sketchbook-rig.ts';
 import {
   extrudeFrom,
   sheetFrom,
   sweepFrom,
-} from '$lib/components/@Viewer/Scene/models/svg';
+} from '#lib/components/@Viewer/Scene/models/svg.ts';
 
 var _pageRight = () =>
   ((path) => (

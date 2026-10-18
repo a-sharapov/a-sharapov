@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'bun:test';
-import { readdirSync, readFileSync, statSync } from 'node:fs';
 import {
   type Bank,
   jitter,
@@ -10,29 +9,29 @@ import {
   SAMPLE_CUES,
   SAMPLE_FILES,
   type SampleName,
-} from '$lib/components/@UX/Sound/samples';
-import { CUES } from '$lib/components/@UX/Sound/voices';
+} from '#lib/components/@UX/Sound/samples.ts';
+import { CUES } from '#lib/components/@UX/Sound/voices.ts';
 
-const SOUNDS = new URL('../../../public/sounds/', import.meta.url);
+const SOUNDS = new URL('../../../static/sounds/', import.meta.url);
 const FILES = Object.values(SAMPLE_FILES).flat();
 
 describe('файлы звуков', () => {
-  test('каждый файл манифеста лежит в public/sounds', () => {
+  test('каждый файл манифеста лежит в static/sounds', () => {
     FILES.forEach(
       (file) =>
         void expect(
-          statSync(new URL(`${file}.mp3`, SOUNDS)).size
+          Bun.file(new URL(`${file}.mp3`, SOUNDS)).size
         ).toBeGreaterThan(1000)
     );
   });
 
   test('в папке нет лишних mp3', () => {
-    const present = readdirSync(SOUNDS).filter((name) => name.endsWith('.mp3'));
+    const present = [...new Bun.Glob('*.mp3').scanSync(SOUNDS.pathname)];
     expect(present.sort()).toEqual(FILES.map((file) => `${file}.mp3`).sort());
   });
 
-  test('у каждого файла есть источник и лицензия', () => {
-    const licenses = readFileSync(new URL('LICENSES.md', SOUNDS), 'utf8');
+  test('у каждого файла есть источник и лицензия', async () => {
+    const licenses = await Bun.file(new URL('LICENSES.md', SOUNDS)).text();
     FILES.forEach(
       (file) =>
         void expect(licenses).toMatch(
@@ -43,7 +42,7 @@ describe('файлы звуков', () => {
 
   test('вес — меньше 400 КБ', () => {
     const total = FILES.reduce(
-      (sum, file) => sum + statSync(new URL(`${file}.mp3`, SOUNDS)).size,
+      (sum, file) => sum + Bun.file(new URL(`${file}.mp3`, SOUNDS)).size,
       0
     );
     expect(total).toBeLessThan(400 * 1024);

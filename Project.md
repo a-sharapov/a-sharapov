@@ -1,11 +1,11 @@
 # a-sharapov.com
 
-Astro SSR + Svelte на Bun, Telegram-бот уведомлений, CMS на PocketBase и Caddy перед ними. Всё запускается через Docker Compose и `make`.
+SvelteKit 3 (SSR) + Svelte 5 на Bun, Telegram-бот уведомлений, CMS на PocketBase и Caddy перед ними. Всё запускается через Docker Compose и `make`.
 
 | Сервис  | Что                                                                         | Порт    | Код                        |
 | ------- | --------------------------------------------------------------------------- | ------- | -------------------------- |
 | `proxy` | Caddy 2: HTTPS (ACME в prod, локальный CA в dev), HTTP/3, страница-заглушка | 80, 443 | `proxy/`                   |
-| `web`   | Astro SSR + Svelte, Bun                                                     | 5701    | `web/`, `@docker/web.*`    |
+| `web`   | SvelteKit 3 SSR + Svelte 5, острова, Bun                                    | 5701    | `web/`, `@docker/web.*`    |
 | `bot`   | Telegram-бот и HTTP API для web, SQLite в `bot/data`                        | 5702    | `bot/`, `@docker/bot.*`    |
 | `cms`   | PocketBase: страницы, контакты, переводы, заявки                            | 5703    | `cms/`, `@docker/cms.prod` |
 
@@ -90,7 +90,7 @@ make cms-admin
 
 ### CI/CD
 
-- CI (`.github/workflows/ci.yml`) — на push и PR в `master`: biome, тесты и сборка web и бота, `astro check`, compose, Caddyfile, скрипты деплоя, сборка prod-образов. Локально то же — `make check` и `make check-images`.
+- CI (`.github/workflows/ci.yml`) — на push и PR в `master`: biome, тесты и сборка web и бота, `svelte-check`, compose, Caddyfile, скрипты деплоя, сборка prod-образов. Локально то же — `make check` и `make check-images`.
 - Деплой (`.github/workflows/deploy.yml`) — вручную из Actions, только для коммита `master` с зелёным CI: bundle по SSH, на сервере `scripts/deploy/server.sh` — сборка, запуск, проверка здоровья, при сбое откат на прежнюю версию, затем сиды изменённых файлов `cms/seed`.
 - Окружение GitHub `production`: секрет `DEPLOY_SSH_KEY`, переменные `DEPLOY_HOST`, `DEPLOY_HOST_KEY` (ключ из таблицы скрипта подготовки или строка `known_hosts`), `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_URL`, при нестандартном порте — `DEPLOY_PORT`.
 

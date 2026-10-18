@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'bun:test';
-import { WINDOWS } from '$lib/components/@Viewer/Scene/layout';
+import { WINDOWS } from '#lib/components/@Viewer/Scene/layout.ts';
 import {
   GLAZE,
   GLAZE_LEVEL,
   glazeLevel,
   STUDIO,
-} from '$lib/components/@Viewer/Scene/models/porcelain';
+} from '#lib/components/@Viewer/Scene/models/porcelain.ts';
 
 describe('фарфор', () => {
   test('у студии окно на каждый источник дневного света', () =>

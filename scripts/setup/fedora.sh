@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BUN_VERSION=1.4.3
+BUN_VERSION=1.4.4
 DOCKER_MIN=25
 DOCKER_KEY=060A61C51B558A7F742B77AAC52FEB6B621E9F35
 DOCKER_CONFLICTS=(moby-engine podman-docker)
@@ -12,6 +12,7 @@ PUBLIC_KEY=""
 HOST=""
 DOMAIN=a-sharapov.com
 APP_PATH=""
+SWAP=2G
 SECRET=""
 PRIVATE=""
 
@@ -31,6 +32,7 @@ Bun, пользователь деплоя с ключом GitHub Actions, по�
   --host ADDR     DEPLOY_HOST — адрес, по которому GitHub ходит по SSH (по умолчанию IP сервера)
   --domain NAME   домен сайта для DEPLOY_URL (a-sharapov.com)
   --path DIR      DEPLOY_PATH (~NAME/a-sharapov)
+  --swap SIZE     файл подкачки /swapfile, если swap в системе нет (2G; 0 — не создавать)
   --local         рабочая машина: только пакеты, Docker и Bun; пользователь sudo — в группу docker
 
 Повторный запуск безопасен: готовое пропускается.
@@ -58,12 +60,14 @@ while (($#)); do
     --host) HOST="${2:?--host: нужен адрес}" && shift 2 ;;
     --domain) DOMAIN="${2:?--domain: нужен домен}" && shift 2 ;;
     --path) APP_PATH="${2:?--path: нужен каталог}" && shift 2 ;;
+    --swap) SWAP="${2:?--swap: нужен размер}" && SWAP="${SWAP^^}" && shift 2 ;;
     --local) LOCAL=1 && shift ;;
     -h | --help) usage && exit 0 ;;
     *) usage >&2 && die "неизвестный аргумент: $1" ;;
   esac
 done
 
+[[ "$SWAP" =~ ^[0-9]+[KMG]?$ ]] || die "--swap: размер вида 2G, 512M или 0"
 ((EUID == 0)) || die "нужен root: sudo bash fedora.sh"
 # shellcheck source=/dev/null
 . /etc/os-release
@@ -203,7 +207,53 @@ ports_check() {
 memory_check() {
   local total
   total="$(awk '/^(MemTotal|SwapTotal):/ { sum += $2 } END { print int(sum / 1024) }' /proc/meminfo)"
-  ((total >= 2048)) || warn "памяти с подкачкой ${total} МБ, а сборке web нужно ~1.5 ГБ — добавьте swap"
+  ((total >= 2048)) || warn "памяти с подкачкой ${total} МБ, а сборке web нужно ~1.5 ГБ — добавьте swap (--swap 2G)"
+}
+
+swap_create() {
+  local size="$1"
+  log "swap: /swapfile $SWAP"
+  if [[ "$(stat -f -c %T /)" != btrfs ]] || ! btrfs filesystem mkswapfile --size "$SWAP" /swapfile >/dev/null 2>&1; then
+    rm -f /swapfile
+    install -m 600 /dev/null /swapfile
+    chattr +C /swapfile 2>/dev/null || true
+    fallocate -l "$size" /swapfile 2>/dev/null || dd if=/dev/zero of=/swapfile bs=1M count="$((size / 1048576))" status=none
+    mkswap /swapfile >/dev/null
+  fi
+  chmod 600 /swapfile
+  if command -v restorecon >/dev/null; then
+    restorecon /swapfile
+  fi
+  if ! swapon /swapfile 2>"$TMP/swapon"; then
+    warn "swap не включился ($(cat "$TMP/swapon")) — /swapfile удалён, fstab не тронут"
+    rm -f /swapfile
+    return 0
+  fi
+  grep -q '^/swapfile ' /etc/fstab 2>/dev/null || printf '/swapfile none swap sw 0 0\n' >>/etc/fstab
+  printf 'vm.swappiness=10\n' >/etc/sysctl.d/99-swap.conf
+  sysctl -q -p /etc/sysctl.d/99-swap.conf 2>/dev/null || true
+  [[ "$(cat /proc/sys/vm/swappiness 2>/dev/null)" == 10 ]] || warn "vm.swappiness применится после перезагрузки"
+  log "swap: /swapfile $SWAP включён, в fstab, swappiness 10"
+}
+
+swap_setup() {
+  local active size avail
+  active="$(swapon --show=NAME --noheadings 2>/dev/null | tr '\n' ' ')"
+  if [[ "$SWAP" == 0 ]]; then
+    log "swap: не создаю (--swap 0)"
+  elif [[ -n "${active// /}" ]]; then
+    log "swap: уже есть (${active% })"
+  elif [[ -e /swapfile ]]; then
+    warn "swap выключен, а /swapfile уже есть — не трогаю: swapon /swapfile или удалите его и запустите снова"
+  else
+    size="$(numfmt --from=iec "$SWAP")"
+    avail="$(df --output=avail -B1 / | sed -n 2p | tr -d ' ')"
+    if ((avail < size + 1073741824)); then
+      warn "swap: на / свободно $((avail / 1048576)) МБ — /swapfile $SWAP не помещается с запасом 1 ГБ"
+    else
+      swap_create "$size"
+    fi
+  fi
 }
 
 server_address() {
@@ -260,6 +310,7 @@ if [[ -n "$LOCAL" ]]; then
 else
   user_setup "$USER_NAME"
   key_setup "$USER_NAME"
+  swap_setup
   firewall_setup
   ports_check
 fi

@@ -6,9 +6,9 @@ import { describe, expect, mock, test } from 'bun:test';
 );
 
 var { cuboid, hull, lathe, perspective, shadowOf } = await import(
-  '$lib/components/@Viewer/Scene/sketches/figures'
+  '#lib/components/@Viewer/Scene/sketches/figures.ts'
 );
-var { line } = await import('$lib/components/@Viewer/Scene/sketches/pencil');
+var { line } = await import('#lib/components/@Viewer/Scene/sketches/pencil.ts');
 
 var _view = perspective({
   eye: [30, 40, 60],

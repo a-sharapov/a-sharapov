@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { IDLE_FPS, throttled } from '$lib/components/@Viewer/Scene/idle-fps';
+import { IDLE_FPS, throttled } from '#lib/components/@Viewer/Scene/idle-fps.ts';
 
 describe('idle frame rate', () => {
   test('a still scene renders at 30 fps on 60, 120 and 144 Hz displays', () =>

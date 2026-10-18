@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import { Vector3 } from 'three';
-import { lampGap } from '$lib/components/@Viewer/Scene/carry';
-import { CUP } from '$lib/components/@Viewer/Scene/layout';
+import { lampGap } from '#lib/components/@Viewer/Scene/carry.ts';
+import { CUP } from '#lib/components/@Viewer/Scene/layout.ts';
 import {
   arcRoll,
   BANK,
@@ -16,9 +16,9 @@ import {
   type Rect,
   SWING,
   shotCue,
-} from '$lib/components/@Viewer/Scene/shots';
-import { stageFit } from '$lib/components/@Viewer/Scene/staging';
-import type { Actor } from '$lib/components/@Viewer/Scene/state.svelte';
+} from '#lib/components/@Viewer/Scene/shots.ts';
+import { stageFit } from '#lib/components/@Viewer/Scene/staging.ts';
+import type { Actor } from '#lib/components/@Viewer/Scene/state.svelte.ts';
 
 const viewport = { width: 1440, height: 900 };
 

@@ -1,6 +1,4 @@
 #!/usr/bin/env bun
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
 
 type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 type JsonObject = { [key: string]: Json };
@@ -37,15 +35,15 @@ type Counts = Record<string, Record<Action, number>>;
 type Spec = {
   collection: string;
   keys: string[];
-  load: () => JsonObject[];
+  load: () => Promise<JsonObject[]>;
   compose: (
     ctx: Ctx
   ) => (seed: JsonObject, stored?: StoredRecord) => JsonObject;
 };
 
-const ROOT = join(import.meta.dir, '..');
-const SEED_DIR = join(ROOT, 'cms/seed');
-const I18N_DIR = join(SEED_DIR, 'i18n');
+const SEED_DIR = `${import.meta.dir}/../cms/seed`;
+const I18N_DIR = `${SEED_DIR}/i18n`;
+const I18N_FILES = new Bun.Glob('[a-z][a-z].json');
 const TARGETS: Target[] = ['i18n', 'pages', 'contacts'];
 const ACTIONS: Action[] = ['create', 'update', 'skip'];
 const PER_PAGE = 200;
@@ -112,15 +110,15 @@ const _parseList = (raw: string): string[] =>
 const _parseCli = (argv: string[]): Cli => ({
   url: (
     _option(argv, '--url') ??
-    process.env.CMS_URL ??
+    Bun.env.CMS_URL ??
     'http://localhost:5703'
   ).replace(/\/+$/, ''),
   only: _parseList(_option(argv, '--only') ?? TARGETS.join(',')),
   replace: _flag(argv, '--replace'),
   dryRun: _flag(argv, '--dry-run'),
   help: _flag(argv, '--help') || _flag(argv, '-h'),
-  login: process.env.CMS_LOGIN ?? '',
-  password: process.env.CMS_PASSWORD ?? '',
+  login: Bun.env.CMS_LOGIN ?? '',
+  password: Bun.env.CMS_PASSWORD ?? '',
 });
 
 const _cliErrors = (cli: Cli): string[] => [
@@ -226,22 +224,31 @@ const _listPage =
           : ((_.items ?? []) as StoredRecord[])
       );
 
-const _readJson = (path: string): Json =>
-  JSON.parse(readFileSync(path, 'utf8')) as Json;
+const _absent =
+  <T>(fallback: T) =>
+  (error: unknown) =>
+    (error as { code?: string }).code === 'ENOENT'
+      ? fallback
+      : Promise.reject(error);
 
-const _readList = (path: string): JsonObject[] =>
-  existsSync(path) ? (_readJson(path) as JsonObject[]) : [];
+const _readJson = (path: string): Promise<Json> => Bun.file(path).json();
 
-const _loadI18n = (): JsonObject[] =>
-  existsSync(I18N_DIR)
-    ? readdirSync(I18N_DIR)
-        .filter((_) => /^[a-z]{2}\.json$/.test(_))
-        .toSorted()
-        .map((name) => ({
-          locale: name.slice(0, 2),
-          content: _asObject(_readJson(join(I18N_DIR, name))),
-        }))
-    : [];
+const _readList = (path: string): Promise<JsonObject[]> =>
+  (_readJson(path) as Promise<JsonObject[]>).then(undefined, _absent([]));
+
+const _loadI18n = (): Promise<JsonObject[]> =>
+  Array.fromAsync(I18N_FILES.scan({ cwd: I18N_DIR }))
+    .then((names) =>
+      Promise.all(
+        names.toSorted().map((name) =>
+          _readJson(`${I18N_DIR}/${name}`).then((content) => ({
+            locale: name.slice(0, 2),
+            content: _asObject(content),
+          }))
+        )
+      )
+    )
+    .then(undefined, _absent([]));
 
 const _composeI18n =
   (ctx: Ctx) =>
@@ -264,13 +271,13 @@ const _specs: Record<Target, Spec> = {
   pages: {
     collection: 'Pages',
     keys: ['slug', 'locale'],
-    load: () => _readList(join(SEED_DIR, 'pages.json')),
+    load: () => _readList(`${SEED_DIR}/pages.json`),
     compose: _composeSeed,
   },
   contacts: {
     collection: 'Contacts',
     keys: ['kind', 'href'],
-    load: () => _readList(join(SEED_DIR, 'contacts.json')),
+    load: () => _readList(`${SEED_DIR}/contacts.json`),
     compose: _composeSeed,
   },
 };
@@ -451,7 +458,7 @@ const _catch = (error: unknown): number => (
   console.error(`error: ${_errorText(error)}`), 1
 );
 
-Promise.resolve(process.argv.slice(2))
+Promise.resolve(Bun.argv.slice(2))
   .then(_handle)
   .then(undefined, _catch)
   .then((code) => process.exit(code));

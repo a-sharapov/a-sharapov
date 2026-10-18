@@ -1,4 +1,4 @@
-FROM oven/bun:1.4.3
+FROM oven/bun:1.4.4
 
 ARG TG_PORT=5702
 ARG TG_ROOT=/var/www/bot

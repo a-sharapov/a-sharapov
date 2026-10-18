@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { escapeHtml, localize, lookup, pipe } from '$lib/common/utils';
+import { escapeHtml, localize, lookup, pipe } from '#lib/common/utils.ts';
 
 describe('utils', () => {
   test('pipe: sync и async шаги, falsy значения проходят', async () => {

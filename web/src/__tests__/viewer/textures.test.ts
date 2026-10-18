@@ -7,7 +7,7 @@ import type { DataTexture } from 'three';
 );
 
 var { createNoiseTexture, createPaperRelief } = await import(
-  '$lib/components/@Viewer/Scene/textures'
+  '#lib/components/@Viewer/Scene/textures.ts'
 );
 
 var _hash = (x: number, y: number, seed: number): number =>

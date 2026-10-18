@@ -10,10 +10,71 @@
 @font-face {
   font-family: 'PT Sans';
   font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/_proxy/fonts/pt-sans-400-latin.woff2) format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
   font-weight: 700;
   font-display: swap;
   src: url(/_proxy/fonts/pt-sans-700-cyrillic.woff2) format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  unicode-range:
+    U+0020, U+00A0, U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'PT Sans Fallback';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Arial'), local('ArialMT'), local('Helvetica'),
+    local('Liberation Sans'), local('LiberationSans'), local('Arimo'),
+    local('Arimo-Regular');
+  size-adjust: 93.01%;
+  ascent-override: 109.45%;
+  descent-override: 29.68%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'PT Sans Fallback';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Bold'),
+    local('Helvetica-Bold'), local('Liberation Sans Bold'),
+    local('LiberationSans-Bold'), local('Arimo Bold'), local('Arimo-Bold');
+  size-adjust: 87.73%;
+  ascent-override: 116.04%;
+  descent-override: 31.46%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'PT Sans Fallback Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular');
+  size-adjust: 92.51%;
+  ascent-override: 110.04%;
+  descent-override: 29.83%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'PT Sans Fallback Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold');
+  size-adjust: 92.05%;
+  ascent-override: 110.59%;
+  descent-override: 29.98%;
+  line-gap-override: 0%;
 }
 
 :root {
@@ -90,7 +151,8 @@ body {
   place-items: center;
   min-height: 100dvh;
   margin: 0;
-  font-family: 'PT Sans', system-ui, sans-serif;
+  font-family:
+    'PT Sans', 'PT Sans Fallback', 'PT Sans Fallback Roboto', sans-serif;
   line-height: 1.5;
   color: var(--text);
   -webkit-font-smoothing: antialiased;
