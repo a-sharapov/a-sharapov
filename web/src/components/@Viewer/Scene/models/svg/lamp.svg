@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 280">
+  <path id="base" d="M 0 12 L 30 12 Q 33 12 33 9 L 33 3 Q 33 0 30 0 L 0 0" />
+  <path id="pad" d="M 0 0.8 L 31.6 0.8 L 31.6 0 L 0 0" />
+  <path id="bezel" d="M 4 1.2 L 5.4 1.2 L 5.4 0.6 Q 5.4 0 4.8 0 L 4.5 0 Q 4 0 4 0.5 L 4 1.2" />
+  <path id="button" d="M 0 1.8 L 3.7 1.8 L 3.7 0.7 Q 3.7 0.2 3.2 0.12 Q 1.8 0 0 0" />
+  <path id="stem" d="M 0 90 L 4.2 90 L 4.2 0 L 0 0" />
+  <path id="collar" d="M 0 6 L 5.2 6 Q 6 6 6 5.2 L 6 0.8 Q 6 0 5.2 0 L 0 0" />
+  <path id="joint" d="M 0 14 L 5 14 Q 6 14 6 13 L 6 1 Q 6 0 5 0 L 0 0" />
+  <path id="knob" d="M 0 6 L 3 6 Q 4 6 4 5 L 4 1 Q 4 0 3 0 L 0 0" />
+  <path id="arm" d="M 0 270 L 1.5 270 L 1.5 0 L 0 0" />
+  <path id="grip" d="M 0 36 L 2.8 36 Q 3.3 36 3.3 35 L 3.3 4 Q 3.3 0 0 0" />
+  <path id="shade" d="M 31.5 63 Q 30.8 50 26 38 Q 20 24 15 14 Q 13.6 10.6 13.8 6 L 13.8 0 L 0 0" />
+  <path id="reflector" d="M 0 1.4 L 12.6 1.4 L 12.6 6 Q 12.4 10.6 13.8 14.4 Q 18.8 24.4 24.8 38.4 Q 29.6 50.2 30.3 63 L 31.5 63" />
+  <path id="cap" d="M 0 5 L 13 5 Q 14 5 14 4 L 14 1 Q 14 0 13 0 L 0 0" />
+  <path id="bulb" d="M 0 30 Q 11 30 12.5 22 Q 13.4 15 9 10 Q 7.4 8 7 5 L 7 0 L 0 0" />
+</svg>

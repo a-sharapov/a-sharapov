@@ -1,0 +1,2 @@
+@html path_regexp html ^/([A-Za-z0-9][A-Za-z0-9/_-]*)\.html$
+redir @html /{re.html.1}{?query} permanent

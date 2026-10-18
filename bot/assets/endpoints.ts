@@ -1,7 +1,0 @@
-export var MESSAGE_ENDPOINT = "POST:/sendMessage";
-export var UNSUBSCRIBE_ENDPOINT = "DELETE:/user";
-
-export var ENDPOINTS = {
-  MESSAGE_ENDPOINT,
-  UNSUBSCRIBE_ENDPOINT,
-};

@@ -1,0 +1,27 @@
+---
+import { INDEX_SLUG } from '$lib/common/constants';
+import { hrefFor, shotFor } from '$lib/common/routes';
+import type { Locale } from '$lib/common/types';
+import { localize } from '$lib/common/utils';
+import './NotFound.css';
+
+interface Props {
+  t: Record<string, unknown>;
+  locale: Locale;
+}
+
+const t = localize(Astro.props.t ?? {});
+---
+
+<div class="not-found">
+  <p class="code" aria-hidden="true">404</p>
+  <h1>{t('error.notFound.title')}</h1>
+  <p class="text">{t('error.notFound.text')}</p>
+  <a
+    class="home"
+    href={hrefFor({ locale: Astro.props.locale, slug: INDEX_SLUG })}
+    data-shot={shotFor('card')}
+  >
+    {t('error.notFound.home')}
+  </a>
+</div>

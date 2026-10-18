@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 168">
+  <path id="body" d="M 0 166 L 3.8 166 Q 4.5 166 4.5 165 L 4.5 22 L 0 22" />
+  <path id="ring" d="M 0 22 L 4.55 22 L 4.55 20.5 L 0 20.5" />
+  <path id="tip" d="M 0 20.5 L 4.4 20.5 Q 3 10 1.2 2 Q 0.8 0 0 0" />
+</svg>

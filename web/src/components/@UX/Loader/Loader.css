@@ -1,0 +1,28 @@
+.load-indicator {
+  display: flex;
+  width: 9.375rem;
+  height: 0.0625rem;
+
+  > [aria-hidden] {
+    flex: 1;
+    background: var(--primary);
+    border-radius: 0.125rem;
+    box-shadow: 0 0 1.25rem var(--primary);
+    animation: load-indicator 0.8s calc(var(--i) * -0.08s) infinite alternate
+      ease;
+  }
+}
+
+@keyframes load-indicator {
+  100% {
+    flex: 10;
+    background: transparent;
+    box-shadow: 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .load-indicator > [aria-hidden] {
+    animation: none;
+  }
+}

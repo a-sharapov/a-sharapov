@@ -1,49 +1,61 @@
-import { serve } from "bun";
-import { Telegraf } from "telegraf";
-import { setMotd } from "./assets";
-import { attachBotHandlers, handleServiceRequest } from "./assets/handlers";
-import { getTimeStamp } from "./assets/utils";
-import db from "./repo";
+import { Telegraf } from 'telegraf';
+import { setMotd } from './assets';
+import { defineApi } from './assets/api';
+import { readConfig } from './assets/config';
+import { MAX_BODY_BYTES } from './assets/constants';
+import { defineHandlers } from './assets/handlers';
+import { defineNotify, skipNotify } from './assets/notify';
+import { errorMessage, log } from './assets/utils';
+import { defineRepo, openDatabase } from './repo';
 
-const token = import.meta.env.TG_TOKEN;
-const port = import.meta.env.TG_PORT || 5702;
+const config = readConfig(process.env);
+const db = openDatabase(config.dbPath);
+const repo = defineRepo(db);
+const bot = config.telegramToken ? new Telegraf(config.telegramToken) : null;
 
-const bot = new Telegraf(token as string);
+const api = defineApi({
+  repo,
+  notify: bot ? defineNotify({ repo, telegram: bot.telegram }) : skipNotify(),
+  token: config.serviceToken,
+});
 
-bot && attachBotHandlers(bot);
+const server = Bun.serve({
+  port: config.port,
+  fetch: api.fetch,
+  maxRequestBodySize: MAX_BODY_BYTES,
+});
 
-const fetch = async (request: Request) => {
-  const { url: path, method, body } = request;
-  const { status, response } = await handleServiceRequest({
-    path,
-    method,
-    body,
-    bot,
-  });
+console.log(setMotd(server.port ?? config.port, api.endpoints));
 
-  return new Response(JSON.stringify(response), { status });
-};
+void (
+  config.serviceToken ||
+  log('BOT_SERVICE_TOKEN is not set: protected endpoints reply 401')
+);
+void (
+  config.managerTokens.length ||
+  log('TG_MANAGER_TOKEN is not set: nobody can subscribe')
+);
 
-const handleExit = (code: unknown) => {
-  console.log(`❗ Shutting down... (${code})`);
-  db.close();
-  bot.stop(String(code));
-};
+void (bot
+  ? defineHandlers({ repo, managerTokens: config.managerTokens })
+      .attach(bot)
+      .launch(() => log('telegram polling started'))
+      .then(undefined, (error: unknown) =>
+        log('telegram launch failed:', errorMessage(error))
+      )
+  : log('TG_TOKEN is not set: telegram is disabled, messages are only stored'));
 
-try {
-  bot.launch();
-  serve({
-    port,
-    fetch,
-  });
+const _stopBot = (reason: string): Promise<void> =>
+  Promise.try(() => bot?.stop(reason)).then(undefined, () => undefined);
 
-  void (!token && console.warn(`❗ Bot token is not provided!`));
-  console.log(setMotd(port));
-} catch (e) {
-  console.log(
-    `${getTimeStamp()} Startup error :`,
-    e instanceof Error ? e.message : e
-  );
-}
+setInterval(repo.messages.prune, 24 * 60 * 60 * 1000).unref();
 
-process.on("exit", handleExit);
+const _shutdown = (signal: string): Promise<void> => (
+  log(`shutting down (${signal})`),
+  _stopBot(signal)
+    .then(() => server.stop(true))
+    .finally(() => (db.close(), process.exit(0)))
+);
+
+process.once('SIGINT', _shutdown);
+process.once('SIGTERM', _shutdown);

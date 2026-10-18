@@ -1,0 +1,16 @@
+{
+  "name": "Александр Шарапов — 3D-сайты и внедрение ИИ",
+  "short_name": "a-sharapov",
+  "description": "Разработчик полного цикла: имиджевые 3D сайты и конфигураторы, интеграция ИИ, веб-приложения.",
+  "lang": "ru",
+  "start_url": "/",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "theme_color": "#efebe5",
+  "background_color": "#efebe5",
+  "display": "standalone"
+}

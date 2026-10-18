@@ -1,14 +1,10 @@
-import { ENDPOINTS } from "./endpoints";
-import { getTimeStamp } from "./utils";
+import { getTimeStamp } from './utils';
 
-export var setMotd = (port: string | number): string => `
+export var setMotd = (port: string | number, endpoints: string[]): string => `
 🤖  ${getTimeStamp()} Telegram bot service is now running on PORT: ${port}
 
 👉  Endpoints:
-${Object.values(ENDPOINTS).reduce(
-  (message, endpoint) => `${message}    - ${endpoint}\n`,
-  ""
-)}
+${endpoints.map((_) => `    - ${_}`).join('\n')}
 
 ---
 Press [CTRL + C] to stop the process

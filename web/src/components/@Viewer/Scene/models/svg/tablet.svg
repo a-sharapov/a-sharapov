@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-130 -86 260 172">
+  <rect id="body" x="-127" y="-83" width="254" height="166" rx="9" />
+  <rect id="glass" x="-125.4" y="-81.4" width="250.8" height="162.8" rx="7.4" />
+  <rect id="display" x="-120" y="-76" width="240" height="152" rx="2.5" />
+  <circle id="camera" cx="0" cy="-79.4" r="1.1" />
+  <circle id="lens" cx="0" cy="-79.4" r="0.55" />
+</svg>

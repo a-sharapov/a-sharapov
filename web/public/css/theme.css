@@ -1,67 +1,103 @@
 @charset "utf-8";
 
 :root {
-  --ambient: #e6e3df;
-
-  --textSize: 16px;
-  --ratio: calc(1vw + 1vh);
-  --maxContentWidth: 1400px;
+  --scale: max(1rem, 0.9vw);
 
   --danger: #eb3d26;
-  --alert: #f87e25;
   --success: #4caf50;
-  --info: #368ace;
 
   --primary: #d71e00;
-  --primaryMid: #941400;
   --primaryDark: #380700;
 
-  --primaryBlue: #248cb5;
-  --primaryBlueMid: #1c7ca1;
-  --primaryBlueDark: #10506a;
-
-  --primaryGreen: #24b57f;
-  --primaryGreenMid: #1ea473;
-  --primaryGreenDark: #136e4d;
-
-  --primaryOrange: #f87e25;
-  --primaryOrangeMid: #de6e1e;
-  --primaryOrangeDark: #904612;
-
   --light: #fefefe;
-  --lightMid: #f3f3f3;
-  --lightInverted: #b0a8b8;
 
   --grayLight: #eee;
   --gray: #bbb;
-  --grayMid: #ddd;
   --grayDark: #777;
 
   --dark: #1e1c20;
-  --darkMid: #27282d;
   --darkLight: #393b42;
+
+  --ambient: #d4d4d4;
+  --background: #d4d4d4;
+  --surface: var(--light);
 
   --text: var(--dark);
   --heading: var(--primary);
-  --background: var(--light);
   --textShadowColor: #fffb;
+  --muted: #5c5c5c;
 
   --link: var(--primary);
   --linkVisited: color-mix(in srgb, var(--link), var(--dark) 50%);
   --linkHover: color-mix(in srgb, var(--link), var(--grayLight) 30%);
 
-  /* filters */
-  --inverted: grayscale(100) brightness(0.1) invert(1) drop-shadow(0 1px 0 #1112);
-  --grayscaled: grayscale(100);
+  --paper: #fbfaf6;
+  --ink: var(--dark);
+
+  --font: 'PT Sans', sans-serif;
+  --font-narrow: 'PT Sans Narrow', 'PT Sans', sans-serif;
+
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+
+  --header-h: 3.5rem;
+  --footer-h: 4.8125rem;
+  --control-h: 2.75rem;
+
+  --radius-s: 0.375rem;
+  --radius-m: 0.625rem;
+  --radius-l: 1rem;
+  --radius-pill: 62.5rem;
+
+  --glass: color-mix(in srgb, var(--light), transparent 40%);
+  --glass-line: color-mix(in srgb, var(--dark), transparent 90%);
+  --shadow-float:
+    0 0.0625rem 0.125rem color-mix(in srgb, var(--dark), transparent 92%),
+    0 0.75rem 2rem -0.75rem color-mix(in srgb, var(--dark), transparent 72%);
+
+  --field: color-mix(in srgb, var(--light), transparent 30%);
+  --field-line: color-mix(in srgb, var(--dark), transparent 84%);
+  --ring: color-mix(in srgb, var(--primary), transparent 84%);
+
+  --glow: color-mix(in srgb, var(--primary), transparent 45%);
+
+  --shadow-sheet:
+    0 0.0625rem 0 color-mix(in srgb, var(--dark), transparent 94%),
+    0 1.5rem 3rem -1rem color-mix(in srgb, var(--dark), transparent 80%);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-fast: 0.2s;
+  --motion-med: 0.3s;
+  --motion-slow: 0.6s;
+
+  --z-scene: 0;
+  --z-content: 10;
+  --z-chrome: 20;
+
+  color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-  --ambient: #444342;
+  --ambient: #3b3f47;
+  --background: #11151c;
+  --surface: var(--dark);
 
   --text: var(--grayLight);
   --heading: #fff;
-  --background: var(--dark);
+  --muted: #9a9ca3;
   --textShadowColor: #1112;
 
   --link: var(--heading);
+  --linkVisited: var(--grayDark);
+  --linkHover: var(--grayLight);
+
+  --glass: color-mix(in srgb, #11151c, transparent 30%);
+  --glass-line: color-mix(in srgb, white, transparent 91%);
+  --shadow-float:
+    0 0.0625rem 0.125rem color-mix(in srgb, black, transparent 70%),
+    0 0.75rem 2rem -0.75rem color-mix(in srgb, black, transparent 40%);
+
+  color-scheme: dark;
 }

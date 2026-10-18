@@ -1,90 +1,97 @@
 ---
-import { LOCALES } from '@lib/l18n'
-import { KEYWORDS, SOCIAL_LINKS, THEME_COLOR, ZIP } from '@lib/shared/constants'
-import { ViewTransitions } from 'astro:transitions'
+import { ClientRouter } from 'astro:transitions';
+import { OG_COVERS, THEME_COLOR } from '$lib/common/constants';
+import { hrefFor } from '$lib/common/routes';
+import { siteGraph } from '$lib/common/seo';
+import { localize } from '$lib/common/utils';
+import content from '$lib/services/content';
 
+export interface IHead {
+  title: string;
+  description: string;
+  keywords: string;
+  robots: string;
+  cover: string;
+  coverAlt: string;
+  schema: Record<string, unknown>[];
+  markdown: string;
+  ogType: 'website' | 'profile';
+}
+
+const t = localize(Astro.locals.i18n ?? {});
 const {
-  locale,
-  keywords = KEYWORDS,
-  description = LOCALES[locale as keyof typeof LOCALES].BASE_DESCRIPTION,
-  cover = '',
-  pagetitle = LOCALES[locale as keyof typeof LOCALES].BASE_TITLE,
-  longtitle = '',
+  title = '',
+  description = '',
+  keywords = '',
   robots = 'index, follow',
-  documentState = 'Static',
-  themeColor = THEME_COLOR,
-  scripts = ''
-} = Astro.props
+  cover = OG_COVERS.index,
+  coverAlt = '',
+  schema = [],
+  markdown = '',
+  ogType = 'website',
+} = Astro.props satisfies Partial<IHead>;
 
-const canonicalUrl = Astro.url.toString().replace(/\?[^\s]*/gi, '')
-const ldMarkup = `<script type="application/ld+json">{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "${pagetitle}",
-  "url": "${Astro.url.origin}",
-  "logo": "${Astro.url.origin}/logo.svg",
-  "currenciesAccepted": "BYN",
-  "sameAs": ${JSON.stringify(Object.values(SOCIAL_LINKS))},
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "${LOCALES[locale as keyof typeof LOCALES].SHORT_ADDRESS}",
-    "addressLocality": "${LOCALES[locale as keyof typeof LOCALES].CITY}",
-    "postalCode": "${ZIP}",
-    "addressCountry": "${LOCALES[locale as keyof typeof LOCALES].COUNTRY}"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "mail@${Astro.url.hostname}"
-  },
-  "openingHours": ["Mo-Fr 10:00 - 19:00"]
-  "description": "${description}"
-}</script>`
+const origin = (Astro.site ?? Astro.url).origin;
+const indexable = !robots.includes('noindex');
+const route = Astro.locals.slug ? { locale: Astro.locals.locale, slug: Astro.locals.slug } : null;
+const canonical = new URL(route ? hrefFor(route) : Astro.url.pathname, origin).toString();
+const coverUrl = new URL(cover ?? OG_COVERS.index!, origin).toString();
+const pageTitle = title || t('meta.title');
+const pageDescription = description || t('meta.description');
+const contacts = await content.contacts.list();
+const ld = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [...siteGraph({ origin, dictionary: Astro.locals.i18n ?? {}, contacts }), ...schema],
+}).replaceAll('<', '\\u003c');
 ---
 
 <head>
-  <ViewTransitions />
-  <base href="/" />
-  <meta http-equiv="Content-language" content={locale} />
+  <ClientRouter fallback="swap" />
   <meta charset="utf-8" />
-  <link rel="canonical" href={canonicalUrl} />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://yastatic.net" />
-  <link rel="icon" sizes="16x16 32x32 64x64 128x128" href="./favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="./css/global.css" type="text/css" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
-  <meta http-equiv="Cache-control" content="max-age=604800, public, must-revalidate" />
-  <meta name="generator" content={Astro.generator} />
-  <meta name="keywords" content={keywords} />
-  <meta name="description" content={description} />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script is:inline src="/js/shell-init.js"></script>
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="keywords" content={keywords || t('meta.keywords')} />
   <meta name="robots" content={robots} />
-  <meta name="document-state" content={documentState} />
-  <meta name="googlebot" content="NOODP" />
-  <meta name="theme-color" content={themeColor} />
-  <meta name="msapplication-navbutton-color" content={themeColor} />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <meta name="theme-color" content={THEME_COLOR} />
+  {indexable && <link rel="canonical" href={canonical} />}
+  {markdown && <link rel="alternate" type="text/markdown" href={markdown} />}
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color={themeColor} />
-  <meta name="msapplication-TileColor" content={themeColor} />
-  <meta name="og:image" content="/assets/web-cover.webp" />
-  <title>{longtitle || pagetitle}</title>
-  <meta property="og:title" content={longtitle || pagetitle} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={cover || '/assets/web-cover.webp'} />
-  <meta property="og:url" content={Astro.url} />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:locale"
-    content={`${locale}_${locale === 'en' ? 'US' : locale.toUpperCase()}`}
+  <link
+    rel="preload"
+    href="/fonts/pt-sans-400-cyrillic.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
   />
-  <Fragment set:html={ldMarkup} />
-  <Fragment set:html={scripts} />
-  <script defer src="/service-worker.js" type="text/javascript" is:inline></script>
+  <link
+    rel="preload"
+    href="/fonts/pt-sans-narrow-400-cyrillic.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/normalize.css" />
+  <link rel="stylesheet" href="/css/theme.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <meta property="og:type" content={ogType} />
+  {ogType === 'profile' && <meta property="profile:first_name" content={t('seo.givenName')} />}
+  {ogType === 'profile' && <meta property="profile:last_name" content={t('seo.familyName')} />}
+  <meta property="og:site_name" content={t('profile.name')} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={coverUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={coverAlt || pageTitle} />
+  <meta property="og:locale" content="ru_RU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json" set:html={ld} />
+  <slot />
 </head>

@@ -1,0 +1,118 @@
+name: a-sharapov
+
+networks:
+  a-sharapov:
+    driver: bridge
+
+services:
+  proxy:
+    image: caddy:2-alpine
+    container_name: a-sharapov_proxy
+    restart: unless-stopped
+    networks: [a-sharapov]
+    ports:
+      - "${PROXY_HTTP_PORT:-80}:80"
+      - "${PROXY_HTTPS_PORT:-443}:443"
+      - "${PROXY_HTTPS_PORT:-443}:443/udp"
+    volumes:
+      - ./proxy/Caddyfile.dev:/etc/caddy/Caddyfile:ro,z
+      - ./proxy/snippets:/etc/caddy/snippets:ro,z
+      - ./proxy/assets:/srv/custom:ro,z
+      - caddy_data:/data
+      - caddy_config:/config
+    env_file: [env/proxy.env]
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  web:
+    build:
+      context: ./web
+      dockerfile: ../@docker/web.dev
+      args: { UID: 1000, GID: 1000 }
+    container_name: a-sharapov_web
+    restart: on-failure
+    init: true
+    command:
+      [
+        "bun",
+        "--bun",
+        "./node_modules/astro/bin/astro.mjs",
+        "dev",
+        "--ignore-lock",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5701",
+      ]
+    networks: [a-sharapov]
+    ports: ["127.0.0.1:5701:5701"]
+    volumes:
+      - ./web/src:/var/www/web/src:rw,z
+      - ./web/public:/var/www/web/public:rw,z
+      - ./web/astro.config.mjs:/var/www/web/astro.config.mjs:ro,z
+      - ./web/defaults.js:/var/www/web/defaults.js:ro,z
+      - ./web/svelte.config.js:/var/www/web/svelte.config.js:ro,z
+      - ./web/tsconfig.json:/var/www/web/tsconfig.json:ro,z
+      - ./web/package.json:/var/www/web/package.json:ro,z
+    env_file: [env/web.env]
+    environment:
+      CI: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      cms: { condition: service_started }
+      bot: { condition: service_healthy }
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  bot:
+    build:
+      context: .
+      dockerfile: ./@docker/bot.dev
+    container_name: a-sharapov_bot
+    restart: on-failure
+    init: true
+    networks: [a-sharapov]
+    ports: ["127.0.0.1:5702:5702"]
+    volumes:
+      - ./bot/data:/var/www/bot/data:rw,z
+      - ./bot/main.ts:/var/www/bot/main.ts:ro,z
+      - ./bot/assets:/var/www/bot/assets:ro,z
+      - ./bot/l18n:/var/www/bot/l18n:ro,z
+      - ./bot/repo:/var/www/bot/repo:ro,z
+    env_file: [env/bot.env]
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "bun -e \"fetch('http://127.0.0.1:5702/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))\"",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  cms:
+    build:
+      context: ./cms
+      dockerfile: ../@docker/cms.prod
+    container_name: a-sharapov_cms
+    restart: unless-stopped
+    networks: [a-sharapov]
+    ports: ["127.0.0.1:5703:5703"]
+    volumes:
+      - ./cms/pb_data:/var/www/cms/pb_data:rw,z
+      - ./cms/pb_migrations:/var/www/cms/pb_migrations:rw,z
+      - ./cms/pb_hooks:/var/www/cms/pb_hooks:rw,z
+    env_file: [env/cms.env]
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+volumes:
+  caddy_data: { driver: local }
+  caddy_config: { driver: local }

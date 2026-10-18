@@ -1,6 +1,11 @@
 .DS_Store
+.git
 node_modules
 dist
-.env.example
+.astro
+.env
+.env.*
+*.log
 Containerfile*
 Dockerfile*
+.cache

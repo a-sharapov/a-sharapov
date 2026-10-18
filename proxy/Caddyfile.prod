@@ -1,0 +1,21 @@
+{
+	email {$ACME_EMAIL}
+	servers {
+		protocols h1 h2 h3
+	}
+}
+
+{$DOMAIN}, www.{$DOMAIN} {
+	@www host www.{$DOMAIN}
+	redir @www https://{$DOMAIN}{uri} 308
+
+	encode zstd gzip
+	import snippets/headers.secure.caddy
+	import snippets/headers.cache.caddy
+	import snippets/redirects.html.caddy
+	import snippets/routes.static.caddy
+
+	import snippets/routes.web.caddy
+
+	import snippets/routes.errors.caddy
+}

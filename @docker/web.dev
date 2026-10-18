@@ -1,0 +1,19 @@
+FROM oven/bun:1.4.3
+
+ARG WEB_PORT=5701
+ARG WEB_ROOT=/var/www/web
+ARG UID=1000
+ARG GID=1000
+
+ENV ASTRO_TELEMETRY_DISABLED=1
+
+WORKDIR ${WEB_ROOT}
+COPY package.json bun.lock* ./
+RUN bun install
+COPY . .
+
+RUN chown -R ${UID}:${GID} ${WEB_ROOT}
+USER ${UID}:${GID}
+
+EXPOSE ${WEB_PORT}
+CMD ["bun", "--bun", "./node_modules/astro/bin/astro.mjs", "dev", "--ignore-lock", "--host", "0.0.0.0", "--port", "5701"]

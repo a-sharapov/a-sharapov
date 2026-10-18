@@ -1,6 +1,6 @@
 User-agent: *
-Disallow: /?*
-Disallow: /content/*.*
+Disallow: /api/
+Disallow: /dev/
 Disallow: /*?*
 
-Host: https://a-sharapov.com
+Sitemap: https://a-sharapov.com/sitemap.xml

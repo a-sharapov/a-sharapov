@@ -1,5 +1,12 @@
+@host = http://localhost:5702
+@token = change-me
+
+### Health (без авторизации)
+GET {{host}}/health
+
 ### Send any text message
-POST http://localhost:5702/sendMessage
+POST {{host}}/sendMessage
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -7,7 +14,8 @@ Content-Type: application/json
 }
 
 ### Remove user by telegram username
-DELETE http://localhost:5702/user
+DELETE {{host}}/user
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

@@ -1,0 +1,3 @@
+handle_path /api/cms/* {
+	reverse_proxy cms:5703
+}

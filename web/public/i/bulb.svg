@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+  <g class="rays">
+    <path class="ray" style="--i: 0" pathLength="1" d="M3 8.5H1.5" />
+    <path class="ray" style="--i: 1" pathLength="1" d="m6.1 2.6-.9-.9" />
+    <path class="ray" style="--i: 2" pathLength="1" d="m17.9 2.6.9-.9" />
+    <path class="ray" style="--i: 3" pathLength="1" d="M21 8.5h1.5" />
+  </g>
+  <g class="bulb">
+    <path class="glass-glow" fill="currentColor" stroke="none" d="M9.5 15c0-.9-1.06-1.59-1.7-2.22A6 6 0 1 1 16.2 12.78c-.64.63-1.7 1.32-1.7 2.22Z" />
+    <path class="filament" stroke-width="1" d="M10.5 15v-3L9.4 8.3M13.5 15v-3l1.1-3.7M9.4 8.3c.9 1 1.7 1 2.6 0s1.7-1 2.6 0" />
+    <path d="M9.5 15c0-.9-1.06-1.59-1.7-2.22A6 6 0 1 1 16.2 12.78c-.64.63-1.7 1.32-1.7 2.22Z" />
+    <path d="M9.5 17.5h5M10 20h4" />
+  </g>
+</svg>

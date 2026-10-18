@@ -1,0 +1,43 @@
+[groups]
+host = "Режим и скрипты хоста"
+proxy = "Proxy: домен и сертификаты Caddy"
+web = "Web: сайт на Astro"
+bot = "Telegram-бот"
+cms = "CMS: PocketBase"
+
+[host]
+ENV = { kind = "mode", default = "dev", choices = ["dev", "prod"], doc = "Режим: dev — локально, prod — сервер (Caddy ACME + HTTP/3)." }
+CMS_URL = { kind = "host", default = "http://localhost:5703", doc = "Адрес CMS для make cms-seed с хоста." }
+PROXY_HTTP_PORT = { kind = "host", default = "80", doc = "Порт хоста для HTTP proxy (dev: другой, если 80 занят)." }
+PROXY_HTTPS_PORT = { kind = "host", default = "443", doc = "Порт хоста для HTTPS и HTTP/3 proxy." }
+
+[proxy]
+DOMAIN = { kind = "setting", to = ["proxy", "cms"], default = "localhost", prod = "a-sharapov.com", from = ["MAIN_DOMAIN_NAME"], doc = "Домен сайта; в prod Caddy выпускает сертификаты на него и www." }
+ACME_EMAIL = { kind = "setting", to = ["proxy"], default = "webmaster@a-sharapov.com", from = ["DOMAIN_NAME_EMAIL"], doc = "Email аккаунта Let's Encrypt." }
+
+[web]
+WEB_PORT = { kind = "setting", to = ["web"], default = "5701", pinned = true, doc = "Порт Astro в сети compose." }
+PB_URL = { kind = "derived", to = ["web"], value = "http://cms:{CMS_PORT}", doc = "PocketBase внутри сети compose." }
+BOT_URL = { kind = "derived", to = ["web"], value = "http://bot:{TG_PORT}", doc = "HTTP API бота внутри сети compose." }
+CACHE_STRATEGY = { kind = "setting", to = ["web"], default = "file", choices = ["file", "memory"], doc = "Кэш контента CMS: file — память процесса и файлы .cache/content (в prod — том web_cache; переживают перезапуск и отказ CMS), memory — только память процесса." }
+
+[bot]
+TG_PORT = { kind = "setting", to = ["bot"], default = "5702", pinned = true, doc = "Порт HTTP API бота." }
+TG_TOKEN = { kind = "external", to = ["bot"], doc = "Токен бота от @BotFather." }
+TG_MANAGER_TOKEN = { kind = "secret", to = ["bot"], doc = "Ключи подписки менеджеров на уведомления, через запятую." }
+BOT_SERVICE_TOKEN = { kind = "secret", to = ["web", "bot"], doc = "Токен запросов web → HTTP API бота." }
+BOT_DB_PATH = { kind = "setting", to = ["bot"], default = "./data/bot.db", doc = "SQLite бота относительно /var/www/bot (том ./bot/data)." }
+
+[cms]
+CMS_PORT = { kind = "setting", to = ["cms"], default = "5703", pinned = true, doc = "Порт PocketBase." }
+CMS_LOGIN = { kind = "setting", to = ["cms"], default = "admin@a-sharapov.com", doc = "Email суперпользователя PocketBase (make cms-admin)." }
+CMS_PASSWORD = { kind = "secret", to = ["cms"], doc = "Пароль суперпользователя PocketBase." }
+
+[obsolete]
+CERTBOT_SERVICE_NAME = "certbot заменён ACME в Caddy"
+NGINX_SERVICE_NAME = "nginx заменён Caddy"
+WEB_SERVICE_NAME = "имя контейнера задаёт compose"
+TG_SERVICE_NAME = "имя контейнера задаёт compose"
+WEB_ROOT = "каталог задаёт @docker/web.*"
+TG_ROOT = "каталог задаёт @docker/bot.*"
+TG_ACCESS_KEY = "не используется; доступ web → бот — BOT_SERVICE_TOKEN"
