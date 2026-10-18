@@ -7,7 +7,7 @@
     "dev": "bun --watch main.ts",
     "start": "bun run main.ts",
     "test": "bun test",
-    "build": "bun build --compile --outfile=dist/bot ./main.ts"
+    "check": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "telegraf": "4.16.3"

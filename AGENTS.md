@@ -29,7 +29,7 @@ bunx biome check --write <files>   # формат и линт (biome.json в к�
 ```
 
 - **web** — страницы `[...slug].astro` из коллекции `Pages`; i18n из коллекции `i18n` через `t(key)`; заявка: `api/inquiry.ts` → `Inquiries` + уведомление ботом (защита и отказы — раздел «Продакшен»).
-- **bot** — `GET /health`, `POST /sendMessage`, `DELETE /user` (Bearer `BOT_SERVICE_TOKEN`); подписчики — `/start`.
+- **bot** — `GET /health`, `POST /sendMessage`, `DELETE /user` (Bearer `BOT_SERVICE_TOKEN`); подписчики — `/start`. В prod бот запускается из исходников (`bun run main.ts` в `oven/bun:1.4.3-alpine`, `@docker/bot.prod`), без `bun build --compile`: компиляция брала ~200 МБ памяти и шла параллельно со сборкой web (~1.5 ГБ) — деплой падал на сервере по памяти, а давать серверу больше ресурсов владелец не хочет. Пользователь — `bun` (uid 1000) через `su-exec` из `entrypoint.sh`; в работе бот занимает ~15 МБ. В CI вместо сборки — `tsc --noEmit` (`bun run check` в `check-bot`).
 - **cms** — миграции `cms/pb_migrations`, сиды `cms/seed`, суперпользователь из `CMS_LOGIN`/`CMS_PASSWORD`.
 - Секреты — только `env/*.env` по манифесту `scripts/env/keys.toml`; `.env` и `env/` не коммитятся.
 
