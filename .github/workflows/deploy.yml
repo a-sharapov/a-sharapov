@@ -79,12 +79,18 @@ jobs:
           chmod 600 ~/.ssh/deploy
           ssh-keygen -y -f ~/.ssh/deploy >/dev/null
           host="$([[ "$DEPLOY_PORT" == 22 ]] && echo "$DEPLOY_HOST" || echo "[$DEPLOY_HOST]:$DEPLOY_PORT")"
-          case "$DEPLOY_HOST_KEY" in
-            ssh-* | ecdsa-* | sk-*) printf '%s %s\n' "$host" "$DEPLOY_HOST_KEY" ;;
-            *) printf '%s\n' "$DEPLOY_HOST_KEY" ;;
+          key="$(printf '%s' "$DEPLOY_HOST_KEY" | tr -d '\r')"
+          case "$key" in
+            ssh-* | ecdsa-* | sk-*) printf '%s %s\n' "$host" "$key" ;;
+            *) printf '%s\n' "$key" ;;
           esac > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
-          ssh-keygen -F "$host" -f ~/.ssh/known_hosts >/dev/null
+          known="$(ssh-keygen -F "$host" -f ~/.ssh/known_hosts | grep -v '^#' | ssh-keygen -lf /dev/stdin 2>/dev/null || true)"
+          [[ -n "$known" ]] || {
+            echo "::error::DEPLOY_HOST_KEY не читается как ключ хоста $host: нужна одна строка целиком, без переносов внутри — «ssh-ed25519 AAAA…» из таблицы scripts/setup/*.sh или из ssh-keyscan -t ed25519 $DEPLOY_HOST (отпечаток сверить на сервере: ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub)"
+            exit 1
+          }
+          printf 'ключ хоста: %s\n' "$known"
           {
             echo "Host deploy"
             echo "  HostName $DEPLOY_HOST"
