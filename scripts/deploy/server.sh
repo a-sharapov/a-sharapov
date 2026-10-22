@@ -7,6 +7,7 @@ PREVIOUS_REF="${DEPLOY_PREVIOUS_REF:-}"
 BRANCH="${DEPLOY_BRANCH:-master}"
 RETRIES="${DEPLOY_HEALTH_RETRIES:-60}"
 DELAY="${DEPLOY_HEALTH_DELAY:-2}"
+SMOKE_RETRIES="${DEPLOY_SMOKE_RETRIES:-30}"
 APP=(web bot cms)
 DC=(docker compose -f "$ROOT/prod.yml")
 MAKE=(make --no-print-directory -C "$ROOT")
@@ -56,14 +57,24 @@ healthy() {
   return 1
 }
 
+probe() {
+  curl -fsS -k -o /dev/null --max-time 15 --resolve "$1" "$2/" &&
+    [[ "$(curl -fsS -k --max-time 15 --resolve "$1" "$2/api/health")" == *'"ok":true'* ]]
+}
+
 smoke() {
-  local domain port base
+  local domain port base target
   domain="$(bun scripts/env/generate.ts --mode prod get DOMAIN)"
   port="$(bun scripts/env/generate.ts --mode prod get PROXY_HTTPS_PORT)"
   base="https://$domain:$port"
-  curl -fsS -k -o /dev/null --max-time 15 --resolve "$domain:$port:127.0.0.1" "$base/" &&
-    curl -fsS -k --max-time 15 --resolve "$domain:$port:127.0.0.1" "$base/api/health" | grep -q '"ok":true' &&
-    log "smoke: $base/ и /api/health через proxy"
+  target="$domain:$port:127.0.0.1"
+  for ((i = 1; i <= SMOKE_RETRIES; i++)); do
+    probe "$target" "$base" 2>/dev/null && log "smoke: $base/ и /api/health через proxy" && return 0
+    sleep "$DELAY"
+  done
+  probe "$target" "$base" || true
+  docker logs --tail 30 a-sharapov_proxy 2>&1 || true
+  return 1
 }
 
 rollback() {
