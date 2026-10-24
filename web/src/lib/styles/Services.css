@@ -241,7 +241,7 @@
     --dot: 1.75rem;
     --loop: color-mix(in srgb, var(--primary), transparent 25%);
 
-    margin: 0.75rem 0 1.75rem;
+    margin: 0.75rem 0 1.5rem;
     padding: 0 0 0 0.75rem;
     counter-reset: step;
 
@@ -249,7 +249,7 @@
       position: relative;
       min-height: var(--dot);
       margin: 0;
-      padding: 0 0 0.875rem calc(var(--dot) + 0.875rem);
+      padding: 0 0 0.75rem calc(var(--dot) + 0.875rem);
       font-size: 0.875rem;
       line-height: 1.35;
       list-style: none;
@@ -339,7 +339,7 @@
     grid-template-columns: auto auto;
     justify-content: space-between;
     gap: 1rem 0.5rem;
-    margin: 0 0 1.875rem;
+    margin: 0 0 1.5rem;
     padding: 0;
 
     li {
