@@ -21,7 +21,8 @@ export type SampleName =
   | 'card-tap'
   | 'tablet-pat'
   | 'crinkle'
-  | 'room';
+  | 'room'
+  | 'clock';
 
 export type Clip = { buffer: AudioBuffer; offset: number };
 
@@ -52,6 +53,7 @@ export var SAMPLE_FILES: Record<SampleName, string[]> = {
   'tablet-pat': ['tablet-pat-1', 'tablet-pat-2'],
   crinkle: ['crinkle'],
   room: ['room'],
+  clock: ['clock'],
 };
 
 export var SAMPLE_CUES: Partial<Record<Cue, SampleCue>> = {
@@ -78,6 +80,10 @@ export var SAMPLE_CUES: Partial<Record<Cue, SampleCue>> = {
 
 export var ROOM_LOOP = { start: 0.5, length: 10 };
 
+export var CLOCK_LOOP = { start: 0.5, length: 7.99954 };
+
+var _LOOPS: SampleName[] = ['room', 'clock'];
+
 export var JITTER = { rate: 0.06, gain: 3 };
 
 export var leadOffset = (data: Float32Array, sampleRate: number) =>
@@ -99,10 +105,9 @@ export var jitterGain = (random: number) => dB((random - 0.5) * JITTER.gain);
 
 var _clip = (buffer: AudioBuffer, name: SampleName): Clip => ({
   buffer,
-  offset:
-    name === 'room'
-      ? 0
-      : leadOffset(buffer.getChannelData(0), buffer.sampleRate),
+  offset: _LOOPS.includes(name)
+    ? 0
+    : leadOffset(buffer.getChannelData(0), buffer.sampleRate),
 });
 
 var _load = (ctx: BaseAudioContext, file: string, base: string) =>

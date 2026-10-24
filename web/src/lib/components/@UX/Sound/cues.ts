@@ -2,6 +2,8 @@ export type Mood = 'day' | 'night';
 
 export type Placement = { pan: number; gain: number };
 
+export type Lamp = Placement & { power: number };
+
 export type Motion = 'start' | 'stop' | null;
 
 export type MotionTracker = {
@@ -97,6 +99,7 @@ export var AMBIENCE: Record<
     wobble: number;
     room: number;
     roomLowpass: number;
+    clock: number;
   }
 > = {
   day: {
@@ -106,15 +109,26 @@ export var AMBIENCE: Record<
     wobble: 0.12,
     room: dB(-34),
     roomLowpass: 9000,
+    clock: 0,
   },
   night: {
     lowpass: 330,
-    bed: dB(-53),
+    bed: dB(-48.5),
     air: 0,
     wobble: 0.08,
-    room: dB(-39.5),
-    roomLowpass: 2600,
+    room: dB(-34.5),
+    roomLowpass: 3000,
+    clock: dB(-44),
   },
+};
+
+export var CLOCK_PAN = -0.45;
+
+export var LAMP_HUM = {
+  level: dB(-61),
+  mains: 100,
+  harmonics: [1, 0.55, 0.32, 0.2, 0.12, 0.08, 0.05, 0.035, 0.025, 0.018],
+  tremolo: { rate: 0.21, depth: 0.25 },
 };
 
 export var GRAIN_RATE = 110;

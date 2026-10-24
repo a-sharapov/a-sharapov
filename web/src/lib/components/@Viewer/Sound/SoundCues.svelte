@@ -19,6 +19,7 @@
   import { carryTravel, SKETCH_TIMELINE, type Tool } from '../Scene/staging';
   import { rig } from '../Scene/state.svelte';
   import { toolProgress } from '../Scene/tools';
+  import { LAMP_LIGHT } from '../Scene/volumetric';
 
   type Carried = 'resume' | 'sketchbook' | 'tablet';
 
@@ -72,6 +73,7 @@
     delta: 0,
     whoosh: { gain: 0, frequency: 400, q: 1, flutter: 0, pan: 0 },
     rustle: { activity: 0, pan: 0 },
+    lamp: { power: 0, pan: 0, gain: 1 },
   };
 
   const objects = new Map<string, Object3D>();
@@ -146,6 +148,18 @@
       ),
     (last.clicks = rig.lamp.clicks));
 
+  const _hum = () =>
+    ((bulb) =>
+      Object.assign(
+        frame.lamp,
+        { power: bulb ? rig.lamp.power : 0 },
+        bulb &&
+          ((position) => ({
+            pan: _pan(position),
+            gain: distanceGain(camera.current.position.distanceTo(position)),
+          }))(bulb.getWorldPosition(_world))
+      ))(_object(LAMP_LIGHT));
+
   const _sketchbook = (delta: number) =>
     ((p, previous, position) =>
       ((strap) => (
@@ -195,6 +209,7 @@
           pan: _pan(movers['actor-plane'].position),
         }),
         (frame.delta = delta),
+        _hum(),
         sound.frame(frame))
     ),
     { autoInvalidate: false }

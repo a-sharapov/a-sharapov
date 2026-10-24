@@ -1,4 +1,4 @@
-import { dB, type Mood, type Placement } from './cues';
+import { dB, type Lamp, type Mood, type Placement } from './cues';
 import { type Bank, loadBank } from './samples';
 import {
   type Cue,
@@ -24,6 +24,7 @@ export type SoundFrame = {
   delta: number;
   whoosh: WhooshState;
   rustle: { activity: number; pan: number };
+  lamp: Lamp;
 };
 
 var _LEVEL = dB(5);
@@ -83,9 +84,12 @@ export var defineSoundService = () => {
   const _load = (engine: Engine) => (
     loadBank(engine.ctx, engine.voice.bank).then(
       (bank) =>
-        ((room) =>
-          void (room && engine.ambience.room(room, engine.ctx.currentTime)))(
-          bank.get('room')?.[0]
+        ((room, clock, at) =>
+          void (room && engine.ambience.room(room, at),
+          clock && engine.ambience.clock(clock, at)))(
+          bank.get('room')?.[0],
+          bank.get('clock')?.[0],
+          engine.ctx.currentTime
         ),
       () => undefined
     ),
@@ -156,11 +160,12 @@ export var defineSoundService = () => {
           state.log.push([Math.round(performance.now()), cue]))
       ))(_running());
 
-  const frame = ({ delta, whoosh, rustle }: SoundFrame) =>
+  const frame = ({ delta, whoosh, rustle, lamp }: SoundFrame) =>
     ((engine) =>
       void (
         engine &&
         (engine.whoosh.update(whoosh, engine.ctx.currentTime),
+        engine.ambience.lamp(lamp, engine.ctx.currentTime),
         engine.rustle.update(
           rustle.activity,
           rustle.pan,

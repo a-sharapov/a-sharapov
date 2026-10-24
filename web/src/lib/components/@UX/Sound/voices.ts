@@ -1,14 +1,18 @@
 import {
   AMBIENCE,
+  CLOCK_PAN,
   CRINKLE_RATE,
   dB,
   GRAIN_RATE,
   grainCount,
+  LAMP_HUM,
+  type Lamp,
   type Mood,
   type Placement,
 } from './cues';
 import {
   type Bank,
+  CLOCK_LOOP,
   type Clip,
   JITTER,
   jitter,
@@ -704,6 +708,34 @@ var _loop = ({ ctx, noise }: Voice, kind: keyof Noise, at: number) =>
     source
   ))(ctx.createBufferSource());
 
+var _sampleLoop = (
+  ctx: BaseAudioContext,
+  clip: Clip,
+  window: { start: number; length: number },
+  when: number
+) =>
+  ((source) => (
+    Object.assign(source, {
+      buffer: clip.buffer,
+      loop: true,
+      loopStart: window.start,
+      loopEnd: window.start + window.length,
+    }),
+    source.start(when, window.start + Math.random() * window.length),
+    source
+  ))(ctx.createBufferSource());
+
+var _humTone = (ctx: BaseAudioContext, at: number) =>
+  ((oscillator) => (
+    oscillator.setPeriodicWave(
+      ctx.createPeriodicWave(
+        new Float32Array(LAMP_HUM.harmonics.length + 1),
+        Float32Array.of(0, ...LAMP_HUM.harmonics)
+      )
+    ),
+    oscillator
+  ))(_tone(ctx, at, 1e6, LAMP_HUM.mains));
+
 export var createAmbience = (voice: Voice, mood: Mood, at = 0) => {
   const { ctx, out } = voice;
   const settings = AMBIENCE[mood];
@@ -735,6 +767,18 @@ export var createAmbience = (voice: Voice, mood: Mood, at = 0) => {
   const state = { mood, real: false };
   room.gain.setValueAtTime(0, at);
   _chain(roomLowpass, room, out);
+  const clock = ctx.createGain();
+  clock.gain.setValueAtTime(settings.clock, at);
+  _chain(clock, _bus(voice, at, { pan: CLOCK_PAN, gain: 1 }));
+  const hum = ctx.createGain();
+  const humPan = ctx.createStereoPanner();
+  const tremolo = ctx.createGain();
+  const tremoloDepth = ctx.createGain();
+  hum.gain.setValueAtTime(0, at);
+  tremoloDepth.gain.setValueAtTime(LAMP_HUM.tremolo.depth, at);
+  _chain(_tone(ctx, at, 1e6, LAMP_HUM.tremolo.rate), tremoloDepth);
+  tremoloDepth.connect(tremolo.gain);
+  _chain(_humTone(ctx, at), tremolo, hum, humPan, out);
   const _synthGain = (target: (typeof AMBIENCE)[Mood], when: number) => (
     _target(bed.gain, state.real ? 0 : target.bed, when, 0.8),
     _target(air.gain, state.real ? 0 : target.air, when, 0.8),
@@ -747,22 +791,22 @@ export var createAmbience = (voice: Voice, mood: Mood, at = 0) => {
         _target(lowpass.frequency, target.lowpass, when, 0.8),
         _target(roomLowpass.frequency, target.roomLowpass, when, 0.8),
         _target(room.gain, state.real ? target.room : 0, when, 0.8),
+        _target(clock.gain, target.clock, when, 0.8),
         _synthGain(target, when)
       ))(AMBIENCE[next]),
+    lamp: ({ power, pan, gain }: Lamp, when: number) => (
+      _target(hum.gain, power * gain * LAMP_HUM.level, when, 0.05),
+      _target(humPan.pan, pan, when, 0.1)
+    ),
     room: (clip: Clip, when: number) =>
-      ((source, target) => (
-        Object.assign(source, {
-          buffer: clip.buffer,
-          loop: true,
-          loopStart: ROOM_LOOP.start,
-          loopEnd: ROOM_LOOP.start + ROOM_LOOP.length,
-        }),
-        source.connect(roomLowpass),
-        source.start(when, ROOM_LOOP.start + Math.random() * ROOM_LOOP.length),
+      ((target) => (
+        _sampleLoop(ctx, clip, ROOM_LOOP, when).connect(roomLowpass),
         (state.real = true),
         _target(room.gain, target.room, when, 0.8),
         _synthGain(target, when)
-      ))(ctx.createBufferSource(), AMBIENCE[state.mood]),
+      ))(AMBIENCE[state.mood]),
+    clock: (clip: Clip, when: number) =>
+      void _sampleLoop(ctx, clip, CLOCK_LOOP, when).connect(clock),
   };
 };
 

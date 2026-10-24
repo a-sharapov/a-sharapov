@@ -34,10 +34,13 @@ describe('уровни и панорама', () => {
     expect(distanceGain(0)).toBe(1.35);
   });
 
-  test('ночью фон тише и глуше', () => {
-    expect(AMBIENCE.night.bed).toBeLessThan(AMBIENCE.day.bed);
+  test('ночью фон глуше, но не тише, и слышны часы', () => {
     expect(AMBIENCE.night.lowpass).toBeLessThan(AMBIENCE.day.lowpass);
+    expect(AMBIENCE.night.roomLowpass).toBeLessThan(AMBIENCE.day.roomLowpass);
+    expect(AMBIENCE.night.room).toBeGreaterThan(AMBIENCE.day.room * dB(-1));
     expect(AMBIENCE.night.air).toBe(0);
+    expect(AMBIENCE.day.clock).toBe(0);
+    expect(AMBIENCE.night.clock).toBeGreaterThan(0);
   });
 });
 
