@@ -9,9 +9,6 @@ import {
   easeShot,
   interpolatePose,
   introPose,
-  OPENING,
-  openingAt,
-  openingPose,
   type Pose,
   type Rect,
   SWING,
@@ -109,17 +106,4 @@ describe('камера', () => {
           )
         )
     ));
-
-  test('вступление: от кромки чашки к общему плану, без столкновений', () =>
-    ((from) => {
-      expect(distance(openingAt(from, intro, 0).position, from.position)).toBe(
-        0
-      );
-      expect(distance(openingAt(from, intro, 0).focus, OPENING.rim)).toBe(0);
-      expect(
-        distance(openingAt(from, intro, 1).position, intro.position)
-      ).toBeLessThan(1e-9);
-      expect(distance(openingAt(from, intro, 1).focus, intro.focus)).toBe(0);
-      STEPS.forEach((p) => void _clear(openingAt(from, intro, p)));
-    })(openingPose(intro)));
 });

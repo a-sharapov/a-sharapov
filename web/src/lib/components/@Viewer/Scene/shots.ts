@@ -1,6 +1,6 @@
 import type { Shot, XYZ } from '#lib/common/types.ts';
 import { clamp, lerp } from '#lib/common/utils.ts';
-import { CARD, onFrame, PAPER, PAPER_LONG_SIDE } from './layout';
+import { CARD, PAPER, PAPER_LONG_SIDE } from './layout';
 
 export type Pose = {
   position: XYZ;
@@ -244,53 +244,6 @@ export var easeShot = (t: number): number =>
             )
             .reduce((sum, value) => sum + value / 2, 0)
         ))(clamp(t));
-
-var _smoother = (lo: number, hi: number, x: number) =>
-  ((k) => k * k * k * (k * (k * 6 - 15) + 10))(clamp((x - lo) / (hi - lo)));
-
-export var OPENING = {
-  seconds: 4.2,
-  reveal: 0.62,
-  skip: 0.8,
-  camera: onFrame(15, 30, 6.6),
-  target: onFrame(2, 0, 3.4),
-  rim: onFrame(11.5, 7.5, 7),
-  fov: 36,
-  focusRange: 6,
-  bokeh: 3.2,
-};
-
-export var openingPose = (intro: Pose): Pose => ({
-  ...intro,
-  position: OPENING.camera,
-  target: OPENING.target,
-  up: [0, 1, 0],
-  fov: OPENING.fov,
-  focus: OPENING.rim,
-  focusRange: OPENING.focusRange,
-  bokeh: OPENING.bokeh,
-});
-
-export var openingAt = (from: Pose, to: Pose, p: number): Pose =>
-  ((ground, rise, look, rack, lens) => ({
-    position: [
-      lerp(from.position[0], to.position[0], ground),
-      lerp(from.position[1], to.position[1], rise),
-      lerp(from.position[2], to.position[2], ground),
-    ],
-    target: lerp3(from.target, to.target, look),
-    up: _normalize(lerp3(from.up, to.up, look)),
-    fov: lerp(from.fov, to.fov, lens),
-    focus: lerp3(lerp3(from.focus, CARD_CENTER, rack), to.focus, lens),
-    focusRange: lerp(from.focusRange, to.focusRange, lens),
-    bokeh: lerp(from.bokeh, to.bokeh, lens),
-  }))(
-    _smoother(0.16, 1, p),
-    _smoother(0.3, 1, p),
-    _smoother(0.08, 0.92, p),
-    _smoother(0.18, 0.5, p),
-    _smoother(0.35, 1, p)
-  );
 
 export var establishingPose = (pose: Pose): Pose => ({
   ...pose,

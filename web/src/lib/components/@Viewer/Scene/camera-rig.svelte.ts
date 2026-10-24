@@ -13,9 +13,6 @@ import {
   interpolatePose,
   introPose,
   lerp3,
-  OPENING,
-  openingAt,
-  openingPose,
   type Pose,
   posesEqual,
   type Rect,
@@ -40,9 +37,6 @@ type Transition = {
   duration: number;
   swing: number;
   still: boolean;
-  opening: boolean;
-  rate: number;
-  pace: number;
 };
 
 type Goal = {
@@ -112,21 +106,8 @@ var _lookdev = (): Pose | null =>
 
 var _WARM = { frames: 3, frame: 0.25, limit: 45 };
 
-var _SKIP_EVENTS = ['pointerdown', 'wheel', 'keydown', 'touchstart'] as const;
-
-var _PACE_LAG = 0.12;
-
 var _smooth = (lo: number, hi: number, x: number) =>
   ((k) => k * k * (3 - 2 * k))(clamp((x - lo) / (hi - lo)));
-
-var _OPENING_HOLD = ((value) =>
-  import.meta.env.DEV && value !== null && Number.isFinite(Number(value))
-    ? clamp(Number(value))
-    : null)(
-  typeof location === 'undefined'
-    ? null
-    : new URLSearchParams(location.search).get('opening')
-);
 
 var _REFIT_RATE = 10;
 
@@ -222,10 +203,8 @@ export var bindCameraRig = (options: RigOptions) => {
           ) as Pose['position'],
         };
 
-  const _waiting = (pose: Pose): Pose =>
-    options.getShot() === 'intro' && !options.reducedMotion && !_fixed
-      ? openingPose(pose)
-      : establishingPose(pose);
+  const _waiting = (next: Shot, pose: Pose): Pose =>
+    next === 'intro' ? pose : establishingPose(pose);
 
   const _cardFocus = (pose: Pose): Pose =>
     rig.card.flip > 0
@@ -247,11 +226,8 @@ export var bindCameraRig = (options: RigOptions) => {
   const _start = (next: Shot) => {
     fit = null;
     const goal = _goal(next);
-    const opening =
-      shot === null && next === 'intro' && !options.reducedMotion && !_fixed;
-    const from =
-      rig.pose ??
-      (opening ? openingPose(goal.pose) : establishingPose(goal.pose));
+    const arrived = shot === null && next === 'intro';
+    const from = rig.pose ?? _waiting(next, goal.pose);
     const swing = _swing(shot, next);
     shot = next;
     transition = {
@@ -260,19 +236,15 @@ export var bindCameraRig = (options: RigOptions) => {
       fromActors: { ...rig.actors },
       fromSheet: { size: [...rig.sheet.size], yaw: rig.sheet.yaw },
       t: 0,
-      duration: options.reducedMotion
-        ? 0
-        : opening
-          ? OPENING.seconds
+      duration:
+        options.reducedMotion || arrived
+          ? 0
           : Math.max(
               transitionDuration(from, goal.pose),
               _actorSeconds(goal.actors)
             ),
       swing,
       still: false,
-      opening,
-      rate: 1,
-      pace: 1,
     };
     reveal = true;
     void (
@@ -283,26 +255,14 @@ export var bindCameraRig = (options: RigOptions) => {
     options.onMoving();
   };
 
-  const _skip = () =>
-    void (
-      transition?.opening &&
-      transition.t < 1 &&
-      (transition.pace = Math.max(
-        transition.pace,
-        ((1 - transition.t) * transition.duration) / OPENING.skip
-      ))
-    );
-
   const _cue = (from: Transition, progress: number, eased: number): Cue =>
     from.still ? STILL_CUE(eased) : shotCue(progress, from.swing);
 
   const _at = (from: Transition, goal: Pose, progress: number): Pose =>
-    from.opening
-      ? openingAt(from.from, goal, progress)
-      : ((eased) =>
-          interpolatePose(from.from, goal, eased, _cue(from, progress, eased)))(
-          easeShot(progress)
-        );
+    ((eased) =>
+      interpolatePose(from.from, goal, eased, _cue(from, progress, eased)))(
+      easeShot(progress)
+    );
 
   const _banked = (
     from: Transition,
@@ -310,7 +270,7 @@ export var bindCameraRig = (options: RigOptions) => {
     pose: Pose,
     progress: number
   ) =>
-    from.still || from.opening || from.swing === 0
+    from.still || from.swing === 0
       ? pose
       : ((eased) =>
           bank(
@@ -326,7 +286,6 @@ export var bindCameraRig = (options: RigOptions) => {
   ) =>
     ((actor) =>
       actor &&
-      !from.opening &&
       from.fromActors[actor] < goal.actors[actor] &&
       movers[`actor-${actor}`].seen
         ? {
@@ -379,15 +338,9 @@ export var bindCameraRig = (options: RigOptions) => {
   $effect(() => {
     window.addEventListener('pointermove', _onPointer, { passive: true });
     window.addEventListener('resize', _onResize);
-    _SKIP_EVENTS.forEach(
-      (type) => void window.addEventListener(type, _skip, { passive: true })
-    );
     return () => {
       window.removeEventListener('pointermove', _onPointer);
       window.removeEventListener('resize', _onResize);
-      _SKIP_EVENTS.forEach(
-        (type) => void window.removeEventListener(type, _skip)
-      );
     };
   });
 
@@ -422,23 +375,11 @@ export var bindCameraRig = (options: RigOptions) => {
         ? _lerpRect(fit, measured, 1 - Math.exp(-delta * _REFIT_RATE))
         : measured)((sheet ??= _measure(active)));
     const goal = _goal(active);
-    void (
-      transition &&
-      (transition.rate = lerp(
-        transition.rate,
-        transition.pace,
-        1 - Math.exp(-delta / _PACE_LAG)
-      ))
-    );
     const progress = transition
-      ? _OPENING_HOLD !== null && transition.opening
-        ? _OPENING_HOLD
-        : clamp(
-            transition.t +
-              (transition.duration > 0
-                ? (delta * transition.rate) / transition.duration
-                : 1)
-          )
+      ? clamp(
+          transition.t +
+            (transition.duration > 0 ? delta / transition.duration : 1)
+        )
       : 1;
     const eased = easeShot(progress);
     const from = transition;
@@ -446,7 +387,7 @@ export var bindCameraRig = (options: RigOptions) => {
 
     rig.pose = _cardFocus(
       shot === null
-        ? _waiting(goal.pose)
+        ? _waiting(active, goal.pose)
         : from
           ? _follow(
               from,
@@ -499,15 +440,11 @@ export var bindCameraRig = (options: RigOptions) => {
 
     void (
       reveal &&
-      progress >= (from?.opening ? OPENING.reveal : _REVEAL_AT) &&
+      progress >= _REVEAL_AT &&
       options.getReady() &&
       ((reveal = false), options.onSettled())
     );
-    void (
-      from &&
-      ((from.t = progress),
-      progress >= 1 && _OPENING_HOLD === null && (transition = null))
-    );
+    void (from && ((from.t = progress), progress >= 1 && (transition = null)));
 
     _apply(rig.pose);
   });
