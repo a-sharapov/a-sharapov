@@ -36,6 +36,7 @@ export var STORE_PREFIX = 'AS_' as const;
 export var STORAGE = {
   theme: `${STORE_PREFIX}theme`,
   sound: `${STORE_PREFIX}sound`,
+  scene: `${STORE_PREFIX}scene`,
 } as const;
 
 export var SEO_PHOTO = '/images/a-sharapov-photo.webp' as const;

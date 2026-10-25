@@ -558,7 +558,7 @@ export var bindPostFx = (getMood: () => MixedMood, quality: Quality) => {
     windowFull(samples) &&
       ((next) =>
         void (next !== dpr.current && dpr.set(next), (samples.length = 0)))(
-        nextDpr(dpr.current, samples)
+        nextDpr(dpr.current, samples, quality.dpr[0])
       ));
 
   useTask(

@@ -56,6 +56,62 @@
   }
 }
 
+.scene-loader .lite {
+  display: grid;
+  justify-items: center;
+  gap: 0.375rem;
+  margin-top: 2.25rem;
+  pointer-events: auto;
+  animation: scene-lite var(--motion-slow) var(--ease) both;
+
+  p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  button {
+    position: relative;
+    padding: 0.375rem 0.125rem;
+    font-family: var(--font-narrow);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: none;
+    border: 0;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 0.0625rem;
+      border-radius: 0.125rem;
+      background: var(--primary);
+      box-shadow: 0 0 0.75rem var(--primary);
+      scale: 0.35 1;
+      transition: scale var(--motion-med) var(--ease);
+    }
+
+    &:is(:hover, :focus-visible)::after {
+      scale: 1 1;
+    }
+  }
+}
+
+body:has(.viewer:not([data-phase='boot'])) .scene-loader .lite {
+  visibility: hidden;
+}
+
+@keyframes scene-lite {
+  from {
+    opacity: 0;
+    translate: 0 0.25rem;
+  }
+}
+
 body:has(.viewer:not([data-phase='boot'])) .scene-loader {
   .runner {
     opacity: 0;

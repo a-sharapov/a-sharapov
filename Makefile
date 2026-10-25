@@ -21,7 +21,7 @@ BIOME := @biomejs/biome@2.4.10
 APP := web bot cms
 
 .PHONY: help dot-env env env-check run deploy rerun recreate-web stop clean logs \
-	cms-seed cms-admin proxy-reload check check-lint check-bot check-web check-compose check-proxy \
+	cms-seed cms-admin proxy-reload video check check-lint check-bot check-web check-compose check-proxy \
 	check-deploy check-images
 
 help: ## Список команд
@@ -73,6 +73,10 @@ cms-admin: ## Создать или обновить суперпользова�
 
 proxy-reload: ## Перечитать Caddyfile без перезапуска proxy
 	@$(DC) exec proxy caddy reload --config /etc/caddy/Caddyfile
+
+video: ## Клипы видеоверсии из dev-сцены (make run, Chrome и GPU); ONLY=intro,intro-resume THEME=light
+	@cd $(PROJECT_DIR)/scripts/video && bun install --frozen-lockfile --silent && \
+	    bun record.ts $(if $(ONLY),--only $(ONLY)) $(if $(THEME),--theme $(THEME))
 
 check: check-lint check-bot check-web check-compose check-proxy check-deploy ## Все проверки (как CI; образы — check-images)
 

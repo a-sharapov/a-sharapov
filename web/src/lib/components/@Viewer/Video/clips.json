@@ -1,0 +1,355 @@
+{
+  "frame": {
+    "width": 1600,
+    "height": 850
+  },
+  "video": {
+    "uhd": {
+      "width": 3840,
+      "height": 2040
+    },
+    "hd": {
+      "width": 2048,
+      "height": 1088
+    },
+    "fps": 31.25
+  },
+  "faces": {
+    "resume": [
+      556,
+      72,
+      487,
+      689
+    ],
+    "sketchbook": [
+      314,
+      72,
+      971,
+      689
+    ],
+    "portrait": [
+      288,
+      72,
+      1024,
+      689
+    ],
+    "tablet": [
+      288,
+      72,
+      1024,
+      649
+    ]
+  },
+  "card": {
+    "spot": [
+      671.119946017678,
+      378.58208905673814,
+      257.7601079646439,
+      140.05760887832025
+    ],
+    "links": [
+      [
+        612.6381066200686,
+        445.95148624987826,
+        138,
+        20.5
+      ],
+      [
+        612.6381066200686,
+        466.45148624987826,
+        138,
+        20.5
+      ],
+      [
+        612.6381066200686,
+        486.95148624987826,
+        90,
+        20.5
+      ],
+      [
+        612.6381066200686,
+        507.45148624987826,
+        135,
+        20.5
+      ]
+    ]
+  },
+  "loops": {
+    "light": {
+      "intro": 6,
+      "resume": 6,
+      "sketchbook": 6,
+      "portrait": 6,
+      "tablet": 6,
+      "card": 6
+    },
+    "dark": {
+      "intro": 6,
+      "resume": 6,
+      "sketchbook": 6,
+      "portrait": 6,
+      "tablet": 6,
+      "card": 6
+    }
+  },
+  "clips": {
+    "light": {
+      "intro-resume": {
+        "seconds": 2.528,
+        "reveal": 1.824
+      },
+      "intro-sketchbook": {
+        "seconds": 2.72,
+        "reveal": 2.176
+      },
+      "intro-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "resume-intro": {
+        "seconds": 2.176,
+        "reveal": 1.728
+      },
+      "resume-sketchbook": {
+        "seconds": 2.688,
+        "reveal": 2.176
+      },
+      "resume-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "sketchbook-intro": {
+        "seconds": 2.72,
+        "reveal": 2.176
+      },
+      "sketchbook-resume": {
+        "seconds": 2.88,
+        "reveal": 2.176
+      },
+      "sketchbook-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "portrait-intro": {
+        "seconds": 4.512,
+        "reveal": 1.344
+      },
+      "portrait-resume": {
+        "seconds": 4.512,
+        "reveal": 1.824
+      },
+      "portrait-sketchbook": {
+        "seconds": 4.512,
+        "reveal": 2.176
+      },
+      "tablet-intro": {
+        "seconds": 2.112,
+        "reveal": 1.664
+      },
+      "tablet-resume": {
+        "seconds": 2.528,
+        "reveal": 1.824
+      },
+      "tablet-sketchbook": {
+        "seconds": 2.688,
+        "reveal": 2.176
+      },
+      "tablet-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "card-out": {
+        "seconds": 1.056
+      },
+      "card-in": {
+        "seconds": 1.056
+      },
+      "toss": {
+        "seconds": 8.192,
+        "reveal": 4.736,
+        "thrown": 1.216,
+        "away": 3.424
+      }
+    },
+    "dark": {
+      "intro-resume": {
+        "seconds": 2.528,
+        "reveal": 1.824
+      },
+      "intro-sketchbook": {
+        "seconds": 2.72,
+        "reveal": 2.176
+      },
+      "intro-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "resume-intro": {
+        "seconds": 2.176,
+        "reveal": 1.728
+      },
+      "resume-sketchbook": {
+        "seconds": 2.688,
+        "reveal": 2.176
+      },
+      "resume-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "sketchbook-intro": {
+        "seconds": 2.72,
+        "reveal": 2.176
+      },
+      "sketchbook-resume": {
+        "seconds": 2.88,
+        "reveal": 2.176
+      },
+      "sketchbook-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "portrait-intro": {
+        "seconds": 4.512,
+        "reveal": 1.344
+      },
+      "portrait-resume": {
+        "seconds": 4.512,
+        "reveal": 1.824
+      },
+      "portrait-sketchbook": {
+        "seconds": 4.512,
+        "reveal": 2.176
+      },
+      "tablet-intro": {
+        "seconds": 2.112,
+        "reveal": 1.664
+      },
+      "tablet-resume": {
+        "seconds": 2.528,
+        "reveal": 1.824
+      },
+      "tablet-sketchbook": {
+        "seconds": 2.688,
+        "reveal": 2.176
+      },
+      "tablet-portrait": {
+        "seconds": 3.808,
+        "reveal": 2.176
+      },
+      "card-out": {
+        "seconds": 1.056
+      },
+      "card-in": {
+        "seconds": 1.056
+      },
+      "toss": {
+        "seconds": 8.192,
+        "reveal": 4.736,
+        "thrown": 1.216,
+        "away": 3.424
+      }
+    }
+  },
+  "versions": {
+    "hd/dark/card": "0cf2d08e67",
+    "hd/dark/card-in": "6f6ac7f9c8",
+    "hd/dark/card-out": "4c3c673713",
+    "hd/dark/intro": "b4bbc5971e",
+    "hd/dark/intro-portrait": "d58bb1defb",
+    "hd/dark/intro-resume": "d4f0e2ed80",
+    "hd/dark/intro-sketchbook": "66e75effc4",
+    "hd/dark/portrait": "dea57d181c",
+    "hd/dark/portrait-intro": "46aa388878",
+    "hd/dark/portrait-resume": "4f653de1c6",
+    "hd/dark/portrait-sketchbook": "3b72445ec1",
+    "hd/dark/resume": "4f4559d9cb",
+    "hd/dark/resume-intro": "2dff454ed1",
+    "hd/dark/resume-portrait": "1dfd8077fe",
+    "hd/dark/resume-sketchbook": "f37e8ff45d",
+    "hd/dark/sketchbook": "1579b6cc4a",
+    "hd/dark/sketchbook-intro": "c69ba61b62",
+    "hd/dark/sketchbook-portrait": "bc64da36d3",
+    "hd/dark/sketchbook-resume": "f64b8b6191",
+    "hd/dark/tablet": "fc5c78201d",
+    "hd/dark/tablet-intro": "e08063436b",
+    "hd/dark/tablet-portrait": "dd8b51fde9",
+    "hd/dark/tablet-resume": "1bba49809a",
+    "hd/dark/tablet-sketchbook": "e0685aa02b",
+    "hd/dark/toss": "d6efc303a4",
+    "hd/light/card": "18b8ca6b00",
+    "hd/light/card-in": "4e6e6836d2",
+    "hd/light/card-out": "5db80ca400",
+    "hd/light/intro": "1d4640884f",
+    "hd/light/intro-portrait": "74935df461",
+    "hd/light/intro-resume": "8aa6aa3ecb",
+    "hd/light/intro-sketchbook": "2fbbc0a85c",
+    "hd/light/portrait": "f12c639d1f",
+    "hd/light/portrait-intro": "33a4aac4f0",
+    "hd/light/portrait-resume": "1310d6a423",
+    "hd/light/portrait-sketchbook": "8e0f727f59",
+    "hd/light/resume": "d240e28170",
+    "hd/light/resume-intro": "fd4936aed6",
+    "hd/light/resume-portrait": "f991ddfff2",
+    "hd/light/resume-sketchbook": "248c7405af",
+    "hd/light/sketchbook": "6ba25f3179",
+    "hd/light/sketchbook-intro": "99f5171f2a",
+    "hd/light/sketchbook-portrait": "5251beccff",
+    "hd/light/sketchbook-resume": "b94d4c9d18",
+    "hd/light/tablet": "5ccff810fe",
+    "hd/light/tablet-intro": "4c7c2a0f80",
+    "hd/light/tablet-portrait": "3ea36be5e3",
+    "hd/light/tablet-resume": "816ff78f56",
+    "hd/light/tablet-sketchbook": "fa5feda753",
+    "hd/light/toss": "c144c8b122",
+    "uhd/dark/card": "c552908f1b",
+    "uhd/dark/card-in": "ef1b0400fc",
+    "uhd/dark/card-out": "6ff125959a",
+    "uhd/dark/intro": "b470504803",
+    "uhd/dark/intro-portrait": "139689bc72",
+    "uhd/dark/intro-resume": "8eb30e1605",
+    "uhd/dark/intro-sketchbook": "b49290f830",
+    "uhd/dark/portrait": "aeb60ad494",
+    "uhd/dark/portrait-intro": "751d140af3",
+    "uhd/dark/portrait-resume": "156c6ef241",
+    "uhd/dark/portrait-sketchbook": "618a6e05be",
+    "uhd/dark/resume": "d79cab5a82",
+    "uhd/dark/resume-intro": "8d20515032",
+    "uhd/dark/resume-portrait": "140e6afece",
+    "uhd/dark/resume-sketchbook": "c7f8206deb",
+    "uhd/dark/sketchbook": "9e73a59067",
+    "uhd/dark/sketchbook-intro": "cc40ddb93a",
+    "uhd/dark/sketchbook-portrait": "cc9fac18fb",
+    "uhd/dark/sketchbook-resume": "cbada8af60",
+    "uhd/dark/tablet": "f68d43dcf7",
+    "uhd/dark/tablet-intro": "b0d8014dac",
+    "uhd/dark/tablet-portrait": "826a679265",
+    "uhd/dark/tablet-resume": "e3b691a48b",
+    "uhd/dark/tablet-sketchbook": "c430ed486f",
+    "uhd/dark/toss": "d1f5076549",
+    "uhd/light/card": "db2d01a6e4",
+    "uhd/light/card-in": "fe981bd740",
+    "uhd/light/card-out": "a435eeabfe",
+    "uhd/light/intro": "c7a0509ff8",
+    "uhd/light/intro-portrait": "dcecaf1c23",
+    "uhd/light/intro-resume": "cc8411ba31",
+    "uhd/light/intro-sketchbook": "ad32943f7f",
+    "uhd/light/portrait": "537e279d69",
+    "uhd/light/portrait-intro": "ec03736815",
+    "uhd/light/portrait-resume": "c3f140975c",
+    "uhd/light/portrait-sketchbook": "2e9e333f3e",
+    "uhd/light/resume": "4a41f184d1",
+    "uhd/light/resume-intro": "f7c74d6ffc",
+    "uhd/light/resume-portrait": "af4a2be333",
+    "uhd/light/resume-sketchbook": "20d876d9c9",
+    "uhd/light/sketchbook": "3c6dca1c0b",
+    "uhd/light/sketchbook-intro": "e492e2228e",
+    "uhd/light/sketchbook-portrait": "bab5becd02",
+    "uhd/light/sketchbook-resume": "4dc9d8620e",
+    "uhd/light/tablet": "69ea95b51d",
+    "uhd/light/tablet-intro": "69556343e0",
+    "uhd/light/tablet-portrait": "fec4c09b00",
+    "uhd/light/tablet-resume": "6f5173b2d5",
+    "uhd/light/tablet-sketchbook": "2dd4c03581",
+    "uhd/light/toss": "56d90eae4f"
+  }
+}

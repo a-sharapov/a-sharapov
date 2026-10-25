@@ -59,6 +59,7 @@
   };
   window.__asTheme = resolve;
   apply();
+  read('AS_scene') === 'video' && (root.dataset.scene = 'video');
   setTimeout(() => {
     stalled() && (root.dataset.scene = 'failed');
   }, 15000);

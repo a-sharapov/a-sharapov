@@ -1,0 +1,38 @@
+.scene-switch {
+  .face {
+    translate: 2px -2px;
+    transition: translate var(--motion-slow) var(--ease) 0.1s;
+  }
+
+  .depth {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset var(--motion-slow) var(--ease);
+  }
+
+  .depth + .depth {
+    transition-delay: 0.06s;
+  }
+
+  &[data-look='on'] {
+    .face {
+      translate: 0 0;
+      transition-delay: 0s;
+    }
+
+    .depth {
+      stroke-dashoffset: 0;
+      transition-delay: 0.12s;
+    }
+
+    .depth + .depth {
+      transition-delay: 0.2s;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-switch :is(.face, .depth) {
+    transition: none;
+  }
+}

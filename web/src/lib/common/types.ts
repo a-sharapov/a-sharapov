@@ -13,6 +13,8 @@ export type PageTemplate =
 
 export type Theme = 'light' | 'dark';
 
+export type SceneMode = '3d' | 'video';
+
 export type XYZ = [x: number, y: number, z: number];
 
 export interface TimeStamps {

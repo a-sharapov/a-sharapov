@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { NavItem } from '#lib/common/types.ts';
   import Nav from '#lib/components/@Nav/Nav/Nav.svelte';
+  import SceneSwitcher from '#lib/components/@UX/SceneSwitcher/SceneSwitcher.svelte';
   import SoundSwitcher from '#lib/components/@UX/SoundSwitcher/SoundSwitcher.svelte';
   import ThemeSwitcher from '#lib/components/@UX/ThemeSwitcher/ThemeSwitcher.svelte';
   import { type Dictionary, provideTranslation } from '#lib/i18n/context.ts';
@@ -22,5 +23,6 @@
   <div class="controls">
     <ThemeSwitcher />
     <SoundSwitcher />
+    <SceneSwitcher />
   </div>
 </header>

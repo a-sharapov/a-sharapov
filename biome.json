@@ -21,6 +21,7 @@
       "!**/cms/pb_data",
       "!**/bot/data",
       "!**/web/static",
+      "!**/web/src/lib/components/@Viewer/Video/clips.json",
       "!**/*.min.js",
       "!**/*.min.css"
     ]

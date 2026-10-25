@@ -1,5 +1,5 @@
 import { STORAGE } from './constants';
-import type { Theme } from './types';
+import type { SceneMode, Theme } from './types';
 import { isClient } from './utils';
 
 type ThemeState = { theme: Theme; until: number };
@@ -28,6 +28,7 @@ const _read = (key: string): string | null => {
 export var shell = $state({
   theme: (_root()?.dataset.theme ?? 'light') as Theme,
   sound: false,
+  scene: (_root()?.dataset.scene === 'video' ? 'video' : '3d') as SceneMode,
 });
 
 const _resolve = (): ThemeState =>
@@ -66,6 +67,18 @@ export var followDaylight = (): (() => void) => {
       document.removeEventListener('visibilitychange', _visible)
     )
   );
+};
+
+export var setScene = (scene: SceneMode): void => {
+  shell.scene = scene;
+  _store(STORAGE.scene, scene);
+  ((root) =>
+    void (
+      root &&
+      (scene === 'video'
+        ? (root.dataset.scene = 'video')
+        : delete root.dataset.scene)
+    ))(_root());
 };
 
 export var restoreSound = (): boolean =>

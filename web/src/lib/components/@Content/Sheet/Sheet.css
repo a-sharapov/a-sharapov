@@ -126,6 +126,44 @@
   }
 }
 
+@media (min-width: 48.0625rem) and (min-height: 30.0625rem) {
+  :root[data-scene='video'] .sheet {
+    &[data-shot='resume'] {
+      --face: var(--video-face-resume);
+    }
+
+    &[data-shot='sketchbook'] {
+      --face: var(--video-face-sketchbook);
+    }
+
+    &[data-shot='portrait'] {
+      --face: var(--video-face-portrait);
+    }
+
+    &[data-shot='tablet'] {
+      --face: var(--video-face-tablet);
+    }
+
+    &:is(
+        [data-shot='resume'],
+        [data-shot='sketchbook'],
+        [data-shot='portrait'],
+        [data-shot='tablet']
+      ) {
+      inset: var(--face);
+      width: auto;
+      height: auto;
+      margin: 0;
+      aspect-ratio: auto;
+    }
+  }
+
+  body:has(.viewer[data-mode='video']) .sheet[data-shot='landscape'] {
+    background-color: var(--paper);
+    box-shadow: var(--shadow-sheet);
+  }
+}
+
 html[data-thrown] .sheet {
   opacity: 0;
   pointer-events: none;
