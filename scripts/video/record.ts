@@ -60,7 +60,7 @@ const GUST_CLEAR_MS = 12500;
 const FRAME_DEADLINE_MS = 60000;
 const VARIANTS: { name: Variant; scale: number; crf: number; tiles: number }[] =
   [
-    { name: 'uhd', scale: 1, crf: 18, tiles: 3 },
+    { name: 'uhd', scale: 1, crf: 26, tiles: 3 },
     { name: 'hd', scale: 2048 / 3840, crf: 20, tiles: 2 },
   ];
 const SPOTS: Spot[] = ['intro', 'resume', 'sketchbook', 'portrait', 'tablet'];
