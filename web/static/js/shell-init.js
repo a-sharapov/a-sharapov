@@ -54,13 +54,19 @@
     return Boolean(
       viewer &&
         viewer.dataset.phase === 'boot' &&
+        root.dataset.scene !== 'choose' &&
         window.matchMedia('(min-width: 48.0625rem) and (min-height: 30.0625rem)').matches
     );
   };
+  const watch = { timer: 0 };
   window.__asTheme = resolve;
+  window.__asWatch = () => {
+    clearTimeout(watch.timer);
+    watch.timer = setTimeout(() => {
+      stalled() && (root.dataset.scene = 'failed');
+    }, 15000);
+  };
   apply();
   read('AS_scene') === 'video' && (root.dataset.scene = 'video');
-  setTimeout(() => {
-    stalled() && (root.dataset.scene = 'failed');
-  }, 15000);
+  window.__asWatch();
 })();

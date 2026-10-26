@@ -18,7 +18,9 @@
   const loadVideo = import.meta.env.SSR
     ? undefined
     : () => import('#lib/components/@Viewer/Video/VideoViewer.svelte');
+  const _LOADERS = { '3d': loadViewer, video: loadVideo, choose: undefined };
 
+  const mode = $derived(shell.choosing ? 'choose' : shell.scene);
   const missing = $derived(Boolean(page.error));
   const chrome = $derived(!page.data.bare);
 </script>
@@ -26,16 +28,16 @@
 {#if chrome}
   <Header t={data.i18n} nav={data.nav} slug={missing ? '404' : (page.data.slug ?? '')} />
 {/if}
-<main id="content" tabindex="-1">{@render children()}</main>
+<main id="content" tabindex="-1" inert={shell.choosing}>{@render children()}</main>
 {#if chrome}
   <Footer t={data.i18n} locale={data.locale} />
 {/if}
 <SceneLoader t={data.i18n} />
-{#key shell.scene}
+{#key mode}
   <Island
     when="media"
     query={SCENE_MEDIA}
-    load={shell.scene === 'video' ? loadVideo : loadViewer}
+    load={_LOADERS[mode]}
     props={{
       t: data.i18n,
       shot: missing ? 'tablet' : (page.data.shot ?? 'intro'),

@@ -101,6 +101,26 @@
   }
 }
 
+:root[data-scene='choose'] .scene-loader {
+  place-content: safe center;
+  overflow-y: auto;
+  pointer-events: auto;
+
+  .caption {
+    visibility: hidden;
+  }
+
+  .signed {
+    opacity: 1;
+  }
+}
+
+@media (max-height: 36rem) {
+  :root[data-scene='choose'] .scene-loader .logo-loader {
+    display: none;
+  }
+}
+
 body:has(.viewer:not([data-phase='boot'])) .scene-loader .lite {
   visibility: hidden;
 }

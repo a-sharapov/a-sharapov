@@ -1,4 +1,5 @@
-import { STORAGE } from './constants';
+import { SCENE_MEDIA, STORAGE } from './constants';
+import { probeDevice, weakDevice } from './graphics';
 import type { SceneMode, Theme } from './types';
 import { isClient } from './utils';
 
@@ -25,11 +26,36 @@ const _read = (key: string): string | null => {
   }
 };
 
+const _FORCED =
+  import.meta.env.DEV && isClient
+    ? new URLSearchParams(location.search).get('gpu')
+    : null;
+
+const _choosing = (): boolean =>
+  isClient &&
+  matchMedia(SCENE_MEDIA).matches &&
+  (_FORCED === 'weak' ||
+    (_FORCED === null &&
+      _read(STORAGE.scene) === null &&
+      weakDevice(probeDevice())));
+
+const _mark = (scene: string | null): void =>
+  ((root) =>
+    void (
+      root &&
+      (scene === null
+        ? delete root.dataset.scene
+        : (root.dataset.scene = scene))
+    ))(_root());
+
 export var shell = $state({
   theme: (_root()?.dataset.theme ?? 'light') as Theme,
   sound: false,
   scene: (_root()?.dataset.scene === 'video' ? 'video' : '3d') as SceneMode,
+  choosing: _choosing(),
 });
+
+void (shell.choosing && _mark('choose'));
 
 const _resolve = (): ThemeState =>
   (isClient && (window as { __asTheme?: () => ThemeState }).__asTheme?.()) || {
@@ -72,14 +98,14 @@ export var followDaylight = (): (() => void) => {
 export var setScene = (scene: SceneMode): void => {
   shell.scene = scene;
   _store(STORAGE.scene, scene);
-  ((root) =>
-    void (
-      root &&
-      (scene === 'video'
-        ? (root.dataset.scene = 'video')
-        : delete root.dataset.scene)
-    ))(_root());
+  _mark(scene === 'video' ? 'video' : null);
 };
+
+export var chooseScene = (scene: SceneMode): void => (
+  (shell.choosing = false),
+  setScene(scene),
+  (window as { __asWatch?: () => void }).__asWatch?.()
+);
 
 export var restoreSound = (): boolean =>
   (shell.sound = isClient && _read(STORAGE.sound) === 'on');
