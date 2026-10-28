@@ -218,7 +218,7 @@ form {
 
 ::placeholder {
   font-family: inherit;
-  color: color-mix(in srgb, var(--dark), transparent 62%);
+  color: color-mix(in srgb, currentColor, transparent 36%);
 }
 
 .button {
@@ -319,7 +319,7 @@ form {
     opacity: 0.85;
   }
 
-  &:is([aria-pressed='true'], [aria-checked='true']) {
+  &[aria-pressed='true'] {
     opacity: 0.95;
   }
 
@@ -350,7 +350,7 @@ form {
     transition: scale var(--motion-med) var(--ease);
   }
 
-  &:is([aria-pressed='true'], [aria-checked='true'])::after {
+  &[aria-pressed='true']::after {
     scale: 1 1;
   }
 }

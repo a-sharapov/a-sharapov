@@ -20,9 +20,8 @@
 
 <button
   type="button"
-  role="switch"
   class="glyph-toggle bulb-switch"
-  aria-checked={shell.theme === 'dark'}
+  aria-pressed={shell.theme === 'dark'}
   aria-label={t('a11y.theme')}
   title={t('a11y.theme')}
   data-look={preview.look(shell.theme === 'dark')}

@@ -4,9 +4,10 @@
   overflow: hidden;
   background-image: linear-gradient(
     to top,
-    rgb(0 0 0 / 0.5),
-    rgb(0 0 0 / 0.18) 45%,
-    transparent 75%
+    rgb(0 0 0 / 0.62),
+    rgb(0 0 0 / 0.36) 40%,
+    rgb(0 0 0 / 0.12) 62%,
+    transparent 85%
   );
   border-radius: 1.04% / 1.64%;
 }
@@ -40,7 +41,7 @@
     margin: 0 0 1.5rem;
     font-size: 1.0625rem;
     line-height: 1.5;
-    color: rgb(255 255 255 / 0.85);
+    color: rgb(255 255 255 / 0.92);
   }
 
   .home {

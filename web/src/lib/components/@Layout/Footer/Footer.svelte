@@ -22,8 +22,7 @@
   <p class="copyleft">
     <span class="years">2011 – {year}</span>
     <span class="glyph" aria-hidden="true">©</span>
-    {t('footer.copyleft')}
-    <span class="divider" aria-hidden="true">·</span>
+    {t('footer.copyleft')}&nbsp;<span class="divider" aria-hidden="true">·</span>
     <a href={privacyHref} data-shot={shotFor('resume')}>{t('footer.privacy')}</a>
   </p>
 </footer>

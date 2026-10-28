@@ -25,7 +25,7 @@
   --text: var(--dark);
   --heading: var(--primary);
   --textShadowColor: #fffb;
-  --muted: #5c5c5c;
+  --muted: #474747;
 
   --link: var(--primary);
   --linkVisited: color-mix(in srgb, var(--link), var(--dark) 50%);
@@ -88,7 +88,7 @@
 
   --text: var(--grayLight);
   --heading: #fff;
-  --muted: #9a9ca3;
+  --muted: #b0b2b8;
   --textShadowColor: #1112;
 
   --link: var(--heading);

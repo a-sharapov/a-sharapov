@@ -18,6 +18,28 @@ header.chrome {
     width: var(--controls-w);
   }
 
+  .skip {
+    position: fixed;
+    top: calc(var(--space-3) + env(safe-area-inset-top, 0));
+    left: var(--space-4);
+    z-index: 1;
+    padding: 0.5rem 0.875rem;
+    font-family: var(--font-narrow);
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    background: var(--paper);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-float);
+    translate: 0 calc(-100% - var(--header-h));
+    transition: translate var(--motion-med) var(--ease);
+
+    &:focus {
+      translate: none;
+    }
+  }
+
   .controls {
     display: flex;
     flex: none;

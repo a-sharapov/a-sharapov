@@ -16,7 +16,7 @@
 <Head
   t={i18n}
   site={page.data.site ?? []}
-  title={t('error.notFound.title')}
+  title={`${t('error.notFound.title')} — ${t('profile.name')}`}
   robots="noindex"
   canonical={`${SITE_ORIGIN}${page.url.pathname}`}
 />

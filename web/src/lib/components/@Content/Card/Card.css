@@ -28,7 +28,26 @@
   }
 }
 
+@media (max-width: 48rem), (max-height: 30rem) {
+  .card:has(.cta:focus-visible) {
+    inset: auto 0 calc(var(--space-5) + env(safe-area-inset-bottom, 0));
+    z-index: var(--z-chrome);
+    width: fit-content;
+    height: fit-content;
+    clip-path: none;
+    opacity: 1;
+
+    > :not(.tagline),
+    .idle {
+      display: none;
+    }
+  }
+}
+
 body:has(.viewer:is([data-phase='settled'], [data-phase='moving']))
+  .card:has(.cta:focus-visible),
+:root:is(:has(.no-js), [data-scene='failed'])
+  body
   .card:has(.cta:focus-visible) {
   inset: auto 0 calc(var(--footer-h) + var(--space-5));
   width: fit-content;
@@ -46,7 +65,7 @@ body:has(.viewer:is([data-phase='settled'], [data-phase='moving']))
   display: none;
   --card: #fbfbf9;
   --card-ink: #2a292d;
-  --card-muted: #77767b;
+  --card-muted: #636267;
 
   width: min(
     100%,
@@ -152,9 +171,9 @@ body:has(.viewer:is([data-phase='settled'], [data-phase='moving']))
   .role {
     margin: 0;
     font-family: var(--font-narrow);
-    font-size: 0.5625rem;
+    font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--card-muted);
   }

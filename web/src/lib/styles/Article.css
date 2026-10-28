@@ -1,5 +1,5 @@
 .sheet[data-layout='article'] {
-  --quiet: color-mix(in srgb, var(--text), transparent 38%);
+  --quiet: color-mix(in srgb, var(--text), transparent 32%);
   --hairline: color-mix(in srgb, var(--text), transparent 85%);
 
   line-height: 1.55;
@@ -93,7 +93,7 @@
     font-family: var(--font-narrow);
     font-size: 0.875rem;
     letter-spacing: 0.03em;
-    color: color-mix(in srgb, var(--text), transparent 38%);
+    color: var(--quiet);
   }
 
   :is(h3, h2.minor) {
@@ -109,7 +109,7 @@
 
 .sheet[data-shot='resume'][data-layout='article'] {
   --rule: color-mix(in srgb, var(--text), transparent 25%);
-  --faint: color-mix(in srgb, var(--text), transparent 48%);
+  --faint: color-mix(in srgb, var(--text), transparent 36%);
 
   .person {
     h1 {

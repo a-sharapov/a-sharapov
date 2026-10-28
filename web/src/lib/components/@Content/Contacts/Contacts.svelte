@@ -60,8 +60,8 @@
 </script>
 
 <div class="contacts">
-  <aside class="profile">
-    <h1><span class="sr-only">{title} — </span>{t('profile.name')}</h1>
+  <header class="profile">
+    <h1><span class="sr-only">{title} —</span> {t('profile.name')}</h1>
     <p class="role">{t('profile.role')}</p>
     <div class="reach">
       {#each groups as group, index (index)}
@@ -80,9 +80,9 @@
         </ul>
       {/each}
     </div>
-  </aside>
-  <section class="write">
+  </header>
+  <div class="write">
     <div class="lead">{@html content}</div>
     {@render children?.()}
-  </section>
+  </div>
 </div>
