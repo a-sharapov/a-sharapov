@@ -33,7 +33,7 @@ export var tintBloom = (tints: Vector3[], strength: number) =>
 
 export var GRAIN = {
   strength: 0.24,
-  gain: 1.42,
+  gain: 0.71,
   floor: 0.42,
   shadows: [0.05, 0.35] as const,
   highlights: [0.6, 1] as const,

@@ -215,11 +215,11 @@ describe('плёнка', () => {
     halationTints(0).forEach((tint) => void expect(tint).toEqual([1, 1, 1]));
   });
 
-  test('зерно сильнее в средних тонах, на фоне дня — как было', () => {
+  test('зерно сильнее в средних тонах, на фоне дня — вдвое слабее прежнего', () => {
     expect(grainWeight(0.45)).toBeGreaterThan(grainWeight(0.95));
     expect(grainWeight(0.45)).toBeGreaterThan(grainWeight(0.03));
-    expect(grainWeight(0.79)).toBeGreaterThan(0.95);
-    expect(grainWeight(0.79)).toBeLessThan(1.1);
+    expect(grainWeight(0.79)).toBeGreaterThan(0.95 / 2);
+    expect(grainWeight(0.79)).toBeLessThan(1.1 / 2);
     expect(grainWeight(0.45)).toBeCloseTo(GRAIN.gain, 6);
   });
 });

@@ -1,5 +1,5 @@
 .viewer[data-mode='video'] {
-  --video-grain: 0.16;
+  --video-grain: 0.08;
 
   overflow: hidden;
 
@@ -80,5 +80,5 @@
 }
 
 :root[data-theme='dark'] .viewer[data-mode='video'] {
-  --video-grain: 0.03;
+  --video-grain: 0.015;
 }
