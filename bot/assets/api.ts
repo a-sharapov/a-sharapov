@@ -1,6 +1,7 @@
 import type { Repo } from '../repo';
 import { isAuthorized } from './auth';
 import type { Notify } from './notify';
+import type { TelegramState } from './polling';
 import { log as defaultLog, errorMessage, type Log, pipe } from './utils';
 
 type Route = (request: Request) => Promise<Response>;
@@ -9,6 +10,7 @@ type ApiDeps = {
   repo: Repo;
   notify: Notify;
   token: string;
+  telegram?: () => TelegramState;
   log?: Log;
 };
 
@@ -44,7 +46,13 @@ var _stringField =
 var _routeKey = (request: Request): string =>
   `${request.method} ${new URL(request.url).pathname}`;
 
-export var defineApi = ({ repo, notify, token, log = defaultLog }: ApiDeps) => {
+export var defineApi = ({
+  repo,
+  notify,
+  token,
+  telegram = () => 'disabled',
+  log = defaultLog,
+}: ApiDeps) => {
   const _guard =
     (route: Route): Route =>
     (request) =>
@@ -79,7 +87,7 @@ export var defineApi = ({ repo, notify, token, log = defaultLog }: ApiDeps) => {
     ))(repo.chats.removeByUsername(username.trim().replace(/^@/, '')));
 
   const routes: Record<string, Route> = {
-    'GET /health': () => Promise.resolve(_ok()),
+    'GET /health': () => Promise.resolve(_ok({ telegram: telegram() })),
     'POST /sendMessage': _guard(_withField('message', _sendMessage)),
     'DELETE /user': _guard(_withField('username', _unsubscribe)),
     _: () => Promise.resolve(_notFound()),

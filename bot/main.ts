@@ -5,18 +5,27 @@ import { readConfig } from './assets/config';
 import { MAX_BODY_BYTES } from './assets/constants';
 import { defineHandlers } from './assets/handlers';
 import { defineNotify, skipNotify } from './assets/notify';
-import { errorMessage, log } from './assets/utils';
+import { definePolling, limitPolls } from './assets/polling';
+import { log } from './assets/utils';
 import { defineRepo, openDatabase } from './repo';
 
 const config = readConfig(Bun.env);
 const db = openDatabase(config.dbPath);
 const repo = defineRepo(db);
-const bot = config.telegramToken ? new Telegraf(config.telegramToken) : null;
+const bot = config.telegramToken
+  ? defineHandlers({ repo, managerTokens: config.managerTokens }).attach(
+      limitPolls(new Telegraf(config.telegramToken))
+    )
+  : null;
+const polling = bot
+  ? definePolling({ launch: (onStarted) => bot.launch(onStarted) })
+  : null;
 
 const api = defineApi({
   repo,
   notify: bot ? defineNotify({ repo, telegram: bot.telegram }) : skipNotify(),
   token: config.serviceToken,
+  telegram: () => polling?.state() ?? 'disabled',
 });
 
 const server = Bun.serve({
@@ -36,13 +45,8 @@ void (
   log('TG_MANAGER_TOKEN is not set: nobody can subscribe')
 );
 
-void (bot
-  ? defineHandlers({ repo, managerTokens: config.managerTokens })
-      .attach(bot)
-      .launch(() => log('telegram polling started'))
-      .then(undefined, (error: unknown) =>
-        log('telegram launch failed:', errorMessage(error))
-      )
+void (polling
+  ? polling.start()
   : log('TG_TOKEN is not set: telegram is disabled, messages are only stored'));
 
 const _stopBot = (reason: string): Promise<void> =>
@@ -52,6 +56,7 @@ setInterval(repo.messages.prune, 24 * 60 * 60 * 1000).unref();
 
 const _shutdown = (signal: string): Promise<void> => (
   log(`shutting down (${signal})`),
+  polling?.stop(),
   _stopBot(signal)
     .then(() => server.stop(true))
     .finally(() => (db.close(), process.exit(0)))

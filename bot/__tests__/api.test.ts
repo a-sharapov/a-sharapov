@@ -46,8 +46,21 @@ describe('HTTP API', () => {
   it('GET /health — 200 без авторизации', async () => {
     expect(await _read(await api.fetch(_request('GET', '/health')))).toEqual({
       status: 200,
-      body: { ok: true },
+      body: { ok: true, telegram: 'disabled' },
     });
+  });
+
+  it('GET /health — состояние пулинга, 200 и без него', async () => {
+    const retrying = defineApi({
+      repo,
+      notify,
+      token: _TOKEN,
+      telegram: () => 'retrying',
+      log: () => {},
+    });
+    expect(
+      await _read(await retrying.fetch(_request('GET', '/health')))
+    ).toEqual({ status: 200, body: { ok: true, telegram: 'retrying' } });
   });
 
   it('POST /sendMessage без токена — 401', async () => {
