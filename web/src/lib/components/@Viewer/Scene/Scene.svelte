@@ -31,6 +31,7 @@
   import Tablet from './models/Tablet.svelte';
   import { mixLit, THEME_MOOD } from './mood';
   import { resetMovers, trackMovers } from './movers';
+  import { pipelines } from './pipelines';
   import { bindPostFx } from './postfx.svelte';
   import type { Quality } from './quality';
   import ReadingLight from './ReadingLight.svelte';
@@ -71,9 +72,8 @@
     onsettled,
   }: IScene = $props();
 
-  const geometry = prepareGeometry();
   let modeled = $state(false);
-  void geometry.then(() => (modeled = true));
+  void prepareGeometry().then(() => (modeled = true));
 
   interactivity();
 
@@ -143,8 +143,9 @@
     getReady: () => ready,
     getHover: () => hover,
     getLaunched: () => launched,
+    getPrepared: () => modeled && pipelines.pending === 0,
     reducedMotion,
-    onLoaded: () => void geometry.then(onloaded),
+    onLoaded: onloaded,
     onMoving: onmoving,
     onSettled: onsettled,
   });

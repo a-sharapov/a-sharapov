@@ -60,6 +60,7 @@ export type RigOptions = {
   getReady: () => boolean;
   getHover: () => boolean;
   getLaunched: () => boolean;
+  getPrepared: () => boolean;
   reducedMotion: boolean;
   onLoaded: () => void;
   onMoving: () => void;
@@ -346,8 +347,9 @@ export var bindCameraRig = (options: RigOptions) => {
 
   useTask('camera-rig', (frame) => {
     const delta = Math.min(frame, 1 / 30);
-    warm.streak = frame < _WARM.frame ? warm.streak + 1 : 0;
-    warm.frames += 1;
+    const prepared = options.getPrepared();
+    warm.streak = prepared && frame < _WARM.frame ? warm.streak + 1 : 0;
+    warm.frames += prepared ? 1 : 0;
     void (
       !warm.done &&
       (warm.streak >= _WARM.frames || warm.frames >= _WARM.limit) &&
@@ -356,6 +358,7 @@ export var bindCameraRig = (options: RigOptions) => {
     void (
       shot === null &&
       warm.done &&
+      prepared &&
       options.getLaunched() &&
       _start(options.getShot())
     );

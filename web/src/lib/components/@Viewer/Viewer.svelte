@@ -18,6 +18,7 @@
   } from '$app/navigation';
   import { feedback } from './Scene/feedback';
   import { throttleIdle } from './Scene/idle-fps';
+  import { compileAside } from './Scene/pipelines';
   import { detectTier, QUALITY } from './Scene/quality';
   import Scene from './Scene/Scene.svelte';
   import { THROW } from './Scene/staging';
@@ -47,6 +48,7 @@
   const reducedMotion = new MediaQuery('(prefers-reduced-motion: reduce)').current;
   const _LEAVE_MS = 260;
   const _TAGLINE_MS = 400;
+  const _LOADING: Phase[] = ['boot', 'loaded'];
 
   let epoch = $state(0);
   let pending = $state<Shot | null>(null);
@@ -68,6 +70,13 @@
     );
 
   const setPhase = (phase: Phase) => void (viewer.phase = phase);
+
+  const createRenderer = (canvas: HTMLCanvasElement) =>
+    compileAside(
+      throttleIdle(new WebGPURenderer({ canvas, antialias: false, depth: false }), () => rig.still),
+      () => _LOADING.includes(viewer.phase),
+      () => void (rig.shadowsDirty = true)
+    );
 
   setPhase('boot');
 
@@ -143,7 +152,7 @@
     renderMode="always"
     toneMapping={NoToneMapping}
     shadows={PCFShadowMap}
-    createRenderer={(canvas) => throttleIdle(new WebGPURenderer({ canvas, antialias: false, depth: false }), () => rig.still)}
+    {createRenderer}
   >
     <Scene
       shot={pending ?? shot}
